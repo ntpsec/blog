@@ -4,12 +4,22 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Welcome to the NTPsec project - a secure, hardened, and improved
+implementation of Network Time Protocol derived from NTP Classic, Dave
+Mills's original.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
+NTPsec, as its name implies, is a more secure NTP.  Our goal is to
+deliver code that can be used with confidence in deployments with the
+most stringent security, availability, and assurance requirements.
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+Towards that end we apply best practices and state-of-the art
+technology in code auditing, verification, and testing. We begin with
+the most important best practice: true open-source code review.  The
+NTPsec code is available in a public git repository. One of our goals
+is to support broader community participation.
+
+You can find the main website for NTPsec at:
+[www](https://ntpsec.org/)
+
+You can find the docs for NTPsec at:
+[docs](https://docs.ntpsec.org/)

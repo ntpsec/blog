@@ -3,24 +3,14 @@
 
 ---
 
-Example [Jekyll] website using GitLab Pages.
+The NTPsec Project blog, using [Jekyll] and GitLab Pages.
 
 Learn more about GitLab Pages at https://pages.gitlab.io and the official
 documentation http://doc.gitlab.com/ee/pages/README.html.
 
+Learn more about NTPsec at http://ntpsec.org/
+
 ---
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [GitLab CI](#gitlab-ci)
-- [Building locally](#building-locally)
-- [GitLab User or Group Pages](#gitlab-user-or-group-pages)
-- [Did you fork this project?](#did-you-fork-this-project)
-- [Troubleshooting](#troubleshooting)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## GitLab CI
 
@@ -55,18 +45,10 @@ Read more at Jekyll's [documentation][].
 
 ## GitLab User or Group Pages
 
-To use this project as your user/group website, you will need one additional
-step: just rename your project to `namespace.gitlab.io`, where `namespace` is
-your `username` or `groupname`. This can be done by navigating to your
-project's **Settings**.
+This project is being served by GitLab pages at https://ntpsec.gitlab.io/blog/
 
 Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
-## Did you fork this project?
-
-If you forked this project for your own use, please go to your project's
-**Settings** and remove the forking relationship, which won't be necessary
-unless you want to contribute back to the upstream project.
 
 ## Troubleshooting
 

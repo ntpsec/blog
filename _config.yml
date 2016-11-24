@@ -1,4 +1,4 @@
-# Welcome to Jekyll!
+# Jekyll _config.yml
 #
 # This config file is meant for settings that affect your whole blog, values
 # which you are expected to set up once and rarely need to edit after that.
@@ -6,16 +6,19 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Example Jekyll site using GitLab Pages
-email: your-email@domain.com
+title: NTPsec Project Development Blog
+email: contact@ntpsec.org
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "/jekyll" # the subpath of your site, e.g. /blog
+  The project development blog for the NTPsec Project.
+  NTPsec is a secure, hardened, and improved implementation of Network
+  Time Protocol derived from NTP Classic, Dave Mills’s original.
+  Our goal is to deliver code that can be used with confidence in
+  deployments with the most stringent security, availability, and
+  assurance requirements.
+baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "/" # the base hostname & protocol for your site
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: ntpsec
+github_username:  ntpsec
 
 # Build settings
 markdown: kramdown
