@@ -45,7 +45,7 @@ Read more at Jekyll's [documentation][].
 
 ## GitLab User or Group Pages
 
-This project is being served by GitLab pages at https://ntpsec.gitlab.io/blog/
+This project is being served by GitLab pages at http://ntpsec.gitlab.io/
 
 Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
@@ -64,3 +64,11 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 [documentation]: https://jekyllrb.com/docs/home/
 [userpages]: http://doc.gitlab.com/ee/pages/README.html#user-or-group-pages
 [projpages]: http://doc.gitlab.com/ee/pages/README.html#project-pages
+
+## TODO
+
+Add https, fix HSTS
+Change GH to GL logo
+Link check
+asciidoc
+
