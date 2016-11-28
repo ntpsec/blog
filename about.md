@@ -4,7 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Welcome to the NTPsec project - a secure, hardened, and improved
+Welcome to the NTPsec Project development  - a blog about developing and
+using the NTPsec.   NTPsec is a secure, hardened, and improved
 implementation of Network Time Protocol derived from NTP Classic, Dave
 Mills's original.
 
@@ -15,11 +16,12 @@ most stringent security, availability, and assurance requirements.
 Towards that end we apply best practices and state-of-the art
 technology in code auditing, verification, and testing. We begin with
 the most important best practice: true open-source code review.  The
-NTPsec code is available in a public git repository. One of our goals
-is to support broader community participation.
+NTPsec code is available in our main
+[public git repository](https://gitlab.com/NTPsec/ntpsec.git)
+One of our goals is to support broader community articipation.
 
 You can find the main website for NTPsec at:
-[www](https://ntpsec.org/)
+[https://www.ntpsec.org/](https://www.ntpsec.org/)
 
 You can find the docs for NTPsec at:
-[docs](https://docs.ntpsec.org/)
+[https://docs.ntpsec.org/](https://docs.ntpsec.org/)
