@@ -15,11 +15,12 @@ description: > # this means to ignore newlines until "baseurl:"
   Our goal is to deliver code that can be used with confidence in
   deployments with the most stringent security, availability, and
   assurance requirements.
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "/" # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://blog.ntpsec.org" # the base hostname & protocol for your site
 twitter_username: ntpsec
 github_username:  ntpsec
 
 # Build settings
 markdown: kramdown
 exclude: ["README.md"]
+
