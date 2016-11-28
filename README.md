@@ -75,3 +75,5 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 4. asciidoc
 
+5. add ntpsec logo and favicon.
+
