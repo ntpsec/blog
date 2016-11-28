@@ -35,11 +35,11 @@ pages:
 
 To work locally with this project, you'll have to follow the steps below:
 
-1. Fork, clone or download this project
-1. [Install][] Jekyll
-1. Generate the website: `jekyll build -d public`
-1. Preview your project: `jekyll serve`
-1. Add content
+. Fork, clone or download this project
+. [Install][] Jekyll.  Your OS may have a package; Ubuntu's is "jekyll".
+. Generate the website: `jekyll build -d public`
+. Preview your project: `jekyll serve`
+. Add content
 
 Read more at Jekyll's [documentation][].
 
