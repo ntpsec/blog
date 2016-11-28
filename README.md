@@ -67,8 +67,11 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 ## TODO
 
-Add https, fix HSTS
-Change GH to GL logo
-Link check
-asciidoc
+1. Add https, fix HSTS
+
+2. Change GH to GL logo
+
+3. Link check
+
+4. asciidoc
 
