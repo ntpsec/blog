@@ -6,10 +6,10 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: NTPsec Project Development Blog
+title: NTPsec Project Blog
 email: contact@ntpsec.org
 description: > # this means to ignore newlines until "baseurl:"
-  The project development blog for the NTPsec Project.
+  The blog for the NTPsec Project.
   NTPsec is a secure, hardened, and improved implementation of Network
   Time Protocol derived from NTP Classic, Dave Mills’s original.
   Our goal is to deliver code that can be used with confidence in
