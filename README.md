@@ -67,13 +67,15 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 ## TODO
 
-1. Add https, fix HSTS
+1. Change GH to GL logo
 
-2. Change GH to GL logo
+2. Link check
 
-3. Link check
+3. asciidoc
 
-4. asciidoc
+### recently compeleted TODO
 
-5. add ntpsec logo and favicon.
+1. Add https, TLSA, fix HSTS
+
+2. add ntpsec logo and favicon.
 
