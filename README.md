@@ -67,11 +67,9 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 ## TODO
 
-1. Link check
+1. asciidoc
 
-2. asciidoc
-
-3. unify with www.ntpsec.org css
+2. unify with www.ntpsec.org css
 
 ### recently compeleted TODO
 
@@ -80,4 +78,6 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 2. add ntpsec logo and favicon.
 
 3. Change GH to GL logo
+
+4. Link check
 
