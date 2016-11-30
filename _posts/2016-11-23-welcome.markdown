@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Welcome to the NTPsec Development Blog"
+title:  "Welcome to the NTPsec Project Blog"
 date:   2016-11-24 00:30:00 -0000
 ---
-Welcome to the NTPsec Development Blog.
+Welcome to the NTPsec Project Blog!
 
 As interest in the NTPsec project grows, we see the need for a
 regularly updated blog.  Expect to see release announcements, news,
