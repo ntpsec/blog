@@ -2,7 +2,12 @@
 layout: post
 title:  "Less Is More: Stripping Down NTP"
 date:   2016-11-29 23:28:36
+author: ESR
 ---
+Hello all, I'm Eric S. Raymond, the project's tech lead and principal coder.
+Welcome to the blog, where (among other goals) we're going to share what we've
+learned while working on this project.
+
 Ken Thompson, the principal inventor of the Unix operating system, famously said
 "One of my most productive days was throwing away 1,000 lines of code." And here
 at the NTPsec project there is nothing we like doing more than following Ken's
