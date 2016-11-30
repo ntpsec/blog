@@ -69,8 +69,6 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 1. asciidoc
 
-2. unify with www.ntpsec.org css
-
 ### recently compeleted TODO
 
 1. Add https, TLSA, fix HSTS
@@ -81,3 +79,4 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 4. Link check
 
+5. unify with www.ntpsec.org css
