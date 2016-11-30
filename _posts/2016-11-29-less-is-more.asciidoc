@@ -1,0 +1,197 @@
+---
+layout: post
+title:  "Less Is More: Stripping Down NTP"
+date:   2016-11-29 23:28:36
+---
+Ken Thompson, the principal inventor of the Unix operating system, famously said
+"One of my most productive days was throwing away 1,000 lines of code." And here
+at the NTPsec project there is nothing we like doing more than following Ken's
+example.
+
+NTPsec's most dramatic success is the large number of CVEs it has
+dodged because we removed their attack surface before the
+vulnerabilities were discovered. (I will publish that number in a
+future post, if I can persuade our security officer that doing so is
+not vulgar sensationalism.) We collected those gains by committing
+early to a strategy centered on dramatically reducing the size of the
+codebase, and sticking to it.
+
+Here are the figures for NTP Classic at fork time in July 2015:
+
+-----------------------------------------------
+all           253966 (100.00%) in 1005 files
+c             231038 (90.97%) in 464 files
+autotools       7204 (2.84%) in 47 files
+m4              5097 (2.01%) in 36 files
+c++             4749 (1.87%) in 51 files
+shell           1882 (0.74%) in 28 files
+yacc            1373 (0.54%) in 1 files
+python          1174 (0.46%) in 2 files
+perl             925 (0.36%) in 6 files
+awk              417 (0.16%) in 9 files
+sed               47 (0.02%) in 3 files
+asm               37 (0.01%) in 5 files
+makefile          23 (0.01%) in 1 files
+-----------------------------------------------
+
+Here are the figures for NTPsec today:
+
+-----------------------------------------------
+all            75334 (100.00%) in 335 files
+c              66628 (88.44%) in 172 files
+python          5568 (7.39%) in 46 files
+shell           1307 (1.73%) in 5 files
+yacc            1293 (1.72%) in 1 files
+waf              538 (0.71%) in 13 files
+-----------------------------------------------
+
+(These figures were made by loccount, a Go port of David Wheeler's
+sloccount tool. They're more accurate than the sloccount figures you
+may have seen on our website. I'll write more about loccount in a
+future post on spinoff tools.)
+
+There are a couple of different ways to slice these figure; you can compare
+total code volume, or just compare LOC in the dominant language (C).
+Either way, NTPsec current is only 29% the size of the codebase we
+inherited.  That means that slightly more than two out of three lines
+of code in NTP Classic have been removed.  And yet, if you ran our
+code, you'd be hard-put to find any functional omissions.
+
+So, you might well ask: How *did* we remove 164KLOC - 71% of the bulk
+- from a 231KLOC codebase without crippling it?
+
+One way was by taking the applicable C standards - POSIX-1.2001/SuSv3
+and ISO/IEC 9899:1999 - seriously. For historical reasons, the NTP
+Classic code was encrusted with portability shims for a dozen
+different species of Unix big iron dating back to the late
+Cretaceous. I knew from experience with GPSD that such shims have been
+obsolete since at latest around 2009, when I removed them all from
+that project and never heard even a grumble from downstream.
+
+Besides reducing code bulk, getting rid of all this cruft drastically
+simplified the interface to the underlying OS and made it more
+auditable.  This played directly into our security concerns.
+
+A larger source of easy removals was code that shouldn't have been in
+the tree in the first place.  The Classic tree included an entire copy
+of the ISC service library written to support BIND9, only a very small
+portion of which was actually used.  An even bigger blob was an entire
+copy of libevent2, not even used by the core daemon but only by sntp
+(which is renamed 'ntpdig' in our distribution).
+
+This kind of thing is bad engineering because it effectively freezes
+bugs in place, cutting you off from the mainstream of development
+in your service libraries. In these two cases we made different
+decisions about how to resolve the problem; we kept the ISC code
+we needed in-tree, stripping it to the bare minimum, but dropped
+out libevent2. Now we treat it as a build-time external dependency.
+
+Another place we found to cut is obsolete refclocks.  Some of the
+grottiest code in the tree was drivers for precision time sources that
+haven't been seen in the wild since the last century. The Classic
+developers seem to have had an inexplicable taboo against removing any
+of these, no matter how superannuated.  We conducted careful research
+to figure out which we could eliminate, and then did it.
+
+Then there were the plain old bad ideas.  The tree was full of failed
+experiments and false starts, ripe for removal years ago if the Classic
+team had had the surgical courage to do it.
+
+One of these was Autokey, an attempt at securing time service with
+public-key cryptography that never settled into a stable state and -
+ironically - was a fertile source of security vulnerabilities.  IETF
+is working on specifying a replacement; our security officer, Daniel
+Franke, is deeply involved in that effort.  Until it lands, removing
+Autokey did no harm, dodged a couple of later CVEs, and removed
+quite a lot of attack surface.
+
+Another nasty one was "Mode 7".  The core daemon needs a control
+protocol so it can be queried and hot-configured while it's running -
+this, in particular, is how you get your "ntpq -p" display.  For some
+unexplained and probably inexplicable reason NTP Classic had *two*
+such protocols, with two separate client programs, doing almost
+identical things.  One, "Mode 6", is (mostly) textual commands and
+responses; the other, "Mode 7", used binary blobs.
+
+It should surprise nobody familiar with the design lessons of Unix that
+Mode 7 was a mare's-nest of bugs and security vulnerabilities - 10KLOC
+of weight that was worse than useless.  The day we ripped it out was
+a good day, going Ken Thompson better by a factor of 10.
+
+Then there was libopts/autogen.sh, a combination of a
+document-templating system and a processor for command-line arguments
+(!).  While this was actually not quite as silly a case of "make an
+octopus by nailing extra legs to a dog" as that sounds like, it didn't
+scale well.  At 12.5KLOC of code, it introduced more complexity than
+it solved, and it was another good day when we removed it.
+
+A more controversial and rather late removal was dropping Windows support
+out of the codebase.  The reason we felt able to do this was that the
+Windows port code looked like a patched and re-patched relic from the
+days when Microsoft C was much less converged with Unix C than it is now.
+Here again POSIX/C99 standardization made a huge difference.  Having
+analyzed the dependencies, we think demand for a Windows NTPsec would
+be better met by a clean-sheet re-porting using modern tools.  This
+time around, we expect that the platform dependencies will be much
+smaller and better isolated than they were.
+
+A not-controversial-at-all move was replacing a mess of poorly documented
+logfile-report generator scripts in multiple archaic languages with one
+clean-sheet data visualizer that does a better job than all the old stuff
+put together of giving an operator insight into noise sources.  That was
+not just a way of deep-sixing old code, it was fun to develop.
+
+There's another move that I planned early but we didn't get to start on until
+after cleaning up the core daemon code: moving everything else out of C.
+
+C is still the only practical choice for time-critical systems
+programming. That may not remain the case much longer, a contingency I
+will be addressing in a future post - but while it is, we're stuck with
+an uncomfortably large amount of intrinsically fragile code (vulnerable
+to buffer overruns and related exploits) in ntpd itself.
+
+That doesn't mean we have to live with such vulnerability in the
+auxiliary tools, things like ntpq and ntpdig that only have to respond
+at human speed.  Those we're moving out of C into Python.  The big
+one, ntpq, is already done.  ntpdig (the former sntp) is well in
+progress.  ntpkeygen will be pretty trivial.  Some other lesser-known
+auxiliary programs that were historically Perl have already been
+translated.
+
+Some of you will be getting reflexively twitchy about small embedded
+systems, where the footprint of Python or any other scripting language
+is generally considered way too large.  We did think this through
+carefully. Our analysis is that while ntpd itelf might need to run in
+those restricted environments, there's no realistic use case in which
+the operator's tools that talk to it need to run on anything more
+constrained than a smartphone.  Which will have quite enough oomph for
+Python, thank you.
+
+Why Python?  Well...I happen to *like* Python. But more importantly,
+our build system (waf) is implemented in Python, so using it as our
+preferred scripting language doesn't introduce an additional
+dependency.  We do have a strict policy of not proliferating
+implementation languages; on NTPsec, you write in C or in Python and
+nothing else (with a limited exception for a few shellscripts that we
+expect to gradually replace).
+
+Moving the operator tools to Python gives us pretty significant LOC reduction;
+the compression ratio between C and Python ranges from 2:1 to about 8:1, with
+4-5:1 being typical. And *none* of that code will ever be vulnerable to
+buffer-overrun 'sploits....
+
+Down the road I expect the move to Python to have some other consequences
+besides LOC reduction.  The existing ones share a back-end that speaks NTP
+datagrams in Python; besides being virtuous code reuse that makes the specific
+part of each tool smaller, it's going to make new operator tools much easier
+to construct.  Watch this blog for developments.
+
+The era of large code removals in NTPsec is probably coming to a
+close.  We'll drop a few more KLOC from moving ntpdig to Python.
+After that we've identified one opportunity in the core network
+plumbing (dropping iteration over all physical interfaces in favor of
+simply listening on a wildcard socket).  But it's hard to foresee any
+major reductions beyond that.
+
+On the other hand, I've believed we were at this point before and turned
+out to be wrong...
