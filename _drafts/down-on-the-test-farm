@@ -6,13 +6,13 @@ author: ESR
 ---
 
 Testing any software suite as complex as NTPsec is difficult.  The
-intrinsically time-varying quality of NTP's operation makes it more
-so.  In some future post I'll probably write about my only real
+intrinsically time-varying quality of NTP's operation makes it much
+more so.  In some future post I'll probably write about my only real
 failure on this project, an attempt to enable time-invariant replay
 testing that failed for specific technical reasons very peculiar to
 NTP.
 
-Just because we can't have that doesn't mean we got to punt the test
+Just because we can't have that doesn't mean we get to punt the test
 problem - we can't slough that off, not for core infrastructure that
 needs to be super-reliable.  Pieces of NTPsec have unit tests; sadly,
 those aren't very good at exercising most of the code complexity.  But
@@ -26,7 +26,8 @@ That is why NTPsec has a test farm.  It consists of 7 Raspberry Pis,
 each equipped with a GPS daughterboard, hanging out on the Official
 Windowsill of Mad Science above my desk.
 
-image:../_images/testfarm.jpg[]
+.The Official Windowsill of Mad Science
+image::../_images/testfarm.jpg[]
 
 Why Raspberry Pis, rather than more conventional PCs or VMs somewhere?
 One major reason for preferring physical hardware is that it's tough
@@ -59,6 +60,9 @@ generally a very well-mannered and non-disruptive creature, all cats
 are inveterate physicists. We know this because they're constantly
 seeking to refine their measurement of the gravitational constant by
 performing drop tests.
+
+.It's the Internet. Of _course_ there's a cat picture!
+image::../_images/zola.jpg[]
 
 This would, of course, have been quite the unhappy outcome for the
 RPis. Which is why at one point I thought I was going to have to put a
