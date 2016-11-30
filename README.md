@@ -52,12 +52,6 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 ## Troubleshooting
 
-1. CSS is missing! That means two things:
-
-    Either that you have wrongly set up the CSS URL in your templates, or
-    your static generator has a configuration option that needs to be explicitly
-    set in order to serve static assets under a relative URL.
-
 [ci]: https://about.gitlab.com/gitlab-ci/
 [Jekyll]: http://jekyllrb.com/
 [install]: https://jekyllrb.com/docs/installation/
