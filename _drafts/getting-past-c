@@ -1,0 +1,119 @@
+---
+layout: post
+title:  "Getting Past C"
+date:   
+author: ESR
+---
+One of the medium-term possibilities we're seriously considering for
+NTPsec is moving the entire codebase out of C into a language with no
+buffer overruns, and in general much stronger security and correctness
+guarantees.
+
+This would have been a crazy pipe dream starting from the codebase we
+inherited in 2015, which was 231KLOC of grubby, portability-shim-laden
+C. But NTPsec is a lot smaller and cleaner now at 66KLOC of C (that's
+just 29% of the original size).  It's been brought up to pretty tight
+C99/ANSI standards conformance, and the few remaining platform
+dependencies are either already well isolated or can easily be made so.
+That makes moving the whole shebang at least thinkable.
+
+When we had our first tentative internal discussions about this, we
+thought of it as a far-future possibility - two or three years out at
+minimum.  But the technological surround is changing fast, rapidly
+enough that we've actually started preparing the ground with some
+changes to the codebase intended to make a future translation easier.
+This is an easy call because they're virtuous code cleanups even if
+we never move.
+
+One such cleanup: we've made a strong start on banishing unions and
+type punning from the code. These are not going to translate into
+any language with the correctness properties we want.
+
+Another necessary step will be to corral the few remaining platform
+dependencies into into well-isolated library modules, so the vast bulk
+of the code will in principle translate mechanically into whatever
+binding of the ANSI/POSIX API the new language supports.
+
+There aren't many such dependencies left.  In fact, by translation time
+we expect to have just the following:
+
+* We need adjtime()/adjtimex, obviously - the clock setting and skewing calls
+  designed for NTP and present on all modern UNIXlike OSes.
+
+* We need to be able to extract UDP arrival timestamps from the control
+  data returned by recvmsg(2).  All Unixlikes have ways to do this but
+  the ways aren't standardized.
+
+* Under Linux, some SECCOMP initialization and capability dances having
+  to do with dropping root and closing off privilege-escalation attacks
+  as soon as possible after startup.
+
+I specified "at translation time" because we now have a fourth
+dependency; we rely on getifaddrs(3) or some local equivalent to
+iterate over all of the host's network interfaces.  We expect to get
+rid of that one, however, by relying on the standardized API for
+IPv4/IPV6 wildcard address that probably didn't exist when the NTP
+Classic code was written.
+
+Now for the exciting questions:  which language, and when?
+
+We don't have answers to those yet, but the field is narrowing and the
+time we might attempt a translation is getting closer - in the most
+optimistic case it could be as little as 6 to 9 months out.  The
+catalyzing event is not just the emergence of two plausible candidate
+languages but the fact that both seem now to have reached a
+self-sustaining community size, so we can be reasonably confident they
+won't croak and leave us stranded.
+
+No prize for guessing that our two plausible candidates are Go and Rust.
+
+There's lots of web evangelism around both languages, so I'm not going
+to attempt a detailed comparison here.  I'm just going to hit a few
+high points about how their traits intersect with NTPsec's particular
+needs.
+
+Probably the first question that will occur to a lot of you is: "Huh?
+Wouldn't the stop-the-world pauses from garbage collection rule out Go?
+And the answer is...they might, but (a) the actual time-critical sections
+in NTP are small and wrapped tightly around the clock-manipulation calls,
+and (b) Go's runtime allows you to lock out GC during critical sections.
+
+In any case, the Go developers have a pretty convincing story about
+holding stop-the-world pauses down to the small-number-of-milliseconds
+range.  We'll have to measure, but that just _might_ be tolerable
+even without the GC lockout.
+
+Still, the absence of GC overhead is a point in Rust's favor.  So
+is Corrode, the automatic C-to-Rust translator.  The Go developers
+wrote a translator to move their Go compiler from C to Go, but it
+has no documentation and "Here Be Dragons!" warnings in the README.
+
+Russ Cox's talk on it claims it translates a large subset of C that
+notably does not include...unions. And certain kinds of goto. These
+are restrictions we can deal with. It may be usable.  And if it's not,
+maybe I can up-gun it until it is - language parsing and translation 
+is a kind of problem I'm pretty good at and enjoy working.
+
+In the end it might come down to which language I feel more
+comfortable in. (It's good to be the principal coder at times like
+this.)  And I don't know which that'll be yet.
+
+I've taught myself Go (there'll be a blog post here about that) but
+not yet Rust.  I do have a nice medium-sized first Rust project
+planned, about which more when I actually do it.
+
+I want to finish by saying that I find it rather exciting to be
+working at a time when replacing C in core infrastructure like NTP is
+even thinkable. I've been writing steadily in C since 1983, which by
+sheer weight of calendar must make me one of the most experienced C
+programmers still alive, and I am correspondingly deeply aware of its
+quirks and flaws. Despite my huge investment of time in the language,
+I'm *ready*.
+
+I'm ready because buffer overruns and wild-pointer errors just
+suck. The pressure on systems programmers now to up our game and lower
+our defect rates is entirely a good thing.  To the extent that NTP can
+set an example there, I am willing to help lead the way to a less
+crashy future.
+
+ 
