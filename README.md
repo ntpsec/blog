@@ -3,7 +3,7 @@
 
 ---
 
-The NTPsec Project blog, using [Jekyll] and GitLab Pages.
+The NTPsec Project blog, using [Jekyll] and [GitLab Pages].
 
 Learn more about GitLab Pages at https://pages.gitlab.io and the official
 documentation http://doc.gitlab.com/ee/pages/README.html.
@@ -54,6 +54,7 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 [ci]: https://about.gitlab.com/gitlab-ci/
 [Jekyll]: http://jekyllrb.com/
+[Gitlab Pages]:https://gitlab.com/pages/jekyll
 [install]: https://jekyllrb.com/docs/installation/
 [documentation]: https://jekyllrb.com/docs/home/
 [userpages]: http://doc.gitlab.com/ee/pages/README.html#user-or-group-pages
