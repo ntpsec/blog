@@ -55,8 +55,8 @@ sloccount tool. They're more accurate than the sloccount figures you
 may have seen on our website. I'll write more about loccount in a
 future post on spinoff tools.)
 
-There are a couple of different ways to slice these figure; you can compare
-total code volume, or just compare LOC in the dominant language (C).
+There are a couple of different ways to slice these figures. You can compare
+total code volume, or just compare LOC in the dominant language, C.
 Either way, NTPsec current is only 29% the size of the codebase we
 inherited.  That means that slightly more than two out of three lines
 of code in NTP Classic have been removed.  And yet, if you ran our
