@@ -17,19 +17,8 @@ Learn more about NTPsec at http://ntpsec.org/
 This project's static Pages are built by [GitLab CI][ci], following the steps
 defined in [`.gitlab-ci.yml`](.gitlab-ci.yml):
 
-```
-image: ruby:2.3
-
-pages:
-  script:
-  - gem install jekyll
-  - jekyll build -d public
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
-```
+Asciidoc pages are also supported by way of [Jekyll Asciidoc].  Use the
+extension .adoc or .ad.
 
 ## Building locally
 
@@ -50,8 +39,7 @@ This project is being served by GitLab pages at http://ntpsec.gitlab.io/
 Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 
-## Troubleshooting
-
+[Jekyll Asciidoc]:https://github.com/asciidoctor/jekyll-asciidoc
 [ci]: https://about.gitlab.com/gitlab-ci/
 [Jekyll]: http://jekyllrb.com/
 [Gitlab Pages]:https://gitlab.com/pages/jekyll
