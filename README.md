@@ -50,7 +50,7 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
 ## TODO
 
-1. asciidoc
+Empty!
 
 ### recently compeleted TODO
 
@@ -63,3 +63,5 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 4. Link check
 
 5. unify with www.ntpsec.org css
+
+6. asciidoc
