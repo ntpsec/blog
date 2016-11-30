@@ -25,11 +25,15 @@ markdown: kramdown
 exclude: ["README.md", "CERT"]
 include: [".well-known"]
 
-
+# asciidoc stuff
 asciidoc:
   processor: asciidoctor
   ext: asciidoc,adoc,ad
 
 asciidoctor: {}
 
+gems:
+  - jekyll-asciidoc
 
+whitelist:
+  - jekyll-asciidoc
