@@ -41,7 +41,7 @@ we expect to have just the following:
   designed for NTP and present on all modern UNIXlike OSes.
 
 * We need to be able to extract UDP arrival timestamps from the control
-  data returned by recvmsg(2).  All Unixlikes have ways to do this but
+  data returned by recvmsg(2).  All Unix-likes have ways to do this but
   the ways aren't standardized.
 
 * Under Linux, some SECCOMP initialization and capability dances having
@@ -52,7 +52,7 @@ I specified "at translation time" because we now have a fourth
 dependency; we rely on getifaddrs(3) or some local equivalent to
 iterate over all of the host's network interfaces.  We expect to get
 rid of that one, however, by relying on the standardized API for
-IPv4/IPV6 wildcard address that probably didn't exist when the NTP
+IPv4/IPv6 wildcard address that probably didn't exist when the NTP
 Classic code was written.
 
 Now for the exciting questions:  which language, and when?
@@ -104,11 +104,9 @@ planned, about which more when I actually do it.
 
 I want to finish by saying that I find it rather exciting to be
 working at a time when replacing C in core infrastructure like NTP is
-even thinkable. I've been writing steadily in C since 1983, which by
-sheer weight of calendar must make me one of the most experienced C
-programmers still alive, and I am correspondingly deeply aware of its
-quirks and flaws. Despite my huge investment of time in the language,
-I'm *ready*.
+even thinkable. I've been writing steadily in C since 1983, and am
+correspondingly deeply aware of its quirks and flaws. Despite my huge
+investment of time in the language, I'm *ready*.
 
 I'm ready because buffer overruns and wild-pointer errors just
 suck. The pressure on systems programmers now to up our game and lower
