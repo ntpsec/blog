@@ -26,6 +26,8 @@ That is why NTPsec has a test farm.  It consists of 7 Raspberry Pis,
 each equipped with a GPS daughterboard, hanging out on the Official
 Windowsill of Mad Science above my desk.
 
+image:../_images/testfarm.jpg[]
+
 Why Raspberry Pis, rather than more conventional PCs or VMs somewhere?
 One major reason for preferring physical hardware is that it's tough
 to put a GPS daughterboard on a VM.  RPis have the advantage of being
