@@ -16,6 +16,9 @@
     font-weight: 600;
     margin-bottom: 0;
     float: left;
+    &:visited {
+	color: #006600;
+    }
 }
 
 .site-nav {
