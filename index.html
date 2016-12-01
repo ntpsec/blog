@@ -14,8 +14,8 @@ layout: default
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
 <span class="post-meta">
 {% if post.author %}
-<span itemprop="author" itemscope itemtype="http://schema.org/Person"
-><span itemprop="name">{{ post.author }}</span></span> • {% endif %}
+<span itemprop="name" itemscope itemtype="http://schema.org/Person"
+>{{ post.author }}</span> • {% endif %}
           {{ post.date | date: "%b %-d, %Y" }}</span>
         </h2>
       </li>
