@@ -11,7 +11,7 @@ email: contact@ntpsec.org
 description: > # this means to ignore newlines until "baseurl:"
   The blog for the NTPsec Project.
   NTPsec is a secure, hardened, and improved implementation of Network
-  Time Protocol derived from NTP Classic, Dave Mills’s original.
+  Time Protocol derived from NTP Classic, Dr. David Mills’s original.
   Our goal is to deliver code that can be used with confidence in
   deployments with the most stringent security, availability, and
   assurance requirements.
