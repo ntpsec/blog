@@ -4,7 +4,6 @@ title:  "Stratum 1 Microserver HOWTO 1.0 finally ships"
 date:   2016-12-02 01:19:25
 author: ESR
 ---
-
 Lots of high-quality Stratum 1 timeservers make for a robust Internet.
 Setting one up ca be fun, easy, and inexpensive.  Now we give you
 step-by-step instructions on how to build one around a Raspberry Pi
@@ -28,6 +27,6 @@ gradually become unusable as NTPsec test machines; this annoyed me
 considerably.
 
 Richard supplied the missing magic.  We devoutly hope that Raspbian will
-be a bit less of a moving target inb the future.
+be a bit less of a moving target in the future.
 
 
