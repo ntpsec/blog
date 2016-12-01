@@ -12,11 +12,11 @@ layout: default
 
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+<span class="post-meta>
 {% if post.author %}
 <span itemprop="author" itemscope itemtype="http://schema.org/Person"
-class="post-meta"><span itemprop="name">{{ post.author }}</span></span> • {% endif %}
-
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+><span itemprop="name">{{ post.author }}</span></span> • {% endif %}
+          {{ post.date | date: "%b %-d, %Y" }}</span>
         </h2>
       </li>
     {% endfor %}
