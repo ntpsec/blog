@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Stratum 1 Microserver HOWTO 1.0 finally ships"
-date:   2016-12-02 01:19:25
+date:   2016-12-01 01:19:25
 author: ESR
 ---
 Lots of high-quality Stratum 1 timeservers make for a robust Internet.
