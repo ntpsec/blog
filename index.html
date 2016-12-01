@@ -6,11 +6,11 @@ layout: default
 
   <h1>Recent Posts</h1>
 
-  <ul class="post-list">
+  <ul class="post-list" itemscope itemtype="http://schema.org/Blog">
     {% for post in site.posts %}
       <li>
 
-        <h2>
+        <h2 itemscope itemtype="http://schema.org/BlogPosting">
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
 <span class="post-meta" itemscope itemtype="http://schema.org/Person">
 {% if post.author %}
