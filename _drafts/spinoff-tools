@@ -1,0 +1,95 @@
+---
+layout: post
+title:  "NTPsec's Spinoffs"
+date:   
+author: ESR
+---
+I've long believed that one of the signs of a really class act among
+open-source projects is not just solving the problems they're
+officially focused on, but spinning off tools and libraries and
+documentation that help other projects as well.
+
+This kind of behavior comes naturally if you take modularity and
+code reuse seriously. One sign of seriousness is doing separation of
+concerns well enough that you _can_ spin out pieces of your code;
+an obvious major example is how GTK hived off from GIMP.  Another is
+turning tasks into tools - not being satisfied with kludgy one-off
+solutions when you can package them into something reusable.
+
+A good number of my small projects started in this way out as tools I
+wrote to assist me with larger ones.  Two representative examples is
+http://www.catb.org/esr/coverity-submit/[coverity-submit], which I
+wrote while working on http://catb.org/gpsd/[GPSD], and
+http://www.catb.org/esr/deheader/[deheader], which I wrote while
+working on https://www.wesnoth.org/[Battle For Wesnoth]
+
+You know you understand a task when you can automate and document
+it. And, going the extra mile to do that often prevents a lot of
+trouble down the road, saving you from getting bitten by the edge
+cases of a one-time kludge you were in too much of a hurry to think
+through.
+
+With that in mind, let's take a look at NTPsec's spinoffs.
+
+The first one was http://www.catb.org/~esr/ifdex/[ifdex], a tool for
+discovering and reporting on configuration macros in C code. I wrote
+in some detail about the genesis of this tool in
+http://esr.ibiblio.org/?p=6851[ifdex: a tool for code archeologists].
+
+It was well worth the effort. Not just in initially prying autoconf's
+tentacles off the codebase, either; having toolified this task, I can
+and do periodically re-check to make sure, for example, that no
+debugging conditionals intended as scaffolding remain in production
+releases.
+
+A more recent one has been https://gitlab.com/esr/loccount[loccount].
+This tool served a couple of purposes.  Because the huge reductions in
+NTPsec's codebase size are such an
+https://blog.ntpsec.org/2016/11/29/less-is-more.html[important part of
+our strategy], I take SLOC counts often, and wanted a way to do it
+faster and with a leaner display than David Wheeler's sloccount tool.
+
+The other purpose of loccount was as a learning project in Go. The
+time is likely to come when the NTPsec codebase will move out of C; in
+a future post I'll explore this possibility in more detail.  Part of
+my forward planning is therefore to bring myself up to speed on the
+languages we might consider moving to; Go is one of these.
+
+It was a fruitful choice.  Reimplementing sloccount produced the right size
+of challenge for a language-learning project - bigger than a toy, just
+complex enough to make you engage a large subset of the language, but
+not so large that you get lost in it.  Go turned out to be both
+expressive and well-suited to what I was doing - I even managed to make
+natural use of channels, Go's much-hyped concurrency primitive.
+
+Documents and HOWTOs can be spinoffs too. NTPsec's big one has been
+the
+https://www.ntpsec.org/white-papers/stratum-1-microserver-howto/[Stratum-1-Microserver
+HOWTO]. This got started as documentation and scripts for the setup of
+the machines in NTPsec's test farm.  When the recipe developed enough
+complications, I judged that it would be silly and wrong for anyone to
+have to solve all these problems a second time.
+
+A side effect of documenting the procedure was (as I expected) that
+I found bugs in it I might have missed otherwise.  See the previous
+observation that you don't really understand a technique until you
+can document it clearly - which works in the other direction, too;
+when you have documented it clearly, you _will_ understand it.
+
+The NTPsec source tree now contains a useful but somewhat half-baked
+script for finding dangling crosslinks in our tree of asciidoc
+documentation masters (inclusions are what make this nontrivial).
+That might well mature into a documented project of its own.
+
+Longer-term, I'm going to have to learn Rust at some point, in order
+to continue my due diligence on possible languages to move NTPsec to.
+I've got a functional target picked out, but because I believe in
+underpromising and overdelivering (rather than the reverse) I'm not
+going to talk about it just yet.
+
+So, there will be more spinoffs.  For reasons I hope I've made clear,
+it's good software engineering practice not just to write them, but
+to _seek out opportunities_ to write them.  In that way, you encourage
+code reuse, clean design, and constructive sharing of knowledge not on
+on your individual project but in the wider open-source community
+and the world.
