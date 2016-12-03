@@ -48,7 +48,7 @@ we expect to have just the following:
   to do with dropping root and closing off privilege-escalation attacks
   as soon as possible after startup.
 
-I specified "at translation time" because we now have a fourth
+I specified "at translation time" because right now we have a fourth
 dependency; we rely on getifaddrs(3) or some local equivalent to
 iterate over all of the host's network interfaces.  We expect to get
 rid of that one, however, by relying on the standardized API for
@@ -88,15 +88,15 @@ is Corrode, the automatic C-to-Rust translator.  The Go developers
 wrote a translator to move their Go compiler from C to Go, but it
 has no documentation and "Here Be Dragons!" warnings in the README.
 
-Russ Cox's talk on it claims it translates a large subset of C that
-notably does not include...unions. And certain kinds of goto. These
-are restrictions we can deal with. It may be usable.  And if it's not,
-maybe I can up-gun it until it is - language parsing and translation 
-is a kind of problem I'm pretty good at and enjoy working.
+Russ Cox's talk on the translator claims it handles a large subset
+of C that notably does not include...unions. And certain kinds of
+goto. These are restrictions we can deal with. It may be usable.  And
+if it's not, maybe I can up-gun it until it is - language parsing and
+translation is a kind of problem I'm pretty good at and enjoy working.
 
 In the end it might come down to which language I feel more
-comfortable in. (It's good to be the principal coder at times like
-this.)  And I don't know which that'll be yet.
+comfortable in. (It's good to be +++<s>king</s>+++ the principal coder
+at times like this.)  And I don't know which that'll be yet.
 
 I've taught myself Go (there'll be a blog post here about that) but
 not yet Rust.  I do have a nice medium-sized first Rust project
@@ -114,4 +114,4 @@ our defect rates is entirely a good thing.  To the extent that NTP can
 set an example there, I am willing to help lead the way to a less
 crashy future.
 
- 
+// end

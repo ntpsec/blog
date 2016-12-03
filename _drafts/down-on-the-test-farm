@@ -44,8 +44,8 @@ higher. https://en.wikipedia.org/wiki/Ephemeralization[Ephemeralization]
 is your friend!
 
 Another reason for preferring small, low-power machines is that I have
-my eye on embedded and low-power deployments elsewhere.  If NTP can run
-gracefully on a Pi it can run pretty much anywhere.
+my eye on embedded and low-power deployments elsewhere.  If NTPsec can
+run gracefully on a Pi, it can run pretty much anywhere.
 
 Someday that 8th slot will be occupied with a different hackerboard,
 likely some flavor of Beaglebone. I actually experimented with an
@@ -84,3 +84,5 @@ refreshes and the odd power outage), with no crashes, no unexplained
 anomalies, no nuthin'. As the fabled wizard Rincewind once observed,
 sometimes boredom is good. Any software engineer could do with more
 such boredom in his life.
+
+// end
