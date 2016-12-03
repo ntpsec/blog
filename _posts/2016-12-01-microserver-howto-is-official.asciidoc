@@ -5,7 +5,7 @@ date:   2016-12-01 01:19:25
 author: ESR
 ---
 Lots of high-quality Stratum 1 timeservers make for a robust Internet.
-Setting one up ca be fun, easy, and inexpensive.  Now we give you
+Setting one up can be fun, easy, and inexpensive.  Now we give you
 step-by-step instructions on how to build one around a Raspberry Pi
 hackerboard and a GPS daughterboard, and some helper scripts to
 automate most of the tedious parts.
