@@ -46,6 +46,12 @@ Another reason for preferring small, low-power machines is that I have
 my eye on embedded and low-power deployments elsewhere.  If NTPsec can
 run gracefully on a Pi, it can run pretty much anywhere.
 
+Your practical tip for today: Avery 4312 "Multi-Use Labels" are almost
+as large as they could possibly get and still fit on a micro-SD card.
+Each Pi has a two-letter name taken from the abbreviations for chemical
+elements; I put that name on each machine using a label-tape printer,
+then duplicate it on a label on the SD card.
+
 Someday that 8th slot will be occupied with a different hackerboard,
 likely some flavor of Beaglebone. I actually experimented with an
 ODroid C2 at one point, but some of the hardware interfaces I needed
