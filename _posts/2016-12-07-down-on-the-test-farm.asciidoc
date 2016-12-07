@@ -1,10 +1,9 @@
 ---
 layout: post
 title:  "Down On The Test Farm"
-date:   
+date: 2016-12-07 03:44:25
 author: ESR
 ---
-
 Testing any software suite as complex as NTPsec is difficult.  The
 intrinsically time-varying quality of NTP's operation makes it much
 more so.  In some future post I'll probably write about my only real
