@@ -26,7 +26,7 @@ each equipped with a GPS daughterboard, hanging out on the Official
 Windowsill of Mad Science above my desk.
 
 .The Official Windowsill of Mad Science
-image::../_images/testfarm.jpg[]
+image::/assets/testfarm.jpg[]
 
 Why Raspberry Pis, rather than more conventional PCs or VMs somewhere?
 One major reason for preferring physical hardware is that it's tough
@@ -61,7 +61,7 @@ seeking to refine their measurement of the gravitational constant by
 performing drop tests.
 
 .It's the Internet. Of _course_ there's a cat picture!
-image::../_images/zola.jpg[]
+image::/assets/zola.jpg[]
 
 This would, of course, have been quite the unhappy outcome for the
 RPis. Which is why at one point I thought I was going to have to put a
