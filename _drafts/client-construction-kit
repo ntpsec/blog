@@ -75,6 +75,15 @@ less than 200 lines of code, and yet is a fully production-capable
 tool that many time-service adminstrators will likely want to have
 running constantly where they can glance at it.
 
+Here's a screen shot:
+
+image::/assets/ntpmon.png[]
+
+Top window is a peer status report, bottom an MRUlist that tells
+you where the heavy traffic is hitting your server from.  The status
+line tells you how fresh the report is.  The tool samples at half the
+shortest poll interval seen in the last peer list.
+
 This is what code reuse gets you when you do it right.  It's also an
 excellent demonstration of why not to write in C if you don't have to;
 in that language, an ntpmon equivalent would doubtless have taken far
@@ -83,6 +92,6 @@ longer to write, and been far more fragile when it was done.
 I don't what kind of NTP protocol client there will be demand for next.
 I do know that it's better to have the option of writing them quickly 
 and easily than not - if only because it lowers the cost of experiments
-and exloring the design space.
+and exploring the design space.
 
 // end
