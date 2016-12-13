@@ -13,7 +13,7 @@ two questions:
 
 == Achievements ==
 
-Since the fork from NTP Classicin mid-2015, NTPsec has shrunk its
+Since the fork from NTP Classic in mid-2015, NTPsec has shrunk its
 codebase to less than a third of its original size -- removing or
 rewriting over 160KLOC of obsolete and broken code with almost no
 elimination of useful features. While all code removal improves
