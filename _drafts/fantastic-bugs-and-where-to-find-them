@@ -1,0 +1,147 @@
+---
+layout: post
+title:  "Fantastic bugs, and where to find them"
+date:   
+author: Daniel Franke
+---
+This post, written by NTPsec's security officer, is an assessment of
+two questions:
+
+1. Compared to NTP Classic, where has security markedly improved?
+
+2. What are our worst remaining security problems?
+
+== Achievements ==
+
+Since the fork from NTP Classicin mid-2015, NTPsec has shrunk its
+codebase to less than a third of its original size -- removing or
+rewriting over 160KLOC of obsolete and broken code with almost no
+elimination of useful features. While all code removal improves
+maintainability and allows us to develop more quickly and confidently,
+there are a few areas that have had an outsized positive impact on our
+security stance.
+
+=== Removal of Autokey ===
+
+Autokey is a cryptographic protocol designed by Prof. Mills in the
+mid-1990s, intended to provide public-key authentication of NTP
+packets. Unfortunately, it is fatally broken, vulnerable both to
+straightforward MITM attacks as well as offline brute-force attacks
+against 32-bit values used as secrets. Although these attacks have
+been public knowledge for a number of years, and the NTP Classic
+team has (properly) been encouraging all Autokey users to abandon it,
+it remains a part of the NTP Classic codebase.
+
+The Autokey implementation is a hairball and has been a recurring
+source of CVEs pertaining to crashes and buffer overflows. Many of
+these bugs have been exploitable even if the user has not enabled
+Autokey.
+
+NTPsec has been spared from all of these, because Autokey has been
+hard-disabled in NTPsec's build system since before our first beta
+release, and last Spring we removed it entirely.
+
+=== Elimination of DDoS amplification vectors ===
+
+NTP Classic supports two redundant protocols for querying the state of
+an NTP server, named mode 6 and mode 7 after the respective
+identifying numbers used on the wire. Mode 7 is an older, non-standard
+protocol used by ntpdc(1); mode 6 is a newer, more logical and
+partially standardized protocol used by ntpq(1).
+
+Mode 7 has been considered deprecated for a long time and its
+implementation has been a major source of vulnerabilities. However,
+the most damaging of these vulnerabilities is not one in its
+implementation but in its design: several commands it supports, most
+notoriously "monlist", result in responses vastly larger than the
+request, thus allowing servers to be used for DDoS amplification.
+Servers can and should be configured to reject these requests when
+they come from outside the server's local network, but despite the
+best efforts of the Network Time Foundation to clean up misconfigured
+servers, millions are still out there and DDoS attacks that leverage
+these remain an endemic problem.
+
+Mode 7 provides no functionality that mode 6 does not more cleanly
+duplicate, so we removed it. NTPsec servers, where correctly
+configured or not, will not be DDoS amplifiers.
+
+=== Rewriting the protocol state machine ===
+
+Much of ntpd's most convoluted code lives in ntp_proto.c, which
+implements the state machine central to the protocol. Of the 29
+vulnerabilities that have received CVEs so far in 2016, a couple of
+multi-KLOC functions in ntp_proto.c are responsible for 15 of them --
+just over half. Of course, "just rip it out" wouldn't suffice in this
+case: this is core business logic, not junk code.  So we rewrote those
+functions from scratch, cutting line count considerably and yielding a
+far more readable result.
+
+=== Rewriting ntpq in Python ===
+
+The original implementation of ntpq is home to much of the
+worst-offending string code. If you're looking for exploitable buffer
+overflows, you should probably look there.
+
+ntpq is just a reporting tool: unlike ntpd, it does no low-level
+system interaction and has no real-time requirements, which makes C
+completely inappropriate as an implementation language. Therefore, we
+rewrote it in Python. Unlike C, Python is a memory-safe language,
+which renders many broad classes of high-severity vulnerabilities
+simply impossible. No matter what bugs the new implementation may
+have, it is highly unlikely that any will have security
+implementations worse than allowing a malicious server or
+man-in-the-middle to cause ntpq itself to crash.
+
+== Future priorities ==
+
+Despite all the progress discussed above, we still have a long way to
+go. We have no lack of embarrassing code still present, and while
+we've established a solid track record of eliminating vulnerabilities
+before they're discovered, we doubtless have some more to go. Here a
+few key tasks that we believe will further improve our security
+stance.
+
+=== Code review of the newly-refactored state machine ===
+
+While the aforementioned state machine rewrite no doubt eliminated a
+slew of bugs, it is a substantial hunk of new code that has not been
+heavily exercised yet. This is a good place to focus some more
+skeptical outside eyeballs.
+
+=== Clean up string handling and memory management ===
+
+While since early on we've been steadly eliminating blatantly unsafe
+functions like strcpy() and replacing them with standard library
+functions that do proper bounds checking, buffer management is still
+largely ad hoc and the correctness of much of our string-handling code
+is difficult to verify by inspection. Most dynamic memory management
+code needs to be rewritten to use safer idioms, and our string
+handling should use make use of some modern string library such as
+(e.g.) Simple Dynamic String or the DJB APIs.
+
+=== Implement modern cryptography ===
+
+The IETF's NTP Working Group is in the process of designing a suitable
+replacement for Autokey. NTPsec project members are actively involved
+in this effort, and getting the new standard implemented in NTPsec is
+a high priority.
+
+=== Improve coordination for vulnerabilities affecting both NTP codebases ===
+
+NTPsec is a hostile fork of NTP Classic and relations between the
+respective project teams are icy at best. The NTP Classic team refuses
+to cooperate with us on coordinated disclosure of vulnerabilities
+which impact both projects. Unfortunately, this usually hurts us more
+than it hurts them, because we often get blindsided by vulnerability
+announcements and have to scramble to patch what then becomes a
+publicly-known zero-day in NTPsec.
+
+We're slowly mitigating this problem as our visibility in the NTP
+community increases, and researchers become more likely to notify us
+of their findings and help broker disclosure. Also, as the NTPsec
+codebase diverges further from that of NTP Classic, the number of bugs
+in common will naturally decrease. Nonetheless, we should
+realistically expect to have a few more 0day fire drills still ahead
+of us.
+
+// end
