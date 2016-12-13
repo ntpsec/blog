@@ -21,10 +21,10 @@ to be in C should not be.
 
 Thus, we've moved ntpq, ntpkeygen, and (most recently) ntpdig from C
 to Python. The ntpq program is useful for examining and
-hot-configuring a running ntpd; ntpdig (formerly known as sntp) is a
+hot-configuring a running ntpd. The ntpdig program (formerly known as sntp) is a
 very simple NTP protocol client sometimes used in situations where
 one-shot time syncing suffices and the full weight of ntpd is not
-required. ntpkeygen is used to generate cryptographic keys for
+required. The ntpkeygen program is used to generate cryptographic keys for
 authenticated NTP connections.
 
 We moved these to Python, rather than some other random scripting
@@ -48,7 +48,7 @@ module. The specific parts of ntpq and ntpdig became much smaller and
 lighter, easier to maintain and extend.  In the end, the shared
 back-end came out to smidge less than half of that 3KLOC.
 
-And...that back end amounts to being a construction kit for easy and
+And... that back end amounts to being a construction kit for easy and
 rapid construcion of NTP new protocol clients. I demonstrated this by
 requiring only a few hours to write another one.
 
@@ -89,9 +89,9 @@ excellent demonstration of why not to write in C if you don't have to;
 in that language, an ntpmon equivalent would doubtless have taken far
 longer to write, and been far more fragile when it was done.
 
-I don't what kind of NTP protocol client there will be demand for next.
+I don't know what kind of NTP protocol client there will be demand for next.
 I do know that it's better to have the option of writing them quickly 
-and easily than not - if only because it lowers the cost of experiments
+and easily than not -- if only because it lowers the cost of experiments
 and exploring the design space.
 
 // end
