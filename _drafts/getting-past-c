@@ -11,8 +11,8 @@ guarantees.
 
 This would have been a crazy pipe dream starting from the codebase we
 inherited in 2015, which was 231KLOC of grubby, portability-shim-laden
-C. But NTPsec is a lot smaller and cleaner now at 66KLOC of C (that's
-just 29% of the original size).  It's been brought up to pretty tight
+C. But NTPsec is a lot smaller and cleaner now at 62KLOC of C (that's
+just 27% of the original size).  It's been brought up to pretty tight
 C99/ANSI standards conformance, and the few remaining platform
 dependencies are either already well isolated or can easily be made so.
 That makes moving the whole shebang at least thinkable.
@@ -88,11 +88,12 @@ is Corrode, the automatic C-to-Rust translator.  The Go developers
 wrote a translator to move their Go compiler from C to Go, but it
 has no documentation and "Here Be Dragons!" warnings in the README.
 
-Russ Cox's talk on the translator claims it handles a large subset
-of C that notably does not include...unions. And certain kinds of
-goto. These are restrictions we can deal with. It may be usable.  And
-if it's not, maybe I can up-gun it until it is - language parsing and
-translation is a kind of problem I'm pretty good at and enjoy working.
+Russ Cox's talk on the C-to-Go translator claims it handles a large
+subset of C that notably does not include...unions. And certain kinds
+of goto. These are restrictions we can deal with. It may be usable.
+And if it's not, maybe I can up-gun it until it is - language parsing
+and translation is a kind of problem I'm pretty good at and enjoy
+working.
 
 In the end it might come down to which language I feel more
 comfortable in. (It's good to be +++<s>king</s>+++ the principal coder
