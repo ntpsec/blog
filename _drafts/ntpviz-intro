@@ -5,9 +5,9 @@ date:
 author: GEM
 ---
 Ask two different people how accurate their NTP servers are, and you
-will get at least four different answers.  Ask two different people
+will get at least four different answers.  Ask three different people
 the effect of changing a setting in ntp.conf, and you will get at
-least four different answers.
+least six different answers.
 
 == "If you can't measure it, you can't improve it." - Lord Kelvin
 
@@ -17,7 +17,7 @@ or visualize that data using basic statistical principles.
 
 This is changed by ntpviz.  A sysadmin can now unambiguously assess
 the short and long term performance of his NTP.  This allows the
-sysadmin to run tests of varying configurations and quantize the
+sysadmin to run tests of varying configurations and quantify the
 effects the changes make.  Best of all, once installed, ntpviz
 runs totally unattended, making sure the data is predigested when
 the sysadmin wants to see it.
@@ -48,7 +48,7 @@ cp contrib/ntp.conf.log.sample /etc/ntp.conf
 ----
 
 Easy, you now have NTPsec, and a basic ntp.conf installed.  Be carefull,
-your distribution may over write your new /etc/ntp.conf file.  You
+your distribution may overwrite your new /etc/ntp.conf file.  You
 can find more detailed installation instructions, and dependency
 information, in the INSTALL file located in the project top level
 directory.
@@ -73,7 +73,7 @@ ntpmon
 If that all worked then you should be watching ntpd slowly pull your
 system clock to the correct time.  While you watch that now is a good time
 to review the INSTALL file for tweaks you may be interested in, or to
-resolve any issues taht just arose.
+resolve any issues that just arose.
 
 Once you are happy with the running ntpd, take some time out to figure out
 how your disrto likes to manage daemons.  This is much to system specific
