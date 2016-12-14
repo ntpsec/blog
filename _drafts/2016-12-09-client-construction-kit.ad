@@ -49,7 +49,7 @@ lighter, easier to maintain and extend.  In the end, the shared
 back-end came out to smidge less than half of that 3KLOC.
 
 And... that back end amounts to being a construction kit for easy and
-rapid construcion of NTP new protocol clients. I demonstrated this by
+rapid construction of NTP new protocol clients. I demonstrated this by
 requiring only a few hours to write another one.
 
 Two people on the NTPsec team (Gary Miller and myself) have prior
@@ -62,11 +62,11 @@ terminal emulator but with a visual full-screen interface.
 
 TUIs are a good interface-design pattern for diagnostic tools that
 should run fast and light.  When Gary suggested that we do an
-equivalent of gpsmon for NTP, I liked the idea.  I envisioned a handy,
-self-updating status display for time-service admonistrators - something
-a bit more modern in flavor than the extremely old-school and rather
-clunky command-line interface of ntpq, but without the overhead and
-complexity of a full GUI.
+equivalent of gpsmon for NTP, I liked the idea immediately.  I
+envisioned a handy, self-updating status display for time-service
+admonistrators - something a bit more modern in flavor than the
+extremely old-school and rather clunky command-line interface of ntpq,
+but without the overhead and complexity of a full GUI.
 
 The Python back end factored out so much work the proof-of-concept
 version of ntpmon took me only about 45 minutes to write.  To date it
