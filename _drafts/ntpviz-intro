@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "Prove It!"
-date:   
+date:
 author: GEM
 ---
 Ask two different people how accurate their NTP servers are, and you
 will get at least four different answers.  Ask two different people
-the effect of changing a setting in ntp.conf, and you will get at 
+the effect of changing a setting in ntp.conf, and you will get at
 least four different answers.
 
 == "If you can't measure it, you can't improve it." - Lord Kelvin
@@ -26,19 +26,24 @@ This post will help the reader to install, and run, a basic ntpviz
 setup.  Later posts will explore the results of running ntpviz on
 different hosts and with different NTP configurations.
 
-== Enough theory, show me the data
+== Installation
 
 NTPsec is under active development, and few distros ship NTPsec packaes yet.
 So for now just get a copy of the latest  source and install it.  Here is
-how i do it:
+how I do it:
 
 ----
+# get root
 su -
+# make a place for the code
 mkdir -p /usr/local/src/NTP/
 cd /usr/local/src/NTP/
+# get the code
 git clone --depth 1 https://gitlab.com/NTPsec/ntpsec.git
+# build the code
 cd ntpsec
 ./waf configure --refclock=all && ./waf build  && ./waf install
+# install a sample config file
 cp contrib/ntp.conf.log.sample /etc/ntp.conf
 ----
 
@@ -48,4 +53,41 @@ can find more detailed installation instructions, and dependency
 information, in the INSTALL file located in the project top level
 directory.
 
+== Running
 
+Of course nothing happens until you have ntpd running, and logging
+data.  Double check that your ntp.conf have statistcis logging turned on
+and start up ntpd.
+
+----
+# get root
+su -
+# be sure not other tnpd is running
+killall ntpd
+# start the new ntpd
+ntpd -N
+# watch the magic happen
+ntpmon
+----
+
+If that all worked then you should be watching ntpd slowly pull your
+system clock to the correct time.  While you watch that now is a good time
+to review the INSTALL file for tweaks you may be interested in, or to
+resolve any issues taht just arose.
+
+Once you are happy with the running ntpd, take some time out to figure out
+how your disrto likes to manage daemons.  This is much to system specific
+to discuss here.
+
+== Time Out
+
+You now have ntpd doing what it does best, keeping your local clock
+accurate.  You are eager to see how well your system is running by using
+ntpviz.  Well, not so fast pilgrim.  You do not have any data in your
+logs to analyyze.  Take a break, consume some of your favorite beverage,
+enjoy a good nights rest, ponder the universe, and come back here in not
+less than 24 hours.  At that time you'll have some data.
+
+== 24 Hours Later...
+
+24 hours over, already?  Time to configure ntpviz to deal with your data.
