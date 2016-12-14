@@ -37,7 +37,7 @@ years.
 Doing this move replaced over 10KLOC of C with about 3KLOC of much
 cleaner, clearer Python - a good thing in itself. It also presented
 another opportunity.  ntpq and ntpdig had been written at different
-times by different people. Both are clients for varuations of the NTP
+times by different people. Both are clients for variations of the NTP
 packet protocol, In both, the network-protocol back end was
 unhealthily entangled with the application-specific front end.
 
@@ -49,7 +49,7 @@ lighter, easier to maintain and extend.  In the end, the shared
 back-end came out to smidge less than half of that 3KLOC.
 
 And... that back end amounts to being a construction kit for easy and
-rapid construction of NTP new protocol clients. I demonstrated this by
+rapid development of NTP new protocol clients. I demonstrated this by
 requiring only a few hours to write another one.
 
 Two people on the NTPsec team (Gary Miller and myself) have prior
@@ -83,7 +83,8 @@ image::/assets/ntpmon.png[]
 Top window is a peer status report, bottom an MRUlist that tells
 you where the heavy traffic is hitting your server from.  The status
 line tells you how fresh the report is.  The tool samples at half the
-shortest poll interval seen in the last peer list.
+shortest poll interval seen in the last peer list. There are handful of
+single-character commands to vary the report format, and a help screen.
 
 This is what code reuse gets you when you do it right.  It's also an
 excellent demonstration of why not to write in C if you don't have to;
