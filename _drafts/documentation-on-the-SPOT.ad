@@ -1,0 +1,99 @@
+---
+layout: post
+title:  "Documentation on the SPOT"
+date:
+author: ESR
+---
+When we forked the NTPsec codebase from NTP Classic, its documentation was
+an awful mess. This post is about how we fixed that, and which of those
+practices are portable to other projects.
+
+The usual reason that documentation is an awful mess is that most
+programmers hate writing it and cannot make themselves give the task
+the attention it needs. The NTP Classic document tree certainly
+suffered from that problem. But it had other, more specific issues as
+well.
+
+Foremost among these was that there were two sources of authority
+coexisting in the code tree.  One was HTML pages for the NTP website
+written by Dave Mills, NTP's original designer.  The other was manual
+pages written for individual tools and facilities.  Er, but putting
+it that way oversimplifies; the actual in-tree man pages were 'products'
+stitched together by a badly overengineered templating system.
+
+The organization of the actual, pre-templating masters made it
+difficult to systematically compare the Millsian-HTML version of
+reality with the manual-page version of reality.  If you're guessing
+that meant they had gradually drifted apart and in some cases
+contradicted each other, you are tragically right.
+
+In programming and database design, there's a rule known as SPOT
+(Single Point of Truth). If you violate it by having multiple truth
+authorities, eventually some will fail to be updated when others are.
+This is as inevitable as any other form of entropy and the only way to
+avoid it is to have, in fact, only one single point of documentation truth
+for every feature of the system.
+
+Pragmatically, this meant we needed to find a way to use the same
+documentation masters to generate both the website and the manual
+pages.  Then we needed to transcode the Millsian HTML tree into that
+format, while preserving the ability to generate HTML
+nigh-indistinguishable from the original.  Then we needed to transcode
+the manual pages into the *same* format, while retaining the ability
+to generate manual pages nigh-indistinguishable from the original.
+
+(Why was nigh-indistinguishability a requirement?  PR, basically. When
+you're trying to convert a userbase as conservative as time-service
+administrators, the more radical the changes in your code are are the
+more important it is that the product *look* reassuringly familiar and
+safe-pair-of-hands. Of course, then you have to be able to cover with
+your code the promise you're making with that PR.)
+
+Yes, we found a way to do this.  We moved every single documentation
+master to http://asciidoc.org/[asciidoc]. Then we eyeball-compared
+similar parts until we could factor them into single-point-of-truth
+inclusions used multiple times.  Then we wrote custom CSS that closely
+mimics the style of the old raw-HTML website. The manual page masters
+ended up being mostly inclusions into small text wrappers, mainly to
+set up manual-page-style front matter.
+
+Some readers are doubtless wondering "Why asciidoc?" or might even
+never have heard of it before.  It's a lightweight document markup
+similar in spirit to the better-known Markdown. It has, however, a
+couple of significant advantages over Markdown.  One is that it's
+significantly more powerful, with features we needed like table
+support. Another is that it's much better standardized; instead of
+having several dozen rather divergent implementations it has only two,
+and those two do an excellent job of implementing effectively the
+same markup language.
+
+The transition was not easy.  It took about four person-months of
+close collaboration between the project lead and an unusually
+tech-savvy writer/intern (Nalette Brodnax, you are not
+forgotten!). That's how big the mess was.  But at the end, we had
+something to be proud of.
+
+Later, we pushed it further.  Now we write all our in-tree documention
+(READMEs, the Installation Guide, the Hacking Guide, and so forth) in
+asciidoc. This makes it very easy to move things to the official
+documentation when they mature enough to go there, and it reduces the
+friction costs of maintaining all documentation by ensuring that human
+eyeballs never have deal with more than one set of markup conventions.
+
+I wrote even this blog post in asciidoc.  Our project blog is
+published with a templating system called Jekyll, which takes page
+masters in any of several formats (including asciidoc) and grinds them
+into static HTML in the publically visible location.  From the inside,
+the blog is a git repository of asciidoc pages that does magic things
+when you push changes from a clone to the master repository.
+
+Despite some high-profile adoptions (most notably git and the Linux
+kernel) I think asciidoc remains underappreciated. I've used it as a
+kind of secret weapon to lower the friction costs of maintaining
+high-quality documentation on several projects now.  The benefits are
+quiet and cumulative, mostly collected in the form of bad things and
+annoying minor speedbumps that could have happened with other toolkits
+but just don't with asciidoc. Among other virtues, it does a pretty
+good job of staying out of your way and letting you concentrate
+on content.
+
