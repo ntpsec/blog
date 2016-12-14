@@ -1,0 +1,51 @@
+---
+layout: post
+title:  "Prove It!"
+date:   
+author: GEM
+---
+Ask two different people how accurate their NTP servers are, and you
+will get at least four different answers.  Ask two different people
+the effect of changing a setting in ntp.conf, and you will get at 
+least four different answers.
+
+== "If you can't measure it, you can't improve it." - Lord Kelvin
+
+NTP has long had log files containing lots of measurements about the
+functioning of the NTP daemon, but there was no methodology to analyze
+or visualize that data using basic statistical principles.
+
+This is changed by ntpviz.  A sysadmin can now unambiguously assess
+the short and long term performance of his NTP.  This allows the
+sysadmin to run tests of varying configurations and quantize the
+effects the changes make.  Best of all, once installed, ntpviz
+runs totally unattended, making sure the data is predigested when
+the sysadmin wants to see it.
+
+This post will help the reader to install, and run, a basic ntpviz
+setup.  Later posts will explore the results of running ntpviz on
+different hosts and with different NTP configurations.
+
+== Enough theory, show me the data
+
+NTPsec is under active development, and few distros ship NTPsec packaes yet.
+So for now just get a copy of the latest  source and install it.  Here is
+how i do it:
+
+----
+su -
+mkdir -p /usr/local/src/NTP/
+cd /usr/local/src/NTP/
+git clone --depth 1 https://gitlab.com/NTPsec/ntpsec.git
+cd ntpsec
+./waf configure --refclock=all && ./waf build  && ./waf install
+cp contrib/ntp.conf.log.sample /etc/ntp.conf
+----
+
+Easy, you now have NTPsec, and a basic ntp.conf installed.  Be carefull,
+your distribution may over write your new /etc/ntp.conf file.  You
+can find more detailed installation instructions, and dependency
+information, in the INSTALL file located in the project top level
+directory.
+
+
