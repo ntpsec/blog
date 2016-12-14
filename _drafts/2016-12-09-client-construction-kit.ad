@@ -68,12 +68,13 @@ admonistrators - something a bit more modern in flavor than the
 extremely old-school and rather clunky command-line interface of ntpq,
 but without the overhead and complexity of a full GUI.
 
-The Python back end factored out so much work the proof-of-concept
-version of ntpmon took me only about 45 minutes to write.  To date it
-has consumed probably less than four hours of development time and is
-less than 200 lines of code, and yet is a fully production-capable
-tool that many time-service adminstrators will likely want to have
-running constantly where they can glance at it.
+The Python back end factored out so much work that the
+proof-of-concept version of ntpmon took me only about 45 minutes to
+write.  To date the front end has consumed probably less than four
+hours of development time and is less than 250 lines of code, and yet
+is a fully production-capable tool that many time-service
+adminstrators will likely want to have running constantly where they
+can glance at it.
 
 Here's a screen shot:
 
