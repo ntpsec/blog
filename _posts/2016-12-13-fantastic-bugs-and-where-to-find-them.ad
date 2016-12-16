@@ -116,7 +116,7 @@ functions that do proper bounds checking, buffer management is still
 largely ad hoc and the correctness of much of our string-handling code
 is difficult to verify by inspection. Most dynamic memory management
 code needs to be rewritten to use safer idioms, and our string
-handling should use make use of some modern string library such as
+handling should make use of some modern string library such as
 (e.g.) Simple Dynamic String or the DJB APIs.
 
 === Implement modern cryptography ===
