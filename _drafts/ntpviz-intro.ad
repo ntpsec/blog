@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Prove It!"
+title: "Seeing past the numbers"
 date: 2016-12-16 00:30:00 -0000
 author: GEM
 ---
@@ -56,7 +56,7 @@ source code directory.
 == Running
 
 Of course nothing happens until you have ntpd running, and logging
-data.  Double check that your ntp.conf have statistics logging turned on
+data.  Double check that your ntp.conf has statistics logging turned on
 and start up ntpd.
 
 ----
@@ -76,7 +76,7 @@ to review the INSTALL file for tweaks you may be interested in, or to
 resolve any issues that just arose.
 
 Once you are happy with the running ntpd, take some time out to figure out
-how your distro likes to manage daemons.  This is much to system specific
+how your distro likes to manage daemons.  This is much too system specific
 to discuss here.
 
 == Time Out
@@ -209,3 +209,4 @@ Future posts will explore many topics:
 
 Until then, enjoy your data.  Share what you discover.
 
+// end
