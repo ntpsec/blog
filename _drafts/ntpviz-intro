@@ -90,4 +90,116 @@ less than 24 hours.  At that time you'll have some data.
 
 == 24 Hours Later...
 
-24 hours over, already?  Time to configure ntpviz to deal with your data.
+24 hours over, already?  Time to make ntpviz grind your data.  This will
+take about 10 seconds:
+
+----
+# get root
+su -
+# change to the output directory
+cd /usr/local/src/NTP/ntpsec/www
+# make the pretty graphs for last 24 hours of data
+ntpviz @day/optionfile
+# if you have a week of data, analyze that.
+ntpviz @week/optionfile
+----
+
+All of your time data is now summarized in these two csv files:
+
+day/summary.csv
+
+week/summary.csv
+
+Oh, snap.  You were expecting pretty graphs?  Well then one additional
+step:
+
+----
+firefox file://localhost/usr/local/src/NTP/ntpsec/www/day/index.html
+----
+
+== So Much Data
+
+Yes, that is a lot of graphs and data.  Luckily each graph has a
+statistical summary below it, and a short description of what is being
+plotted.  At the bottom of the page you will find definitions of all the
+terms used.
+
+For those of you cheating, and running your own copy of ntpviz, here is
+one of the many graphs:
+
+image::/assets/local-offset.png[]
+
+The blue line is how accurate ntpd thinks the local clock is.  The red
+line is how much ntpd has to push the local clock to keep time accurate.
+Look more carefully at the red line.  The little jiggles on the left
+correlate to the room heater cycling on and off.  The big drop in the
+middle occurs when the heat goes off for the night, followed by a big
+rise when the heat comes on in the morning.
+
+The big spikes in the red and blue lines happened when the CPU was busy.
+The extra heat from the CPU coupled to the onboard clock crystal and
+shifted the crystals resonate frequency.  In later posts I'll go into
+more detail on each of these graphs and show how to add temperature
+plots.
+
+The data is summarized at the bottom of each graph.  The local
+offset summary to match the above graph is:
+
+----
+Percentiles...... 
+Min	1% 	5%	50% 	95%	99% 	Max
+-13.135	-2.305	-1.127	-0.054 	1.453	1.453	7.035
+
+Ranges...... 		
+90%	98% 	StdDev
+2.580	5.977	0.912	  
+
+Mean	Units
+-0.003	µs
+----
+
+The first part lists the percentiles.  5% of the samples were below
+-1.127 µs.
+
+The second parts lists the ranges.  90% of the data was within a
+range of 2.580 µs.
+
+The final part shows the arithetic mean was -.003 µs.
+
+If you want to play with the summaries you can find all that in
+the summary.csv file.
+
+==  Sharing is caring
+
+You will quickly tire of running ntpviz every hour just to see the
+data.  Automate that by adding these lines to your crontab:
+
+----
+49 * * * * cd /usr/local/src/NTP/ntpsec/www; ntpviz @day/optionfile
+6 0-23/3 * * * cd /usr/local/src/NTP/ntpsec/www; ntpviz @week/optionfile
+----
+
+The easiest way to share your data is to run a web server on your 
+ntp server.  I find that nginx runs fine even on a RaspBerry Pi Version
+1.  You distribution should have detailed instructions on how to
+install nginx.  Once installed, just point the server root to the
+directory with the ntpviz output files.  Like so:
+
+----
+cat /etc/nginx/ngins.conf
+[...]
+    server {
+	root /usr/local/src/NTP/ntpsec/www;
+[...]
+----
+
+Some people consider sharing ntpvis output to be a security risk.  If
+you feel that way then be sure to password protect the server.
+
+== Next...
+
+That was easy, wasn't it?  Now the hard part: what does it all mean?
+Future posts will explore what different graphs are telling us, how
+to log and graph supplemental data, and the results of some interesting
+experiments.  Until then, enjoy your data.
+
