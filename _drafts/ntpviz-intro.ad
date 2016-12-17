@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Prove It!"
-date:
+title: "Prove It!"
+date: 2016-12-16 00:30:00 -0000
 author: GEM
 ---
 Ask two different people how accurate their NTP servers are, and you
@@ -20,11 +20,11 @@ the short and long term performance of his NTP.  This allows the
 sysadmin to run tests of varying configurations and quantify the
 effects the changes make.  Best of all, once installed, ntpviz
 runs totally unattended, making sure the data is predigested when
-the sysadmin wants to see it.
+the someone wants to see it.
 
 This post will help the reader to install, and run, a basic ntpviz
-setup.  Later posts will explore the results of running ntpviz on
-different hosts and with different NTP configurations.
+setup.  Later posts will explore more aspects of ntpviz and what it
+tells us.
 
 == Installation
 
@@ -40,18 +40,18 @@ mkdir -p /usr/local/src/NTP/
 cd /usr/local/src/NTP/
 # get the code
 git clone --depth 1 https://gitlab.com/NTPsec/ntpsec.git
-# build the code
+# build the code and install the result
 cd ntpsec
 ./waf configure --refclock=all && ./waf build  && ./waf install
 # install a sample config file
 cp contrib/ntp.conf.log.sample /etc/ntp.conf
 ----
 
-Easy, you now have NTPsec, and a basic ntp.conf installed.  Be careful,
+Easy.  You now have NTPsec, and a basic ntp.conf installed.  Be careful,
 your distribution may overwrite your new /etc/ntp.conf file.  You
 can find more detailed installation instructions, and dependency
 information, in the INSTALL file located in the project top level
-directory.
+source code directory.
 
 == Running
 
@@ -62,7 +62,7 @@ and start up ntpd.
 ----
 # get root
 su -
-# be sure not other ntpd is running
+# be sure no other ntpd is running
 killall ntpd
 # start the new ntpd
 ntpd -N
@@ -71,7 +71,7 @@ ntpmon
 ----
 
 If that all worked then you should be watching ntpd slowly pull your
-system clock to the correct time.  While you watch that now is a good time
+system clock to the correct time.  While you watch that, now is a good time
 to review the INSTALL file for tweaks you may be interested in, or to
 resolve any issues that just arose.
 
@@ -88,9 +88,9 @@ logs to analyze.  Take a break, consume some of your favorite beverage,
 enjoy a good nights rest, ponder the universe, and come back here in not
 less than 24 hours.  At that time you'll have some data.
 
-== 24 Hours Later...
+== 24 Hours Later…
 
-24 hours over, already?  Time to make ntpviz grind your data.  This will
+24 hours over, already?  Time to have ntpviz grind your data.  This will
 take about 10 seconds:
 
 ----
@@ -106,8 +106,7 @@ ntpviz @week/optionfile
 
 All of your time data is now summarized in these two csv files:
 
-day/summary.csv
-
+day/summary.csv +
 week/summary.csv
 
 Oh, snap.  You were expecting pretty graphs?  Well then one additional
@@ -124,8 +123,8 @@ statistical summary below it, and a short description of what is being
 plotted.  At the bottom of the page you will find definitions of all the
 terms used.
 
-For those of you cheating, and running your own copy of ntpviz, here is
-one of the many graphs:
+For those of you cheating, and not running your own copy of ntpviz, here
+is one of the many graphs:
 
 image::/assets/local-offset.png[]
 
@@ -138,7 +137,7 @@ rise when the heat comes on in the morning.
 
 The big spikes in the red and blue lines happened when the CPU was busy.
 The extra heat from the CPU coupled to the on board clock crystal and
-shifted the crystals resonate frequency.  In later posts I'll go into
+shifted the crystal's resonate frequency.  In later posts I'll go into
 more detail on each of these graphs and show how to add temperature
 plots.
 
@@ -164,14 +163,14 @@ The first part lists the percentiles.  5% of the samples were below
 The second parts lists the ranges.  90% of the data was within a
 range of 2.580 µs.
 
-The final part shows the arithmetic mean was -.003 µs.
+The final part shows the arithmetic mean was -0.003 µs.
 
-If you want to play with the summaries you can find all that in
-the summary.csv file.
+If you want to play with the summaries in a spreadsheet you can find all
+that data in the summary.csv file.
 
-==  Sharing is caring
+== Sharing is caring
 
-You will quickly tire of running ntpviz every hour just to see the
+You will quickly tire of running ntpviz every hour just to see your
 data.  Automate that by adding these lines to your crontab:
 
 ----
@@ -181,7 +180,7 @@ data.  Automate that by adding these lines to your crontab:
 
 The easiest way to share your data is to run a web server on your 
 ntp server.  I find that nginx runs fine even on a Raspberry Pi Version
-1.  You distribution should have detailed instructions on how to
+1.  Your distribution should have detailed instructions on how to
 install nginx.  Once installed, just point the server root to the
 directory with the ntpviz output files.  Like so:
 
@@ -194,19 +193,19 @@ cat /etc/nginx/nginx.conf
 ----
 
 Some people consider sharing ntpvis output to be a security risk.  If
-you feel that way then be sure to password protect the server.
+you feel that way, then be sure to password protect the server.
 
-== Next...
+== Next…
 
 That was easy, wasn't it?
 
 Future posts will explore many topics:
 
-    What different graphs are telling us +
-    How to log and graph supplemental data +
-    How to customize the reports +
-    Typical data for various ntpd servers +
-    The results of some interesting experiments   +
+*   What different graphs are telling us
+*   How to log and graph supplemental data
+*   How to customize the reports
+*   Typical data for various ntpd servers
+*   The results of some interesting experiments
 
 Until then, enjoy your data.  Share what you discover.
 
