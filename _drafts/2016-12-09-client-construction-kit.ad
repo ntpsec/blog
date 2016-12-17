@@ -46,7 +46,7 @@ end, cleanly separating it from the front-end logic. The NTP protocol
 handling and various other re-usable parts became a loadable Python
 module. The specific parts of ntpq and ntpdig became much smaller and
 lighter, easier to maintain and extend.  In the end, the shared
-back-end came out to smidge less than half of that 3KLOC.
+back-end came out to a smidge less than half of that 3KLOC.
 
 And... that back end amounts to being a construction kit for easy and
 rapid development of NTP new protocol clients. I demonstrated this by
