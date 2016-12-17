@@ -20,7 +20,7 @@ the short and long term performance of his NTP.  This allows the
 sysadmin to run tests of varying configurations and quantify the
 effects the changes make.  Best of all, once installed, ntpviz
 runs totally unattended, making sure the data is predigested when
-the someone wants to see it.
+someone wants to see it.
 
 This post will help the reader to install, and run, a basic ntpviz
 setup.  Later posts will explore more aspects of ntpviz and what it
@@ -75,7 +75,7 @@ system clock to the correct time.  While you watch that, now is a good time
 to review the INSTALL file for tweaks you may be interested in, or to
 resolve any issues that just arose.
 
-Once you are happy with the running ntpd, take some time out to figure out
+Once you are happy with the running ntpd, take some time to figure out
 how your distro likes to manage daemons.  This is much too system specific
 to discuss here.
 
@@ -83,9 +83,9 @@ to discuss here.
 
 You now have ntpd doing what it does best, keeping your local clock
 accurate.  You are eager to see how well your system is running by using
-ntpviz.  Well, not so fast pilgrim.  You do not have any data in your
+ntpviz.  Well, not so fast, pilgrim.  You do not have any data in your
 logs to analyze.  Take a break, consume some of your favorite beverage,
-enjoy a good nights rest, ponder the universe, and come back here in not
+enjoy a good night's rest, ponder the universe, and come back here in not
 less than 24 hours.  At that time you'll have some data.
 
 == 24 Hours Later…
@@ -123,7 +123,7 @@ statistical summary below it, and a short description of what is being
 plotted.  At the bottom of the page you will find definitions of all the
 terms used.
 
-For those of you cheating, and not running your own copy of ntpviz, here
+For those of you cheating and not running your own copy of ntpviz, here
 is one of the many graphs:
 
 image::/assets/local-offset.png[]
@@ -137,7 +137,7 @@ rise when the heat comes on in the morning.
 
 The big spikes in the red and blue lines happened when the CPU was busy.
 The extra heat from the CPU coupled to the on board clock crystal and
-shifted the crystal's resonate frequency.  In later posts I'll go into
+shifted the crystal's resonant frequency.  In later posts I'll go into
 more detail on each of these graphs and show how to add temperature
 plots.
 
@@ -192,7 +192,7 @@ cat /etc/nginx/nginx.conf
 [...]
 ----
 
-Some people consider sharing ntpvis output to be a security risk.  If
+Some people consider sharing ntpviz output to be a security risk.  If
 you feel that way, then be sure to password protect the server.
 
 == Next…
