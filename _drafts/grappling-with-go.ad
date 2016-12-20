@@ -243,7 +243,7 @@ undocumented and surrounded by danger warnings.
 While hand translation of our 62KLOC is almost certainly feasible, the
 prospect of having to do it seriously weakens Go's competitive
 position against Rust - if Corrode actually works well.  We don't know
-that let, and it will need to be tested.
+that yet, and it will need to be tested.
 
 In conclusion, I judge that while Go has some minor liabilities it is
 quite suitable as an implementation language for ntpd.  Whether it is
