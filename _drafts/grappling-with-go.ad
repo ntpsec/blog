@@ -35,7 +35,7 @@ don't engage enough of the language to really learn it.  Nor can it be
 so large that you're it risk of getting lost in the problem itself, rather
 than staying at least half focused on exploring the implementation strategies
 that the language affords.  In the ideal case, your right-sized problem is
-one you're strongly motivated to solve independenrly of your desire to
+one you're strongly motivated to solve independently of your desire to
 learn the language.
 
 I was fortunate. I found an NTPsec-related problem that hit the sweet
@@ -109,11 +109,11 @@ had a strong feeling Tony Hoare was onto something seriously good ever
 since reading about occam's implementation of his Communicating
 Sequential Processes model back in the 80s.  CSP has a spareness and
 elegance that the conventional concurrency apparatus of mutexes,
-semaphores, and shared memory lacks.  Of course the question is whther
+semaphores, and shared memory lacks.  Of course the question is whether
 that elegance leaves CSP sufficiently unconstrained to solve real
 problems.
 
-I checked this by writing loccount as a parallized tree traversal.  Each
+I checked this by writing loccount as a parallelized tree traversal.  Each
 file in the tree gets a goroutine spawned to count its lines; the threads
 run in parallel and as each finishes its work it stuffs a statistics block
 into a channel. The main thread blocks on the output end, reading each
@@ -143,7 +143,7 @@ main thread.  The code for this is messy, complicated, and has known bugs.
 Being able to rewrite it in terms of goroutines and channels would be
 a blessing.
 
-Heere are some things I thought I'd dislike about Go that rapidly
+Here are some things I thought I'd dislike about Go that rapidly
 turned into non-issues as I actually used it: visibility by variable
 case, odd required syntax of blocks and conditional chains, absence of
 operator overloading, absence of class inheritance.
@@ -177,11 +177,11 @@ My learning project may have been just a little too small, as it gave
 me no reason to dive into the stranger corners of the Go object
 system. I haven't fully learned interfaces and reflection yet, so I
 can neither praise that part of the design nor speak to any
-deficencies that might lurk there.
+deficiencies that might lurk there.
 
 Now we'll return to more specific NTPsec-related concerns.  What
 specifically can we say about Go's suitability as an implementation
-labguage for ntpd?
+language for ntpd?
 
 The big foreground issue is garbage collection.  It's unprecedented for
 a language to be both garbage-collected and as squarely aimed at systems
@@ -217,7 +217,7 @@ surprised if this became a showstopper.
 
 Another issue: I mentioned before that Go produces fat binaries due to
 the size of the Go runtime.  As a painful example, the binary for my
-1600-SLOC loccount.go program is twice the size of the 62-SLOC ntpd
+1600KLOC loccount.go program is twice the size of the 62KLOC ntpd
 binary in C!
 
 At first sight this seems ridiculous, but there are two mitigating factors.
@@ -226,7 +226,7 @@ as the actual program it's attached to gets larger the size numbers will
 look progressively less silly.  The other is that statically-linked C
 programs look bloated, too. Our expectations are formed by dynamic linking,
 which hides the memory cost of the C standard library and whatever other
-libraries we're linlking.
+libraries we're linking.
 
 Still, a little nervousness about how gracefully Go would deploy
 in constrained embedded environments seems justified.  While this is
