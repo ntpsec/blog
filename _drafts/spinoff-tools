@@ -16,12 +16,12 @@ an obvious major example is how GTK hived off from GIMP.  Another is
 turning tasks into tools - not being satisfied with kludgy one-off
 solutions when you can package them into something reusable.
 
-A good number of my small projects started in this way out as tools I
-wrote to assist me with larger ones.  Two representative examples is
+A good number of my small projects started in this way as tools I
+wrote to assist me with larger ones.  Two representative examples are
 http://www.catb.org/esr/coverity-submit/[coverity-submit], which I
 wrote while working on http://catb.org/gpsd/[GPSD], and
 http://www.catb.org/esr/deheader/[deheader], which I wrote while
-working on https://www.wesnoth.org/[Battle For Wesnoth]
+working on https://www.wesnoth.org/[Battle For Wesnoth].
 
 You know you understand a task when you can automate and document
 it. And, going the extra mile to do that often prevents a lot of
@@ -91,7 +91,7 @@ So, there will be more spinoffs.  For reasons I hope I've made clear,
 it's good software engineering practice not just to write them, but
 to _seek out opportunities_ to write them.  In that way, you encourage
 code reuse, clean design, and constructive sharing of knowledge not on
-on your individual project but in the wider open-source community
+your individual project but in the wider open-source community
 and the world.
 
 // end
