@@ -4,6 +4,8 @@ title:  "Grappling with Go"
 date:   
 author: ESR
 ---
+FIXME: This needs to ship *after* spinoff-tools, with the links filled in.
+
 In a previous blog post, I observed that one of the medium-term
 possibilities we're seriously considering for NTPsec is moving the
 entire codebase out of C.  I continued that the two languages we're
