@@ -18,12 +18,13 @@ In this post I'm going to get a bit deeper into Go, loccount, my
 learning experience with the language, and Go's potential suitability
 for what we're doing at NTPsec.
 
-I think toy programs - conscious finger exercises - are a terrible way
-to learn a new language. They're boring, and they don't make you think
-enough.  For me, tutorials stuffed with pretty, bite-sized examples
-don't work well either - I feel like I'm being patronized by the
-authors, fed with excessively-safe bonbons when what I want to do is
-joyously tear off and bolt huge chunks of meat.
+I think writing toy programs - conscious finger exercises - are a
+terrible way to learn a new language. They're boring, and they don't
+make you think enough.  For me, tutorials stuffed with pretty,
+bite-sized examples chosen by others don't work well either - I feel
+like I'm being patronized by the authors, fed with excessively-safe
+bonbons when what I want to do is joyously tear off and bolt huge
+chunks of meat.
 
 What does work for me is diving in - tackling a real problem
 of the right size, with a reference manual for the language to hand in
