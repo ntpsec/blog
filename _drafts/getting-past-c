@@ -38,7 +38,7 @@ There aren't many such dependencies left.  In fact, by translation time
 we expect to have just the following:
 
 * We need adjtime()/adjtimex, obviously - the clock setting and skewing calls
-  designed for NTP and present on all modern UNIXlike OSes.
+  designed for NTP and present on all modern UNIX-like OSes.
 
 * We need to be able to extract UDP arrival timestamps from the control
   data returned by recvmsg(2).  All Unix-likes have ways to do this but
@@ -51,7 +51,7 @@ we expect to have just the following:
 I specified "at translation time" because right now we have a fourth
 dependency; we rely on getifaddrs(3) or some local equivalent to
 iterate over all of the host's network interfaces.  We expect to get
-rid of that one, however, by relying on the standardized API for
+rid of that one, however, by relying on the standardized API for the
 IPv4/IPv6 wildcard address that probably didn't exist when the NTP
 Classic code was written.
 
@@ -89,7 +89,7 @@ wrote a translator to move their Go compiler from C to Go, but it
 has no documentation and "Here Be Dragons!" warnings in the README.
 
 Russ Cox's talk on the C-to-Go translator claims it handles a large
-subset of C that notably does not include...unions. And certain kinds
+subset of C that notably does not include...unions and certain kinds
 of goto. These are restrictions we can deal with. It may be usable.
 And if it's not, maybe I can up-gun it until it is - language parsing
 and translation is a kind of problem I'm pretty good at and enjoy

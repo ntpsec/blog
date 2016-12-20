@@ -9,7 +9,7 @@ One of our major development pushes, now drawing to a close, was to
 move as much of the NTP code out of C as was practical to some other
 language. The point of this was to banish buffer overruns,
 stale-pointer bugs, resource leaks, and all the other ills C is heir
-to.  These are huge maintainence drags, and fertile sources of
+to.  These are huge maintenance drags, and fertile sources of
 security problems.
 
 The NTP daemon itself still needs to be in C, or in some compiled
@@ -38,7 +38,7 @@ Doing this move replaced over 10KLOC of C with about 3KLOC of much
 cleaner, clearer Python - a good thing in itself. It also presented
 another opportunity.  ntpq and ntpdig had been written at different
 times by different people. Both are clients for variations of the NTP
-packet protocol, In both, the network-protocol back end was
+packet protocol. In both, the network-protocol back end was
 unhealthily entangled with the application-specific front end.
 
 During the Python rewrite, one of my goals was to factor out that back
@@ -49,10 +49,10 @@ lighter, easier to maintain and extend.  In the end, the shared
 back-end came out to a smidge less than half of that 3KLOC.
 
 And... that back end amounts to being a construction kit for easy and
-rapid development of NTP new protocol clients. I demonstrated this by
+rapid development of new NTP protocol clients. I demonstrated this by
 requiring only a few hours to write another one.
 
-Two people on the NTPsec team (Gary Miller and myself) have prior
+Two people on the NTPsec team (Gary Miller and I) have prior
 experience with another project, http://www.catb.org/gpsd/[GPSD].  One
 of the tools that project ships is called "gpsmon".  It's a diagnostic
 tool for examining the output from a running GPS and (for some types)
@@ -64,7 +64,7 @@ TUIs are a good interface-design pattern for diagnostic tools that
 should run fast and light.  When Gary suggested that we do an
 equivalent of gpsmon for NTP, I liked the idea immediately.  I
 envisioned a handy, self-updating status display for time-service
-admonistrators - something a bit more modern in flavor than the
+administrators - something a bit more modern in flavor than the
 extremely old-school and rather clunky command-line interface of ntpq,
 but without the overhead and complexity of a full GUI.
 
@@ -73,7 +73,7 @@ proof-of-concept version of ntpmon took me only about 45 minutes to
 write.  To date the front end has consumed probably less than four
 hours of development time and is less than 250 lines of code, and yet
 is a fully production-capable tool that many time-service
-adminstrators will likely want to have running constantly where they
+administrators will likely want to have running constantly where they
 can glance at it.
 
 Here's a screen shot:
