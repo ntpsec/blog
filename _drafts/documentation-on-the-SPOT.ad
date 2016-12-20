@@ -44,7 +44,7 @@ to generate manual pages nigh-indistinguishable from the original.
 
 (Why was nigh-indistinguishability a requirement?  PR, basically. When
 you're trying to convert a userbase as conservative as time-service
-administrators, the more radical the changes in your code are are the
+administrators, the more radical the changes in your code are the
 more important it is that the product *look* reassuringly familiar and
 safe-pair-of-hands. Of course, then you have to be able to cover with
 your code the promise you're making with that PR.)
@@ -78,7 +78,7 @@ Later, we pushed it further.  Now we write all our in-tree documention
 asciidoc. This makes it very easy to move things to the official
 documentation when they mature enough to go there, and it reduces the
 friction costs of maintaining all documentation by ensuring that human
-eyeballs never have deal with more than one set of markup conventions.
+eyeballs never have to deal with more than one set of markup conventions.
 
 I wrote even this blog post in asciidoc.  Our project blog is
 published with a templating system called Jekyll, which takes page
