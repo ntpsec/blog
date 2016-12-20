@@ -68,7 +68,7 @@ and those two do an excellent job of implementing effectively the
 same markup language.
 
 The transition was not easy.  It took about four person-months of
-close collaboration between the project lead and an unusually
+close collaboration between the project tech lead and an unusually
 tech-savvy writer/intern (Nalette Brodnax, you are not
 forgotten!). That's how big the mess was.  But at the end, we had
 something to be proud of.
@@ -97,3 +97,4 @@ but just don't with asciidoc. Among other virtues, it does a pretty
 good job of staying out of your way and letting you concentrate
 on content.
 
+// end
