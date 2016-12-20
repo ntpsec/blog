@@ -121,11 +121,13 @@ statistics block as it becomes available and saving it for report
 generation.
 
 It only took me about two hours from a standing start to write this,
-and the resulting code is really simple and natural.  The channel is
-the only synchronization mechanism, and its thread-safe queue behavior
-is easy to reason about.  It's even easy to tune, with (at least in
-this case) a relatively clear relationship between optimal channel
-dept and the number of processor cores you have available.
+counting time to read and process the documentation and think through
+the design.  The resulting code is really simple and natural.  The
+channel is the only synchronization mechanism, and its thread-safe
+queue behavior is easy to reason about.  It's even easy to tune, with
+(at least in this case) a relatively clear relationship between
+optimal channel dept and the number of processor cores you have
+available.
 
 It's nice to see CSP in a language I can use for production, and very
 gratifying to find that it really is an effective tool for carving up
@@ -151,7 +153,7 @@ one.  Go binaries are statically linked to a copy of its runtime; thus
 they are annoyingly fat (more about this later).  $GOPATH is a pain,
 and the style of project layout the build system wants you to use is
 ugly to my eyes.  No ternary operator.  There are no map/reduce/filter
-primitives.\
+primitives.
 
 I found the single most perplexing thing about the language to be 
 the module-import rules. The documentation offered a surfeit of examples
