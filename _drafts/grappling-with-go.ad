@@ -143,13 +143,14 @@ a blessing.
 Heere are some things I thought I'd dislike about Go that rapidly
 turned into non-issues as I actually used it: visibility by variable
 case, odd required syntax of blocks and conditional chains, absence of
-operator overloading, ansence of class inheritance.
+operator overloading, absence of class inheritance.
 
 The language does have annoyances. The absence of const is a minor
 one.  Go binaries are statically linked to a copy of its runtime; thus
-they are annoyingly fat.  $GOPATH is a pain, and the style of project
-layout the build system wants you to use is ugly to my eyes.  No
-ternary operator.  There are no map/reduce/filter primitives.
+they are annoyingly fat (more about this later).  $GOPATH is a pain,
+and the style of project layout the build system wants you to use is
+ugly to my eyes.  No ternary operator.  There are no map/reduce/filter
+primitives.\
 
 I found the single most perplexing thing about the language to be 
 the module-import rules. The documentation offered a surfeit of examples
