@@ -24,14 +24,18 @@ extension .adoc or .ad.
 
 To work locally with this project, you'll have to follow the steps below:
 
-. Fork, clone or download this project
-. [Install][] Jekyll.  Your OS may have a package; Ubuntu's is "jekyll".
-. Install tha jekyll-asciidoc gem.  `sudo gem install jekyll-asciidoc`
-. Generate the website: `jekyll build -d public`
-. Preview your project: `jekyll serve`
-. Add content
+* Fork, clone or download this project
+* [Install][] Jekyll.  Your OS may have a package; Ubuntu's is "jekyll".
+* Install the jekyll-asciidoc gem.  `sudo gem install jekyll-asciidoc`
+* Generate the website: `jekyll build -d public`
+* Preview your project: `jekyll serve`
+* Add content
 
 Read more at Jekyll's [documentation][].
+
+Note that the main project (https://ntpsec.org) documentaion is
+also maintained in Asciidoc, but it use a Python convertor, not
+the Blog's Ruby.  There are subtle differences in implementation.
 
 ## GitLab User or Group Pages
 
