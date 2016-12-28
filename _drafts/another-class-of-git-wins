@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Another class of Git wins"
+date:
+author: MRA
+---
+
+When we forked the NTPsec codebase from NTP Classic, the codebase and
+file tree were full of code and scripts of marginal value, and the
+headaround costs of navigating it often made their value negative.
+
+This is not at all intended to speak ill of the past contributors and
+maintainers of NTP Classic.  Like as in so many other things, culture
+follows tools, and the tools that were available for most of NTP's
+history all but demanded that a project as important and as
+interesting as NTP would accumulate distracting low quality detriduse.
+
+weakness of earlier source control
+use of tarball as the working artifact
+no easy use of working branches
+means partial work and experiments have to be at tip
+
+now with git, experiments are to stay in a branch, and then merge to tip at once
+partial work remains out of the way
+
+contributions are gifts
+contrib/ directory
+accumate over time, and bitrot
+
+Code is expensive to write, and you never know when there will be
+value in some of it, even in bitrot scripts, and half-done
+experiments, so a culture develops to never throw anything away.
+
+Git changes all that.
+
+As we cleaned up, refactored, and shrunk the codebase and tree for
+NTPsec, we realized we never have to think "that might be valuable
+someday", because it will always exist in the git history.
+
+Many other projects still have not realized this truth, but more and more will.
+
+Don't worry about cutting things out, they will remain in the history
+if you ever need to read them again.
+
+
+// end
