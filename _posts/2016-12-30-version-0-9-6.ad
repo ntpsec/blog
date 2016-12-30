@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "Version 0.9.6"
+date:   2016-12-30 22:00:00 -0000
+---
+The NTPsec Project is pleased to announce the tagging of version 0.9.6.
+
+`ntpkeygen` has been moved from C to Python.  This is not a functional
+change, just another move to improve maintainability and reduce attack
+surface by decreasing line count.
+
+`ntpdig` has also been moved from C to Python. Though this is also
+mostly a move to reduce line count, the new version does have some
+functional changes.  Obsolete options have been dropped, logging is
+done a bit differently, and the synchronization-distance computation has
+been brought up to date with ntpd's. Also, this version can be told to
+collect multiple samples and use whichever has the lowest combination
+of stratum and synch distance.
+
+A new tool for time-service operators, `ntpmon`, supports real-time
+monitoring of your NTP installation's status.
+
+As always, you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+and can clone the git repo from https://gitlab.com/NTPsec/ntpsec.git
+
+The GPG signatures for the tarball, sum file, and signed git tag can
+be checked with GPG key 0x477C7528
+
