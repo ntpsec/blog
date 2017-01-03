@@ -30,7 +30,7 @@ type punning from the code. These are not going to translate into
 any language with the correctness properties we want.
 
 Another necessary step will be to corral the few remaining platform
-dependencies into into well-isolated library modules, so the vast bulk
+dependencies into iwell-isolated library modules, so the vast bulk
 of the code will in principle translate mechanically into whatever
 binding of the ANSI/POSIX API the new language supports.
 
