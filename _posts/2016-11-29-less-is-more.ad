@@ -190,7 +190,8 @@ Down the road I expect the move to Python to have some other consequences
 besides LOC reduction.  The existing ones share a back-end that speaks NTP
 datagrams in Python; besides being virtuous code reuse that makes the specific
 part of each tool smaller, it's going to make new operator tools much easier
-to construct.  Watch this blog for developments.
+to construct.  Watch this blog for developments footnote:[See
+the later post "From Steak to Sizzle" for those developments.].
 
 The era of large code removals in NTPsec is probably coming to a
 close.  We'll drop a few more KLOC from moving ntpdig to Python.
