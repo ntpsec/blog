@@ -159,9 +159,10 @@ That doesn't mean we have to live with such vulnerability in the
 auxiliary tools, things like ntpq and ntpdig that only have to respond
 at human speed.  Those we're moving out of C into Python.  The big
 one, ntpq, is already done.  ntpdig (the former sntp) is well in
-progress.  ntpkeygen will be pretty trivial.  Some other lesser-known
-auxiliary programs that were historically Perl have already been
-translated.
+progress footnote:[Jan 2017 update: the ntpdig conversion got done in
+late December 2016].  ntpkeygen will be pretty trivial.  Some other
+lesser-known auxiliary programs that were historically Perl have
+already been translated.
 
 Some of you will be getting reflexively twitchy about small embedded
 systems, where the footprint of Python or any other scripting language
