@@ -17,7 +17,7 @@ Towards that end, we apply best practices and state-of-the art
 technology in code auditing, verification, and testing. We begin with
 the most important best practice: true open-source code review.  The
 NTPsec code is available in our main
-[public git repository](https://gitlab.com/NTPsec/ntpsec.git)
+[public git repository](https://gitlab.com/NTPsec/ntpsec)
 One of our goals is to support broader community articipation.
 
 You can find the main website for NTPsec at:
