@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "Version 0.9.7"
+date:   
+---
+The NTPsec Project is pleased to announce the tagging of version 0.9.7.
+
+[announced differences, changes, and improvments go here. look at the .../NEWS file in the ntpsec repo]
+
+As always, you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+and can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+
+The GPG signatures for the tarball, sum file, and signed git tag can
+be checked with GPG key
+https://sks-keyservers.net/pks/lookup?op=vindex&search=0x05D9B371477C7528[0x05D9B371477C7528]
