@@ -25,13 +25,13 @@ TESTFRAME was a sub-project codename I invented in my original
 technical plan for NTPsec, back in early 2015. To understand the
 concept, you have to know about GPSD and how gpsfake works.
 
-GPSD is a monitoring daemon that interprets the raw data streams
-from GPSes and other devices related to location and geodesy. It
-solves problems arising from the fact that the reporting protocols
-of these devices are complex, poorly documented, and often so
-badly designed that a substantial amount of computation and
-specialized domain knowledge to massage them into a form that
-is actually useful for client applications.
+GPSD is a monitoring daemon that interprets the raw data streams from
+GPSes and other devices related to location and geodesy. It solves
+problems arising from the fact that the reporting protocols of these
+devices are complex, poorly documented, and often so badly designed
+that a substantial amount of computation and specialized domain
+knowledge is necessary to massage them into a form that is actually
+useful for client applications.
 
 I led the GPSD project for ten years before taking on NTPsec. During
 that time it became fantastically successful, developing into essential
@@ -78,15 +78,15 @@ to testing http://www.catb.org/esr/reposurgeon/[reposurgeon].  I won't
 describe that in detail because it was actally much simpler to accomplish
 than it had been for GPSD, and has fewer lessons for the NTPsec case.
 
-Five years after that, what more natural thing to try than replicating
-the GPSD and reposurgeon success under NTPsec?  That was the TESTFRAME
-concept. But it is more difficult to create a sealed environment of
-faked UDP endpoints than one of faked serial devices, so from the
-earliest revisions of TESTFRAME the plan was slightly different.  ntpd
-would be its own emulator, made capable of consuming log files
-containing pairs of UDP datagrams and source addresses, processing
-them as though they had arrived live, and reporting outputs such as
-clock adjustments without actually performing them.
+Five years after that in 2015, what more natural thing to try than
+replicating the GPSD and reposurgeon success under NTPsec?  That was
+the TESTFRAME concept. But it is more difficult to create a sealed
+environment of faked UDP endpoints than one of faked serial devices,
+so from the earliest revisions of TESTFRAME the plan was slightly
+different.  ntpd would be its own emulator, made capable of consuming
+log files containing pairs of UDP datagrams and source addresses,
+processing them as though they had arrived live, and reporting outputs
+such as clock adjustments without actually performing them.
 
 These logfiles also had to capture other events, such as clock samples
 and adjustments; in total, as it turned out, there were no fewer than
@@ -154,8 +154,9 @@ UERE that I'm going to skip so as not to get lost in the weeds.
 
 If you change any of these free parameters, you have a different DFSM
 and odds are good that the correct output transformation will change
-visibly and break your tests.  Every leap-second insertion requires
-us to rebuild some check files.
+visibly and break your tests.  In particular, every leap-second
+insertion requires us to rebuild some check files; this last happened
+just a week ago as I write, at the very end of 2016.
 
 Fortunately, GPSD has only a small set of free parameters and, more
 importantly, they change only rarely and at predictable times.  They
