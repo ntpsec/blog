@@ -55,7 +55,7 @@ arbitrary collection of serial devices on ptys.  The ptys can be fed
 from log captures of any device's raw output. The resulting JSON
 datagram stream that would normally go to port 2947 is captured. The
 program creates a sealed test environment in which gpsd is treated as
-just another large deterministic finite-state machine (FSM) with
+just another large deterministic finite-state machine (DFSM) with
 replicable behavior - feed N raw data files in, get an expected JSON
 sequence out.
 
@@ -91,8 +91,8 @@ clock adjustments without actually performing them.
 These logfiles also had to capture other events, such as clock samples
 and adjustments; in total, as it turned out, there were no fewer than
 14 distinct event types to be recorded and replayed.  But this was a
-detail; the essential concept, treating ntpd as a giant state machine
-with replicable behavior, was the same thing that gpsfake accomplished
+detail; the essential concept, treating ntpd as a giant DFSM with
+replicable behavior, was the same goal that gpsfake had accomplished
 for a more limited set of I/O event types.
 
 I implemented capture logging for all 14 event types with relative
@@ -116,12 +116,12 @@ potential deployments targets have PLLs; an undismissable minority do
 not.
 
 The problem for TESTFRAME's goal of determistic replay is that PLL and
-non-PLL ntpd instances are _different_ FSMs, with different event
+non-PLL ntpd instances are _different_ DFSMs, with different event
 sets; the PLL kind has an I/O event corresponding to an ntp_adjtime(2)
-call, the non-PLL type does not.  The code path splits around this
-difference; you can't use one kind of ntpd to replay logs from the
-other.  And that's how the goal of having a single set of regression
-tests you can run anywhere goes kaboom.
+call, the non-PLL type does not.  The potential code paths split
+around this difference; you can't use one kind of ntpd to replay logs
+from the other.  And that's how the goal of having a single set of
+regression tests you can run anywhere goes kaboom.
 
 This is a stark contrast with GPSD and reposurgeon.  In both of those
 cases the existence of a single test suite that runs quickly and
@@ -132,7 +132,7 @@ before they can metastatize into large ones.
 In theory, we could work around this by having two parallel test
 suites, one for PLL systems and one for non-PLL ones, and have them
 run conditionally.  But if you are an experienced software engineer,
-your inner Robbie the Robot is already intoning "Danger, Will
+your inner Robbie the Robot is probably already intoning "Danger, Will
 Robinson! Danger! Danger!" Mine certainly did...because this kind of
 proliferation of special cases is often a sign that your "solution" is
 on its way to becoming a problem, with complexity costs and failure
@@ -145,14 +145,14 @@ of the network hairball (as well as everything else that was
 going on with the project).
 
 I imagined TESTFRAME based on successful experience with gpsfake.
-There, the plan to treat gpsd as a big honkin' FSM with reproducible
+There, the plan to treat gpsd as a big honkin' DFSM with reproducible
 behavior worked because while the transformation from GPS packets to
 JSON is complicated, it has very few free parameters.  One is the
 current century.  Another is the time of last GPS week rollover.  A
 third is the current leap-second offset.  There's a fourth called
-UERE that I'm going to skip so as notvto get lost in the weeds.
+UERE that I'm going to skip so as not to get lost in the weeds.
 
-If you change any of these free parameters, you have a different FSM
+If you change any of these free parameters, you have a different DFSM
 and odds are good that the correct output transformation will change
 visibly and break your tests.  Every leap-second insertion requires
 us to rebuild some check files.
@@ -185,11 +185,11 @@ no real equivalent in the simple, straight-line data transformations
 of gpsd, and only a weak analogy with the somewhat more complex but
 variable-free ones of reposurgeon.
 
-There are a very general lessons here about the effectiveness of
+There are very general lessons here about the effectiveness of
 deterministic replay testing as a strategy, which is what this
 whole essay has been building towards.
 
-Think of code you're trying to test as a FSM with an internal mutation
+Think of code you're trying to test as a DFSM with an internal mutation
 rate as its free parameters change for whatever reason.  As the
 mutation rate rises, the expected value of the useful lifetime of a
 capture log (that is, the span over which it will constitute a valid
