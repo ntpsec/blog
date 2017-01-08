@@ -1,5 +1,7 @@
-This site uses a Let's Encrypt cert.  The cert must be renewed
-before 90 elapse.
+This site uses a Let's Encrypt cert.  The cert is valid for 90
+days from issue, and must be renewed before that expires.
+
+*** This is required to be done manually. ***
 
 To create a new cert:
 
@@ -11,7 +13,7 @@ To create a new cert:
 
 # printf "%s" 1G_7ljEupm1uG7F0mJhWDvhAiHeNtCB0iNRpdxB1hZI.QkjTNSDQNkoUxeL1n5tMRVf8qR6vblgNR6MKdG3DdbM > .well-known/acme-challenge/1G_7ljEupm1uG7F0mJhWDvhAiHeNtCB0iNRpdxB1hZI
 
-4. Make a fresh clone of 
+4. Make a fresh clone of
 
 git@gitlab.com:NTPsec/blog.git
 
