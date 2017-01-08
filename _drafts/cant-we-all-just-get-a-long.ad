@@ -39,7 +39,7 @@ typedef struct {
 
 That is, two 32-bit fields, one of which is a union. Under the usual
 self-alignment rules (which NTP Classic assumed elsewhere) this structure
-is guaranteed to be represented in memory as 54 contiguous bits with
+is guaranteed to be represented in memory as 64 contiguous bits with
 no padding.
 
 If you think that looks pretty ugly, you're right.  It was surrounded by a
