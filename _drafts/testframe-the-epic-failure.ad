@@ -178,13 +178,10 @@ lots of free parameters. And not only can they change during normal
 development, they're going to have to in order for us to make
 performance improvements.
 
-Here are some changes we've already made in NTPsec that break replay:
-the default poll interval, the allowable minima and maxima the
-protocol machine hunts in, and the default of minsane.  In effect, the
-entire logic of the sync algorithms is a gigantic free parameter with
-no real equivalent in the simple, straight-line data transformations
-of gpsd, and only a weak analogy with the somewhat more complex but
-variable-free ones of reposurgeon.
+In effect, the entire logic of the sync algorithms is a gigantic free
+parameter with no real equivalent in the simple, straight-line data
+transformations of gpsd, and only a weak analogy with the somewhat
+more complex but variable-free ones of reposurgeon.
 
 There are very general lessons here about the effectiveness of
 deterministic replay testing as a strategy, which is what this
