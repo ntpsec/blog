@@ -15,7 +15,7 @@ that _if_ such types exist they must be named int64_t and uint64_t.
 
 That's a good thing in itself, because it evades some confusion over
 whether 64 bits is 'long' or (in some toolchains) 'long long'.  But in
-order to cash the check inplied by that naming convention you need
+order to cash the check implied by that naming convention you need
 C99. Hence, the post title: "Can't we all just get a (64-bit) long?".
 
 That actually matters a good deal for NTP, because NTP does a lot of
