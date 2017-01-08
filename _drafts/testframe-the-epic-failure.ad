@@ -1,0 +1,204 @@
+---
+layout: post
+title:  "TESTFRAME: the epic failure"
+date:   
+author: ESR
+---
+If you've been reading the posts here, or the NTPsec-related material
+over on http://esr.ibiblio.org/[my personal blog], you might have
+gotten the impression that the history of NTPsec project has been an
+uninterrupted movement from strength to strength, repeatedly hitting
+difficult targets and scoring dramatic successes.
+
+That is actually very nearly true.  I'm quite proud of our team's
+performance and our remarkably low rate of stumbles and errors.  It
+would do credit even to a much smaller and less technically complex
+project than this one.
+
+However, this project has had one major failure in design and
+implementation.  I choose to write about it in detail here because I
+think it has some hard lessons to teach about how subtle differences
+in the constraints of a software design can make a huge difference
+in what kinds of test and verification are achievable for it.
+
+TESTFRAME was a sub-project codename I invented in my original
+technical plan for NTPsec, back in early 2015. To understand the
+concept, you have to know about GPSD and how gpsfake works.
+
+GPSD is a monitoring daemon that interprets the raw data streams
+from GPSes and other devices related to location and geodesy. It
+solves problems arising from the fact that the reporting protocols
+of these devices are complex, poorly documented, and often so
+badly designed that a substantial amount of computation and
+specialized domain knowledge to massage them into a form that
+is actually useful for client applications.
+
+I led the GPSD project for ten years before taking on NTPsec. During
+that time it became fantastically successful, developing into essential
+infrastructure for both human-operated and robotic navigation systems
+all over the world.  It's probably in your smartphone and will provide
+position information for your driverless car, when you get one.
+
+The single most important factor in GPSD's success has been an
+exceptionally low error rate in its software suite.  That, in turn,
+is due to an exceptionally successful testing strategy centered around
+an auxiliary program called gpsfake.
+
+Like ntpd, gpsd is a service daemon that consumes incoming communications
+and produces a result that can be logged and monitored.  In gpsd's case
+the communications are serial byte streams from GPses and other devices;
+the output is a stream of JSON datagrams representing the total take in
+a form convenient for applications, presented on TCP/IP port 2947.
+
+gpsfake runs an instance of gpsd under its control, simulating an
+arbitrary collection of serial devices on ptys.  The ptys can be fed
+from log captures of any device's raw output. The resulting JSON
+datagram stream that would normally go to port 2947 is captured. The
+program creates a sealed test environment in which gpsd is treated as
+just another large deterministic finite-state machine (FSM) with
+replicable behavior - feed N raw data files in, get an expected JSON
+sequence out.
+
+The most obvious use for this is regression testing.  Every time the
+GPSD maintainers encounter a new device type, they capture packet logs
+from it. Often it's possible to diagnose problems by comparing the
+packet logs to the JSON output.  When a bug is fixed, a log
+demonstrating the fix becomes part of the collection of test loads and
+corresponding check files carried in the distribution.
+
+In January 2017 there are 109 test pairs representing over 80 distinct
+device types. A full test takes about three minutes to run, and
+project practice is to do it after every nontrivial code change.
+Thus, GPSD behavior can be kept extremely stable, bugs tend to be
+found and fixed rapidly, and the project's defect rate in shipped
+versions is exceptionally low.
+
+gpsfake dates from 2005. Five years later I applied the same strategy
+to testing http://www.catb.org/esr/reposurgeon/[reposurgeon].  I won't
+describe that in detail because it was actally much simpler to accomplish
+than it had been for GPSD, and has fewer lessons for the NTPsec case.
+
+Five years after that, what more natural thing to try than replicating
+the GPSD and reposurgeon success under NTPsec?  That was the TESTFRAME
+concept. But it is more difficult to create a sealed environment of
+faked UDP endpoints than one of faked serial devices, so from the
+earliest revisions of TESTFRAME the plan was slightly different.  ntpd
+would be its own emulator, made capable of consuming log files
+containing pairs of UDP datagrams and source addresses, processing
+them as though they had arrived live, and reporting outputs such as
+clock adjustments without actually performing them.
+
+These logfiles also had to capture other events, such as clock samples
+and adjustments; in total, as it turned out, there were no fewer than
+14 distinct event types to be recorded and replayed.  But this was a
+detail; the essential concept, treating ntpd as a giant state machine
+with replicable behavior, was the same thing that gpsfake accomplished
+for a more limited set of I/O event types.
+
+I implemented capture logging for all 14 event types with relative
+ease.  Replay for 13 of the 14 wasn't too difficult.  Then I hit a
+wall: replay of incoming packet traffic.
+
+The immediate reason for the wall was that the NTP network code was then
+a very nasty hairball.  It was difficult to isolate the cut points at
+which previously-captured packets should be replayed back in. I made
+two hard swings at this and failed both times. Subsequently I was
+able to simplify the hairball a lot by removing asynchronous-I/O
+support that had probably been broken for a long time - but by
+that time I had begun to notice much more fundamental problems with
+TESTFRAME.
+
+One was what in discussion on the mailing list I later tagged "the
+code-path split".  There are two kinds of NTP hosts; one uses a kernel
+facility known as the "PLL" for doing fine adjustments to the tick
+speed of the system clock, the other kind does not.  Most of our
+potential deployments targets have PLLs; an undismissable minority do
+not.
+
+The problem for TESTFRAME's goal of determistic replay is that PLL and
+non-PLL ntpd instances are _different_ FSMs, with different event
+sets; the PLL kind has an I/O event corresponding to an ntp_adjtime(2)
+call, the non-PLL type does not.  The code path splits around this
+difference; you can't use one kind of ntpd to replay logs from the
+other.  And that's how the goal of having a single set of regression
+tests you can run anywhere goes kaboom.
+
+This is a stark contrast with GPSD and reposurgeon.  In both of those
+cases the existence of a single test suite that runs quickly and
+everywhere is a huge help in avoiding breakage during development;
+I run tests on almost every commit and this catches small errors
+before they can metastatize into large ones.
+
+In theory, we could work around this by having two parallel test
+suites, one for PLL systems and one for non-PLL ones, and have them
+run conditionally.  But if you are an experienced software engineer,
+your inner Robbie the Robot is already intoning "Danger, Will
+Robinson! Danger! Danger!" Mine certainly did...because this kind of
+proliferation of special cases is often a sign that your "solution" is
+on its way to becoming a problem, with complexity costs and failure
+points that swamp the benefits you were originally after.
+
+And that's before we get to the 'real' show-stopper, what I now think
+of as the free-variable problem.  It took me too long to see this;
+in my own defense, I plead that I was distracted by the details 
+of the network hairball (as well as everything else that was
+going on with the project).
+
+I imagined TESTFRAME based on successful experience with gpsfake.
+There, the plan to treat gpsd as a big honkin' FSM with reproducible
+behavior worked because while the transformation from GPS packets to
+JSON is complicated, it has very few free parameters.  One is the
+current century.  Another is the time of last GPS week rollover.  A
+third is the current leap-second offset.  There's a fourth called
+UERE that I'm going to skip so as notvto get lost in the weeds.
+
+If you change any of these free parameters, you have a different FSM
+and odds are good that the correct output transformation will change
+visibly and break your tests.  Every leap-second insertion requires
+us to rebuild some check files.
+
+Fortunately, GPSD has only a small set of free parameters and, more
+importantly, they change only rarely and at predictable times.  They
+do *not* change during normal evolution of GPSD.  Thus, when a
+regression test goes sproing you know pretty reliably whether it's
+because of a scheduled, rare change in a free parameter or because of
+a bug you just introduced.  And reposurgeon is even better that way;
+it has no free variables at all.
+
+This regularity - the ease of distinguishing signal from noise, and
+the low odds that free parameters will have to change during normal
+development - is what makes gpsfake effective. You can re-use tests
+for many years at a time (and the GPSD project does exactly that).
+
+What snuck up on me as I was looking through lots of capture logs,
+trying to make TESTFRAME replay work, just before I hit the
+split-code-paths problem hard, is that ntpd is very different. It has
+lots of free parameters. And not only can they change during normal
+development, they're going to have to in order for us to make
+performance improvements.
+
+Here are some changes we've already made in NTPsec that break replay:
+the default poll interval, the allowable minima and maxima the
+protocol machine hunts in, and the default of minsane.  In effect, the
+entire logic of the sync algorithms is a gigantic free parameter with
+no real equivalent in the simple, straight-line data transformations
+of gpsd, and only a weak analogy with the somewhat more complex but
+variable-free ones of reposurgeon.
+
+There are a very general lessons here about the effectiveness of
+deterministic replay testing as a strategy, which is what this
+whole essay has been building towards.
+
+Think of code you're trying to test as a FSM with an internal mutation
+rate as its free parameters change for whatever reason.  As the
+mutation rate rises, the expected value of the useful lifetime of a
+capture log (that is, the span over which it will constitute a valid
+error check) falls. The signal-to-noise ratio in test breakage drops.
+
+Under these assumptions, there is some mutation rate threshold above
+which deterministic replay simply stops being useful at all, because
+the gains from it are exceeded by its complexity costs.  GPSD and
+reposurgeon are well below that threshold; I now think ntpd is above
+it.
+
+// end
