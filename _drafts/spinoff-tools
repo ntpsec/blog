@@ -50,10 +50,10 @@ our strategy], I take SLOC counts often, and wanted a way to do it
 faster and with a leaner display than David Wheeler's sloccount tool.
 
 The other purpose of loccount was as a learning project in Go. The
-time is likely to come when the NTPsec codebase will move out of C; in
-a future post I'll explore this possibility in more detail.  Part of
-my forward planning is therefore to bring myself up to speed on the
-languages we might consider moving to; Go is one of these.
+time is likely to come when the NTPsec codebase will move out of C.
+Part of my forward planning has therefore been to bring myself up to
+speed on the languages we might consider moving to; Go is one of
+these.
 
 It was a fruitful choice.  Reimplementing sloccount produced the right size
 of challenge for a language-learning project - bigger than a toy, just
