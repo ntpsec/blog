@@ -22,8 +22,9 @@ monitoring of your NTP installation's status.
 
 As always, you can download the release tarballs with sums and signatures
 from ftp://ftp.ntpsec.org/pub/releases/
-and can clone the git repo from https://gitlab.com/NTPsec/ntpsec.git
+and can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
 
 The GPG signatures for the tarball, sum file, and signed git tag can
-be checked with GPG key 0x477C7528
-
+be checked with GPG key
+https://sks-keyservers.net/pks/lookup?op=vindex&search=0x05D9B371477C7528[0x05D9B371477C7528]
