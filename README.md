@@ -33,16 +33,14 @@ To work locally with this project, you'll have to follow the steps below:
 
 Read more at Jekyll's [documentation][].
 
-Note that the main project (https://ntpsec.org) documentaion is
-also maintained in Asciidoc, but it use a Python convertor, not
-the Blog's Ruby.  There are subtle differences in implementation.
+Note that the main project (https://ntpsec.org) documentation is
+also maintained in Asciidoc, but it uses a Python convertor, not
+this Blog's Ruby.  There are subtle differences in implementation.
 
-## GitLab User or Group Pages
+## Group Pages
 
-This project is being served by GitLab pages at http://ntpsec.gitlab.io/
-
-Read more about [user/group Pages][userpages] and [project Pages][projpages].
-
+This Blog is hosted on Gitlab Pages, and is served via the URL:
+https://blog.ntpsec.org/
 
 [Jekyll Asciidoc]:https://github.com/asciidoctor/jekyll-asciidoc
 [ci]: https://about.gitlab.com/gitlab-ci/
@@ -50,8 +48,6 @@ Read more about [user/group Pages][userpages] and [project Pages][projpages].
 [Gitlab Pages]:https://gitlab.com/pages/jekyll
 [install]: https://jekyllrb.com/docs/installation/
 [documentation]: https://jekyllrb.com/docs/home/
-[userpages]: http://doc.gitlab.com/ee/pages/README.html#user-or-group-pages
-[projpages]: http://doc.gitlab.com/ee/pages/README.html#project-pages
 
 ## TODO
 
