@@ -9,7 +9,7 @@ write our code to the standard implied by POSIX and C99.  This was a
 decision with far-reaching consequences; it freed us to abandon a lot
 of ancient port shims from pre-POSIX Unixes.
 
-It also allowed us to assume the existence of of 64-bit integers as
+It also allowed us to assume the existence of 64-bit integers as
 primitive types. POSIX alone doesn't get you there; it merely mandates
 that _if_ such types exist they must be named int64_t and uint64_t.
 
@@ -73,13 +73,13 @@ such constructs are fundamentally unsafe.
 
 Fixing all this was not complicated in principle, but it was messy
 and tedious.  First, I had to find all the direct accesses to structure
-slots by name and wrap those in my set of own accessor/mutator macros.
+slots by name and wrap those in a set of my own accessor/mutator macros.
 Then, once I had the internals of the structure sealed off so only
 my macros knew about them, I could change the macros to operate on a
 64-bit scalar rather than a struct.
 
 I hit a snag here, because it turns out that in order to map the
-64-bit scalar back into into a big-endian wire format you have to
+64-bit scalar back into a big-endian wire format you have to
 re-express it as a struct with halfword-swapped members.  (If that
 sentence made your head hurt, welcome to my world.)  Fortunately,
 one of our guys (Hal Murray) who is more intimate with the wire format
@@ -121,9 +121,9 @@ so that you don't do a lot of iatrogenic damage moving it forward.
 I'd say the NTPsec team has been lucky not to have broken anything
 while we did all these code transformations, but that's not really
 true. We've been skilled, and we've been careful, and (this is
-important!) we've been good at watching each others' sixes. In the
+important!) we've been good at watching each other's sixes. In the
 story I just told, Hal Murray supplied a missing piece when I was
-stymied, but we've all ridden to each others' rescue more than once.
+stymied, but we've all ridden to each other's rescue more than once.
 That's what it takes to solve a problem as large as NTP.
 
 // end
