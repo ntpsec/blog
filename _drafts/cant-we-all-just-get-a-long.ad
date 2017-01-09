@@ -9,7 +9,7 @@ write our code to the standard implied by POSIX and C99.  This was a
 decision with far-reaching consequences; it freed us to abandon a lot
 of ancient port shims from pre-POSIX Unixes.
 
-It also allowed us to assume the existence of of 64-bit integers as
+It also allowed us to assume the existence of 64-bit integers as
 primitive types. POSIX alone doesn't get you there; it merely mandates
 that _if_ such types exist they must be named int64_t and uint64_t.
 
