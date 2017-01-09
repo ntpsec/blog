@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "TESTFRAME: the epic failure"
-date:   
+date:
 author: ESR
 ---
 If you've been reading the posts here, or the NTPsec-related material
 over on http://esr.ibiblio.org/[my personal blog], you might have
-gotten the impression that the history of NTPsec project has been an
+gotten the impression that the history of the NTPsec project has been an
 uninterrupted movement from strength to strength, repeatedly hitting
 difficult targets and scoring dramatic successes.
 
@@ -46,7 +46,7 @@ an auxiliary program called gpsfake.
 
 Like ntpd, gpsd is a service daemon that consumes incoming communications
 and produces a result that can be logged and monitored.  In gpsd's case
-the communications are serial byte streams from GPses and other devices;
+the communications are serial byte streams from GPSes and other devices;
 the output is a stream of JSON datagrams representing the total take in
 a form convenient for applications, presented on TCP/IP port 2947.
 
@@ -112,10 +112,10 @@ One was what in discussion on the mailing list I later tagged "the
 code-path split".  There are two kinds of NTP hosts; one uses a kernel
 facility known as the "PLL" for doing fine adjustments to the tick
 speed of the system clock, the other kind does not.  Most of our
-potential deployments targets have PLLs; an undismissable minority do
+potential deployment targets have PLLs; an undismissable minority do
 not.
 
-The problem for TESTFRAME's goal of determistic replay is that PLL and
+The problem for TESTFRAME's goal of deterministic replay is that PLL and
 non-PLL ntpd instances are _different_ DFSMs, with different event
 sets; the PLL kind has an I/O event corresponding to an ntp_adjtime(2)
 call, the non-PLL type does not.  The potential code paths split
@@ -140,7 +140,7 @@ points that swamp the benefits you were originally after.
 
 And that's before we get to the 'real' show-stopper, what I now think
 of as the free-variable problem.  It took me too long to see this;
-in my own defense, I plead that I was distracted by the details 
+in my own defense, I plead that I was distracted by the details
 of the network hairball (as well as everything else that was
 going on with the project).
 
