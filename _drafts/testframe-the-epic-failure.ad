@@ -127,7 +127,7 @@ This is a stark contrast with GPSD and reposurgeon.  In both of those
 cases the existence of a single test suite that runs quickly and
 everywhere is a huge help in avoiding breakage during development;
 I run tests on almost every commit and this catches small errors
-before they can metastatize into large ones.
+before they can metastasize into large ones.
 
 In theory, we could work around this by having two parallel test
 suites, one for PLL systems and one for non-PLL ones, and have them
