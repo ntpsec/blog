@@ -11,20 +11,18 @@ decision with far-reaching consequences; it freed us to abandon a lot
 of ancient port shims from pre-POSIX Unixes.
 
 It also allowed us to assume the existence of 64-bit integers as
-primitive types. POSIX alone doesn't get you there; it merely mandates
-that _if_ such types exist they must be named int64_t and uint64_t.
-
-[*** MRA: confusion.  Is it the POSIX standard that specifies the names of
-64 bit ints?  I thought it was the C99 standard that did that.]
+primitive types footnote:[The C99 normative langage on 64-bit scalar
+types is in 7.8.1.2; item 3 requires int_least64_t and uint_least64_t
+to exist]. POSIX alone doesn't get you there; it merely mandates that
+_if_ such types exist they must be named int64_t and uint64_t
+footnote:[The POSIX normative language on 64-bit scalar types is under
+http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdint.h.html[stdint.h]
+in the "Integer Types" section.].
 
 That's a good thing in itself, because it evades some confusion over
 whether 64 bits is 'long' or (in some toolchains) 'long long'.  But in
 order to cash the check implied by that naming convention you need
 C99. Hence, the post title: "Can't we all just get a (64-bit) long?".
-
-[*** MRA: more confusion.  Does this mean that C99 dictates that int64_t and uint64_t
-MUST be present?  I thought that what C99 said was that if they are present, they
-have to have those names.]
 
 That actually matters a good deal for NTP, because NTP does a lot of
 arithmetic and other manipulations on 64-bit timestamps.  These can be
