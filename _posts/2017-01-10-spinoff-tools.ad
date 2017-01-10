@@ -63,7 +63,7 @@ expressive and well-suited to what I was doing - I even managed to make
 natural use of channels, Go's much-hyped concurrency primitive.
 
 (In a future post, I'll describe in more detail what I learned about Go
-and how I evaluate its suitability as an implementation language for C.)
+and how I evaluate its suitability as an implementation language for NTP.)
 
 Documents and HOWTOs can be spinoffs too. NTPsec's big one has been
 the
