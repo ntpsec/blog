@@ -1,0 +1,97 @@
+---
+layout: post
+title:  "Rust vs. Go"
+date:   
+author: ESR
+---
+
+This post is a head-to-head comparison of Rust vs. Go for  NTP's purposes.
+Read it bearing in mind that the NTP codebase has an unusual combination
+of traits - not as hard-core a systems-programming problem as an OS kernel,
+but with some critical regions that are soft realtime.
+
+== Comparisons on individual axes ==
+
+=== Learning curve ===
+
+NTP's potential contributor base is mainly C programmers.  Thus,
+advantage goes to the language with the easier learning curve for that
+population.
+
+Go was actually designed to be an easy tool upgrade for C coders and
+succeeds at that objective.  I was able to become fluent in Go in four
+days from a standing start; four days into Rust I was still struggling
+to even fully understand the data-ownership and object systems, let
+alone apply them. This is +1 for Go.
+
+It doesn't help Rust that it would be a difficult upgrade from
+'anywhere', not just C.  The amount of complexity and ritual required by
+Rust's ownership system is high and there is no other language I know
+of that is really good preparation for it.
+
+=== Translation distance ===
+
+We have 62KLOC of code to move to either language.  That's a lot, and puts
+a premium on ease of hand translation. Go gets +1 here, if only because
+adding Rust's ownership/lifetime annotations to C would be a huge job.
+
+This could reverse, however.  When we're ready to move, one of the first
+things to try will be automated translation to Rust via Corrode.  If that
+works well it will be a big advantage, like a +3, for Rust.
+
+=== Concurrency ===
+
+(Note: this matters to NTP because, though the main algorithms have an
+intrinsically serial rendezvous, we have a need to do DNS lookups with
+potentially arbitrary delays which must therefore run asychronously.)
+
+Rust supports an equivalent of conventional mutexes locking shared
+state via its data-ownership system. It also has an implementation of
+CSP channels.  Go has CSP channels as a core primitive, with also the 
+ability to set up conventional mutex locking through library functions.
+
+Rust's native shared-state/mutex system looks fussy and overcomplicated
+compared to CSP, and its set of primitives is a known defect attractor
+in any language.  While I give the Rust designers credit for
+course-correcting by including CSP, Go got this right the first time
+and their result is better integrated into the core language. This is
++1 for Go.
+
+=== Embedded deployment ===
+
+The zero-overhead abstractions of Rust are obviously better matched to
+deployment on constrained and embedded systems than are Go's runtime
+and fat binaries.  A clear +1 for Rust here.
+
+It is worth noting, however, that Google's business case for fixing
+this in order to use Go as an Android development platform is strong,
+and the Go devteam has articulated this as a future direction. While
+no language with GC will ever be as well matched to embedded as Rust,
+Rust's advantage here may be partly unstable if Google exerts
+sufficient cleverness, and the Go team has a lot of heavy-caliber
+cleverness.
+
+== Latency and soft-realtime performance ==
+
+Again, zero-overhead abstractions and no stop-the-world GC pauses give
+Rust a clear +1.
+
+It is worth noting that Go came nearest disqualifying itself entirely
+here.  If it were not possible to lock out Go's GC in critical regions
+Rust would win by default. If NTP's challenges tilted even a little more
+towards hard real time, or its critical regions were less confined,
+Rust would also win by default.
+
+=== Security and safety ===
+
+Both Rust and Go have strong type systems intended to foreclose the
+kinds of buffer overruns and stale-reference bugs that are endemic
+in C. They take different approaches, with Go leaning on GC and
+more on its RAII-like model of provable correctness.
+
+Rust gets a +1 here, because exposed invariants that you can reason
+about are better than relying on a runtime that you cannot readily
+audit in practice (even though as open source it is possible in
+principle).
+
+// end
