@@ -148,6 +148,13 @@ of high barriers to entry and technical deficiency.  What is worse is
 that Rust's community seems to be unable to fix or even clearly grasp
 these problems.
 
+I think one problem here is the absence of a strong BDFL providing
+tasteful design direction and setting priorities.  The Rust community
+appears to have elected to use the decentralized nature of their crate
+system (which undeniably has some very nice technical properties) to
+execute a swarm attack on the design space around the language.  Which
+is wonderful in theory but seems to be failing in practice.
+
 If NTPsec needs an alternative to Go, the most plausible one is now Erlang.
 
 // end
