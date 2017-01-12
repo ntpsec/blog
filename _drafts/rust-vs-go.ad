@@ -38,13 +38,14 @@ adding Rust's ownership/lifetime annotations to C would be a huge job.
 This could reverse, however.  When we're ready to move, one of the first
 things to try will be automated translation to Rust via Corrode.  If that
 works well it will be a big advantage, like a +3, for Rust.  But it could
-reverse again if Go's unnamed, undocumented translator-from-C.
+reverse again if Go's unnamed, undocumented translator-from-C becomes
+available.
 
 === Concurrency ===
 
 (Note: this matters to NTP because, though the main algorithms have an
 intrinsically serial rendezvous, we have a need to do DNS lookups with
-potentially arbitrary delays which must therefore run asychronously.)
+potentially arbitrary delays which must therefore run asynchronously.)
 
 Rust supports an equivalent of conventional mutexes locking shared
 state via its data-ownership system. It also has an implementation of
@@ -66,7 +67,7 @@ and fat binaries.  A clear +1 for Rust here.
 
 It is worth noting, however, that Google's business case for fixing
 this in order to use Go as an Android development platform is strong,
-and the Go devteam has articulated this as a future direction. While
+and the Go dev team has articulated this as a future direction. While
 no language with GC will ever be as well matched to embedded as Rust,
 Rust's advantage here may be partly unstable if Google exerts
 sufficient cleverness, and the Go team has a lot of heavy-caliber
