@@ -37,7 +37,8 @@ adding Rust's ownership/lifetime annotations to C would be a huge job.
 
 This could reverse, however.  When we're ready to move, one of the first
 things to try will be automated translation to Rust via Corrode.  If that
-works well it will be a big advantage, like a +3, for Rust.
+works well it will be a big advantage, like a +3, for Rust.  But it could
+reverse again if Go's unnamed, undocumented translator-from-C.
 
 === Concurrency ===
 
@@ -86,7 +87,7 @@ Rust would also win by default.
 
 Both Rust and Go have strong type systems intended to foreclose the
 kinds of buffer overruns and stale-reference bugs that are endemic
-in C. They take different approaches, with Go leaning on GC and
+in C. They take different approaches, with Go leaning on GC and Rust
 more on its RAII-like model of provable correctness.
 
 Rust gets a +1 here, because exposed invariants that you can reason
