@@ -12,6 +12,10 @@ realtime.
 
 == Comparisons on individual axes ==
 
+This is an outside view, written after I had programming experience in
+Go but before I had any in Rust. The Rust parts of this section are
+therefore theory extracted from the documentation.
+
 === Learning curve ===
 
 NTP's potential contributor base is mainly C programmers.  Thus,
@@ -95,5 +99,55 @@ Rust gets a +1 here, because exposed invariants that you can reason
 about are better than relying on a runtime that you cannot readily
 audit in practice (even though as open source it is possible in
 principle).
+
+== The view from inside Rust ==
+
+My chosen learning project in Rust was to write a simple IRC server.
+As a service daemon with no real-time requirements written around
+a state machine of the kind I can code practically in my sleep,
+I thought this would make a good warmup for NTP.
+
+I wrote the following summary four days into the attempt...
+
+In practice, I found Rust painful to the point of unusability.  The
+learning curve was far worse than I expected; it took me those four
+days of struggling with inadequate documentation to write 67 lines of
+wrapper code for the server.
+
+Even things that should be dirt-simple, like string concatenation,
+are unreasonably difficult.  The language demands a huge amount of
+fussy, obscure ritual before you can get anything done.
+
+The contrast with Go is extreme. By four days in of exploring Go I had
+mastered most of the language, had a working program and tests, and
+was adding features to taste.
+
+Then I found out that a feature absolutely critical for writing
+network servers is plain missing from Rust. Contemplate this bug
+report: https://github.com/rust-lang/rust/issues/14961[Is there some
+API like "select/poll/epoll_wait"?] and get a load of this answer:
+
+[quote]
+We do not currently have an epoll/select abstraction. The current answer
+is "spawn a task per socket". 
+
+Upon https://github.com/rust-lang/rust/issues/27800[further
+investigation] I found that there are no proposals to actually fix
+this problem in the core language. The comments acknowledge that there
+are a welter of half-solutions in third-party crates but describe no
+consensus about which to adopt.
+
+Not only that, but it seems the CSP implementation in Rust - the most
+tractable concurrency primitive - has limits that make it unusable for
+our purposes (only selection over a static set of channels is
+possible) and there is some danger that it might be removed entirely!
+
+I have discovered that Rust is not, or not yet, a language suitable
+for long-term infrastructure work.  It suffers from a damning combination
+of high barriers to entry and technical deficiency.  What is worse is
+that Rust's community seems to be unable to fix or even clearly grasp
+these problems.
+
+If NTPsec needs an alternative to Go, the most plausible one is now Erlang.
 
 // end
