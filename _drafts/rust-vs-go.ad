@@ -137,24 +137,45 @@ this problem in the core language. The comments acknowledge that there
 are a welter of half-solutions in third-party crates but describe no
 consensus about which to adopt.
 
-Not only that, but it seems the CSP implementation in Rust - the most
-tractable concurrency primitive - has limits that make it unusable for
-our purposes (only selection over a static set of channels is
-possible) and there is some danger that it might be removed entirely!
+After publishing a version of this critique http://esr.ibiblio.org/?p=7294[on
+my personal blog] I learned a good deal more from various thoughtful members
+of the Rust community (as well as attracting a lot of flamage from some less
+thoughtful members).
 
-I have discovered that Rust is not, or not yet, a language suitable
-for long-term infrastructure work.  It suffers from a damning combination
-of high barriers to entry and technical deficiency.  What is worse is
-that Rust's community seems to be unable to fix or even clearly grasp
-these problems.
+At the present time, the following problems - acknowledged by those more
+thoughtful Rustaceans - make Rust unsuitable as an implementation language
+for NTP:
 
-I think one problem here is the absence of a strong BDFL providing
-tasteful design direction and setting priorities.  The Rust community
-appears to have elected to use the decentralized nature of their crate
-system (which undeniably has some very nice technical properties) to
-execute a swarm attack on the design space around the language.  Which
-is wonderful in theory but seems to be failing in practice.
+* The language is not yet mature enough to present a core API that can be
+  expected to be stable over 10-year timescales.
 
-If NTPsec needs an alternative to Go, the most plausible one is now Erlang.
+* As a special case of the previous point, primitives required for NTP
+  such as select/epoll are not yet a stable part of the language.
+  While implementations exist in the crate system, there is not yet
+  any guarantee that any of the alternatives will be maintained over
+  10-year timescales.
+
+* The language documentation describes the Rust compiler well, but
+  fails to bridge the explanatory gap to parts of the crate system
+  vitally needed to use the language as a production tool.
+
+These problems seem to reflect a social/philosophical confusion in the
+Rust community about whether and when they will "bless" crates,
+designating them as part of a core API with stability guarantees.
+Rust has a Conway's Law problem: the decentralized structure of the
+crate system tends to discourage making this kind of commitment at all.
+
+Additionally, the core language has a serious learning-curve problem
+that present documentation and tutorials don't address effectively
+enough.  Relatedly, the friction cost of important features like the
+borrow checker is pretty high.  This would translate into continuing
+barriers to entry for NTP developers.
+
+There's some question as to whether this game is worth the candle.
+Rust's theory and its focus on zero-overhead abstractions make sense
+for hard-realtime applications or an OS kernel; it is much less
+clear that this is the right emphasis for writing network service
+daemons, even daemons with soft-realtime critical regions like NTP
+implementations.
 
 // end
