@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Rust vs. Go"
-date:   
+date:
 author: ESR
 ---
 This post is a head-to-head comparison of Rust vs. Go for NTPsec's
@@ -35,7 +35,7 @@ of that is really good preparation for it.
 
 === Translation distance ===
 
-We have 62KLOC of code to move to either language.  That's a lot, and puts
+We have 62KLOC to move to either language.  That's a lot, and puts
 a premium on ease of hand translation. Go gets +1 here, if only because
 adding Rust's ownership/lifetime annotations to C would be a huge job.
 
@@ -53,7 +53,7 @@ potentially arbitrary delays which must therefore run asynchronously.)
 
 Rust supports an equivalent of conventional mutexes locking shared
 state via its data-ownership system. It also has an implementation of
-CSP channels.  Go has CSP channels as a core primitive, with also the 
+CSP channels.  Go has CSP channels as a core primitive, with also the
 ability to set up conventional mutex locking through library functions.
 
 Rust's native shared-state/mutex system looks fussy and overcomplicated
@@ -129,7 +129,7 @@ API like "select/poll/epoll_wait"?] and get a load of this answer:
 
 [quote]
 We do not currently have an epoll/select abstraction. The current answer
-is "spawn a task per socket". 
+is "spawn a task per socket".
 
 Upon https://github.com/rust-lang/rust/issues/27800[further
 investigation] I found that there are no proposals to actually fix
