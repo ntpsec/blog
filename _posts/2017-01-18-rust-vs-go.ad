@@ -200,4 +200,10 @@ only the IRC-protocol state machine to be done.
 The lesson is extremely clear. Go is a better fit for our requirements
 than Rust. It's not even close.
 
+UPDATE: I do not mean to imply that I think Rust is generally useless.
+It's still immature, but I think a mature version could be quite
+effective for some niches I have already implied: hard realtime, OS
+kernels, and especially firmware with very high assurance requirements
+such as aerospace and medical that justify the high effort.
+
 // end
