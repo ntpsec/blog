@@ -192,7 +192,7 @@ implementations.
 == Conclusion ==
 
 For comparison, I switched from Rust to Go and, in the same amount of
-time I had spent stuggling to make even a <100 LOC partial
+time I had spent struggling to make even a <100 LOC partial
 implementation work, was able to write and test the entire exterior of
 an IRC server - all the socket-fu and concurrency handling - leaving
 only the IRC-protocol state machine to be done.
