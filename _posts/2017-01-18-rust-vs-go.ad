@@ -174,7 +174,7 @@ crate system tends to discourage making this kind of commitment at all.
 Go has a not entirely dissimilar package system, but the Go designers
 made an early choices to define a set of core modules much more
 extensive than Rust's - one which does include, in particular, all
-the primitives required to implement ntework service daemons. 
+the primitives required to implement network service daemons. 
 
 Additionally, the core Rust language has a serious learning-curve problem
 that present documentation and tutorials don't address effectively
