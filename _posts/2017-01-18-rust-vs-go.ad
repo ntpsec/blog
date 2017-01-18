@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Rust vs. Go"
-date:
+date: 2017-01-18 14:55:02
 author: ESR
 ---
 This post is a head-to-head comparison of Rust vs. Go for NTPsec's
@@ -14,7 +14,8 @@ realtime.
 
 This is an outside view, written after I had programming experience in
 Go but before I had any in Rust. The Rust parts of this section are
-therefore theory extracted from the documentation.
+therefore theory extracted from the documentation.  The section after
+this one includes a report from practice.
 
 === Learning curve ===
 
@@ -109,14 +110,14 @@ I thought this would make a good warmup for NTP.
 
 I wrote the following summary four days into the attempt...
 
-In practice, I found Rust painful to the point of unusability.  The
+In practice, I found Rust painful to the point of near unusability.  The
 learning curve was far worse than I expected; it took me those four
 days of struggling with inadequate documentation to write 67 lines of
 wrapper code for the server.
 
-Even things that should be dirt-simple, like string concatenation,
-are unreasonably difficult.  The language demands a huge amount of
-fussy, obscure ritual before you can get anything done.
+Even things that should be dirt-simple in Rust, like string
+concatenation, are unreasonably difficult.  The language demands a
+huge amount of fussy, obscure ritual before you can get anything done.
 
 The contrast with Go is extreme. By four days in of exploring Go I had
 mastered most of the language, had a working program and tests, and
@@ -159,13 +160,23 @@ for NTP:
   fails to bridge the explanatory gap to parts of the crate system
   vitally needed to use the language as a production tool.
 
+* More generally, a lot of crucial information about the language in
+  practice is not yet documented at all; you have to be part of the
+  swarm around the development group and follow their communications
+  channels to learn it.
+
 These problems seem to reflect a social/philosophical confusion in the
 Rust community about whether and when they will "bless" crates,
 designating them as part of a core API with stability guarantees.
 Rust has a Conway's Law problem: the decentralized structure of the
 crate system tends to discourage making this kind of commitment at all.
 
-Additionally, the core language has a serious learning-curve problem
+Go has a not entirely dissimilar package system, but the Go designers
+made an early choices to define a set of core modules much more
+extensive than Rust's - one which does include, in particular, all
+the primitives required to implement ntework service daemons. 
+
+Additionally, the core Rust language has a serious learning-curve problem
 that present documentation and tutorials don't address effectively
 enough.  Relatedly, the friction cost of important features like the
 borrow checker is pretty high.  This would translate into continuing
@@ -177,5 +188,16 @@ for hard-realtime applications or an OS kernel; it is much less
 clear that this is the right emphasis for writing network service
 daemons, even daemons with soft-realtime critical regions like NTP
 implementations.
+
+== Conclusion ==
+
+For comparison, I switched from Rust to Go and, in the same amount of
+time I had spent stuggling to make even a <100 LOC partial
+implementation work, was able to write and test the entire exterior of
+an IRC server - all the socket-fu and concurrency handling - leaving
+only the IRC-protocol state machine to be done.
+
+The lesson is extremely clear. Go is a better fit for our requirements
+than Rust. It's not even close.
 
 // end
