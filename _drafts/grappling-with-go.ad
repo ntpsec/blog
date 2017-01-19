@@ -4,19 +4,21 @@ title:  "Grappling with Go"
 date:   
 author: ESR
 ---
-FIXME: This needs to ship *after* spinoff-tools and getting-past-c,
-with the links filled in.
-
 In a previous blog post, I observed that one of the medium-term
 possibilities we're seriously considering for NTPsec is moving the
 entire codebase out of C.  I continued that the two languages we're
 looking at hard are Rust and Go.  Then, in another blog post, I
 revealed the existence of a Go port of David Wheeler's slloccount
-tool.
+tool.  In a third, I described my rather frustrating experience with
+Rust.
 
-In this post I'm going to get a bit deeper into Go, loccount, my
+In this post I'm going to get a bit deeper into Go, loccount, my first
 learning experience with the language, and Go's potential suitability
 for what we're doing at NTPsec.
+
+Note this piece is being published out of order of events - I actually
+wrote it well before my Rust vs. Go post, which I shipped early partly in
+response to the Rust discussion over on my personal blog.
 
 I think writing toy programs - conscious finger exercises - are a
 terrible way to learn a new language. They're boring, and they don't
@@ -238,23 +240,19 @@ the benefits of Go they need to be able to deploy on Android, and we
 know this _is_ a use case the Go developers pay attention.  NTPsec probably
 won't need to be able to deploy on embedded faster than Google needs to.
 
-A more immediate problem is that Go has no equivalent of Rust's C-to-Rust
-translator, Corrode. There is a C to Go translator that their
-development team wrote to move the Go compiler from C to Go, but it's
-undocumented and surrounded by danger warnings.
+Since writing most of the preceding I have also implemented the outer
+parts of an IRC server in Go - all the socket handling and multiplex I/O,
+basically everything but the IRC protocol state machine itself. As a
+network service daemon, this is architecturally much closer to ntpd
+than loccount was. You can clone the result from here:
 
-While hand translation of our 62KLOC is almost certainly feasible, the
-prospect of having to do it seriously weakens Go's competitive
-position against Rust - if Corrode actually works well.  We don't know
-that yet, and it will need to be tested.
+------------------------------------------------
+git@git.binaryredneck.net:p/ircsome/ircsome
+------------------------------------------------
+
+It's only 358 lines in Go, which is rather impressive.
 
 In conclusion, I judge that while Go has some minor liabilities it is
-quite suitable as an implementation language for ntpd.  Whether it is
-_more_ suitable than its potential competition (Rust) is dependent on
-enough unknowns that at this point I wouldn't even hazard a guess.
-
-At some future time I will doubtless be posting a parallel evaluation
-of Rust with respect to NTPsec's needs. Then, we shall see what we
-shall see.
+quite suitable as an implementation language for ntpd.
 
 // end
