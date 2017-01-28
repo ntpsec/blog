@@ -1,0 +1,71 @@
+---
+layout: post
+title:  "Heat it Up"
+date:   
+author: GEM
+---
+
+In my previous post, I introduced +ntpviz+, a way to quantify and visualize
+what ntpd is doing.  The graphs immediately made obvious that some externality
+was degrading ntpd accuracy.  Experimentation showed the wild card
+was temperature.  This post will show how to measure and graph temperature
+and illuminate its affects on NTP performance.
+
+== Measure it ==
+
+Before wa can understand temperature effects we must gather temperature
+data.  Keane Wolter recently added a program to the contrib directory that
+greatly simplifies this task.  +temp-log+ automatically gathers data
+four different sources and logs it to a file that can be used by +ntpviz+.
+
+When the +temp-log+ man page is available it will document the potential
+temperature choices.  For now, you just need to know how to run it.  Easy,
+as the ntpuser, just run this:
+
+----
+export FILE=/var/log/ntpstats/temps
+/usr/local/src/NTP/ntpsec/contrib/temp-log.py -l  ${FILE} -w 300 &
+----
+
+That will log available temperatures to a file that ntpviz will automatically
+use with no further configuration.  Congratulate yourself, check your "ntpviz+
+lots tommorrow.
+
+== Previously on... ==
+
+Now might be a time to re-read the description in my last post of
+the temperature here: https://blog.ntpsec.org/2016/12/19/ntpviz-intro.html#so-much-data
+
+To summarize: CPU load spikes and room temperature seemed to correlate with
+aberations in the system clock.  But without temperature data it might
+have been just wishful thinking.  Thus the need to collect temperature data.
+
+== Correlation, not Causation ==
+
+Here is a lot of Local Frequency Offset and ZONE0 temperature.
+
+pi2-local-freq-temps.png
+
+ZONE0 is the temperature sensor inside most CPUs.  The drop in both
+graphs from 06:00Z to 13:00Z is night time when the room heat was off.
+The spikes at 23 minutes after the hour, each hour, are largish cron
+jobs.
+
+The summary data for that plot:
+
+----
+
+	Percentiles...... 	Ranges...... 		
+Name 	Min	1%	5%	50%	95% 	99%	Max 	  	90%	95%	StdDev 	 	Mean	Units
+Local Clock Frequency Offset	-3.065	-3.020	-2.867	-1.537	-1.286	-1.126	-0.644		1.581	1.894	0.511		-1.758	ppm
+Temp ZONE0	32.552	33.089	33.628	37.932	40.084	42.236	44.388		6.456	9.147	1.882		37.209	°C
+----
+
+== zero TC ==
+
+== makeheat ==
+
+== results ==
+
+
+// end
