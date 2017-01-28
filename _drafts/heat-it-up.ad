@@ -31,7 +31,7 @@ That will log available temperatures to a file that ntpviz will automatically
 use with no further configuration.  Congratulate yourself, check your "ntpviz+
 lots tommorrow.
 
-== Previously on... ==
+== Unexplained squigles ==
 
 Now might be a time to re-read the description in my last post of
 the temperature here: https://blog.ntpsec.org/2016/12/19/ntpviz-intro.html#so-much-data
@@ -40,32 +40,125 @@ To summarize: CPU load spikes and room temperature seemed to correlate with
 aberations in the system clock.  But without temperature data it might
 have been just wishful thinking.  Thus the need to collect temperature data.
 
-== Correlation, not Causation ==
+This is a New Year, so this is a new plot of time and frequncy offsets:
+
+image::/assets/24Jan-local-offset.png[]
 
 Here is a lot of Local Frequency Offset and ZONE0 temperature.
 
-pi2-local-freq-temps.png
+image::/assets/24Jan-local-freq-temps.png[]
 
 ZONE0 is the temperature sensor inside most CPUs.  The drop in both
-graphs from 06:00Z to 13:00Z is night time when the room heat was off.
+graphs from 08:00Z to 13:00Z is night time when the room heat was off.
 The spikes at 23 minutes after the hour, each hour, are largish cron
 jobs.
 
-The summary data for that plot:
+The summary data for those plots:
 
 ----
+		Percentiles......
+		Min	1%	5%	50%	95% 	99%	Max
+Local Clock Time Offset	-9.463	-1.181	-0.709	-0.050	0.493	4.324	8.128
+Local Clock Frequency Offset	-4.366	-4.337	-4.279	-3.606	-2.764	-2.659	-2.482
+Temp ZONE0	42.932	42.932	43.470	46.160	49.388	49.388	54.230
 
-	Percentiles...... 	Ranges...... 		
-Name 	Min	1%	5%	50%	95% 	99%	Max 	  	90%	95%	StdDev 	 	Mean	Units
-Local Clock Frequency Offset	-3.065	-3.020	-2.867	-1.537	-1.286	-1.126	-0.644		1.581	1.894	0.511		-1.758	ppm
-Temp ZONE0	32.552	33.089	33.628	37.932	40.084	42.236	44.388		6.456	9.147	1.882		37.209	°C
+ 		Ranges...... 		
+		90%	95%	StdDev 	 	Mean	Units
+Local Clock Time Offset	1.202	5.505	0.763		-0.002	µs
+Local Clock Frequency Offset	1.515	1.678	0.513		-3.581	ppm
+Temp ZONE0	5.918	6.456	2.004		45.992	°C
 ----
+
+Basically this Raspberry Pi 3 can hold its Local Time Offset to a Standard
+Deviation of about 0.7 µs and its Frequency to about 0.5 ppm.
 
 == zero TC ==
 
+The math of how temperature changes frequency in a crystal is complex.
+It depends on many varaibles.  Some important ones are how the cystal
+was cut, how it is excited, and even how long the crystal has aged.  So
+there is no easy way to correct for it in software.
+
+As you can see from the above plots, the crytstal speeds up when the
+temperature increases.  Achim Gratz recently used a Raspberry Pi to show
+that as you heat up the crystal to a temperature T0 that the temperature
+affects the the frequency less and less.  As you continue to heat up the
+past T0 the temperature dependence returns.
+
+This magic temperature T0 is called the 'zero Temperature Coeficient'
+point, abbreviated zero TC.  In Achim's case zero TC was when his CPU
+temperature was 60C.  The crystal is on the flip side of the PCB board
+so the actual crystal zero TC is not known.
+
+This has a simple application to NTP time keeping.  If we can heat up
+our NTP server it becomes less influences by temperature fluctuations
+and so performs better.
+
+== So What ==
+
+Very interesting you may be thinking, but so what?  You do not have
+a laboratory oven and your significant other will likely complain if
+you heat up your server room to 60C.
+
+But you only need to heat up the Raspberry Pi, not your room.  Most people
+put heat sinks on their CPUs, Achim just put his CPU in a bubble wrap
+mailing envelope.  The results are immediately obvious and good.
+
+image::/assets/27Jan-local-offset.png[]
+
+Before 22:00Z the Rasperry Pi was open to room air.  At 22:00 the board
+was placed in the envelope.  At about 05:00Z the CPU wa stabilized at
+60C.
+
+As the temperature increased the local time and frequency offsets
+stabilized.  The envelope reduced time spike by 30%.  Elevating to 60C
+made even more of an improvement.
+
+If you do nothing else today, put your Raspberry Pi in an envelope.
+
 == makeheat ==
+
+Achim's second good idea was to run a simple program on Raspberry Pi to
+hold the CPU tp 60C.  I have written a new program +makeheat+ and placed
+it i nthe contrib directory to replicate his program.  You do not even 
+need to be root to run it:
+
+----
+./makeheat -t 60 &
+----
+
+The program will run on the background and try to hold your CPU at 60C.
 
 == results ==
 
+The results of these two simple changes are clear.
+
+The plot of time and frequncy offsets:
+
+image::/assets/28Jan-local-offset.png[]
+
+Here is a lot of Local Frequency Offset and ZONE0 temperature.
+
+image::/assets/28Jan-local-freq-temps.png[]
+
+----
+		Percentiles......
+		Min	1%	5%	50%	95% 	99%	Max
+Local Clock Time Offset		-9.088	-0.588	-0.350	-0.011	0.342	1.297	3.888
+Local Clock Frequency Offset	-1.192	-1.170	-1.126	-0.985	-0.873	-0.848	-0.750	
+Temp ZONE0	59.072	59.072	59.072	59.610	60.148	63.376	63.914		1.076
+
+ 		Ranges...... 		
+		90%	95%	StdDev 	 	Mean	Units
+Local Clock Time Offset	0.692	1.885	0.350		-0.001	µs
+Local Clock Frequency Offset	0.253	0.322	0.073		-0.985	ppm
+Temp ZONE0	1.076	4.304	0.651		59.718	°C
+----
+
+The CPU temperature is now held to a Standard Deviation of 0.7 °C, the
+local time offset to 0.35 µs and the local frequency offset to 0.073 ppm.
+
+That is an improvement of 2x in time and almost 7x in frequency!  Amazing
+what a little bubble wrap can do.
 
 // end
