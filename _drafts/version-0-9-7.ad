@@ -1,11 +1,12 @@
 ---
 layout: post
 title:  "Version 0.9.7"
-date:   
+date:   2017-01-28 00:30:00 -0000
 ---
+
 The NTPsec Project is pleased to announce the tagging of version 0.9.7.
 
-[announced differences, changes, and improvments go here. look at the .../NEWS file in the ntpsec repo]
+announced differences, changes, and improvments go here. look at the .../NEWS file in the ntpsec repo
 
 As always, you can download the release tarballs with sums and signatures
 from ftp://ftp.ntpsec.org/pub/releases/
