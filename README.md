@@ -28,7 +28,7 @@ To work locally with this project, you'll have to follow the steps below:
 * [Install][] Jekyll.  Your OS may have a package; Ubuntu's is "jekyll".
 * Install the jekyll-asciidoc gem.  `sudo gem install jekyll-asciidoc`
 * Generate the website: `jekyll build --drafts -d public`
-* Preview your project: `jekyll serve`
+* Preview your project: `jekyll serve --drafts`
 * Add content
 
 Read more at Jekyll's [documentation][].
