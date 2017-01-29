@@ -13,14 +13,16 @@ and illuminate its affects on NTP performance.
 
 == Measure it ==
 
-Before wa can understand temperature effects we must gather temperature
-data.  Keane Wolter recently added a program to the contrib directory that
-greatly simplifies this task.  +temp-log+ automatically gathers data
-four different sources and logs it to a file that can be used by +ntpviz+.
+Before we can understand temperature effects we must gather temperature
+data.  Keane Wolter recently added a program to the contrib/ directory
+that greatly simplifies this task. +temp-log+ automatically gathers data
+four different types of sources and logs it to a file that can be used
+by +ntpviz+.
 
 When the +temp-log+ man page is available it will document the potential
 temperature choices.  For now, you just need to know how to run it.  Easy,
-as the ntpuser, just run this:
+root is not required.  The user just needs to be able to write to
+your ntpd logs directory.  Usually this is the user ntpuser.  Just run this:
 
 ----
 export FILE=/var/log/ntpstats/temps
@@ -28,27 +30,28 @@ export FILE=/var/log/ntpstats/temps
 ----
 
 That will log available temperatures to a file that ntpviz will automatically
-use with no further configuration.  Congratulate yourself, check your "ntpviz+
-lots tommorrow.
+use with no further configuration.  Congratulate yourself, check your +ntpviz+
+lots tomorrow.
 
-== Unexplained squigles ==
+== Unexplained squiggles ==
 
 Now might be a time to re-read the description in my last post of
 the temperature here: https://blog.ntpsec.org/2016/12/19/ntpviz-intro.html#so-much-data
 
 To summarize: CPU load spikes and room temperature seemed to correlate with
-aberations in the system clock.  But without temperature data it might
+aberrations in the system clock.  But without temperature data it might
 have been just wishful thinking.  Thus the need to collect temperature data.
 
-This is a New Year, so this is a new plot of time and frequncy offsets:
+This is a New Year, so here is a new plot of time and frequency offsets.  
+Taken from a plain Raspberry Pi 3 with a GPS HAT.
 
 image::/assets/24Jan-local-offset.png[]
 
-Here is a lot of Local Frequency Offset and ZONE0 temperature.
+And a matching plot of Local Frequency Offset and ZONE0 temperature.
 
 image::/assets/24Jan-local-freq-temps.png[]
 
-ZONE0 is the temperature sensor inside most CPUs.  The drop in both
+ZONE0 is the temperature sensor inside most CPU's.  The drop in both
 graphs from 08:00Z to 13:00Z is night time when the room heat was off.
 The spikes at 23 minutes after the hour, each hour, are largish cron
 jobs.
@@ -75,19 +78,19 @@ Deviation of about 0.7 µs and its Frequency to about 0.5 ppm.
 == zero TC ==
 
 The math of how temperature changes frequency in a crystal is complex.
-It depends on many varaibles.  Some important ones are how the cystal
+It depends on many variables.  Some important ones are how the Crystal
 was cut, how it is excited, and even how long the crystal has aged.  So
 there is no easy way to correct for it in software.
 
-As you can see from the above plots, the crytstal speeds up when the
+As you can see from the above plots, the crystal speeds up when the
 temperature increases.  Achim Gratz recently used a Raspberry Pi to show
 that as you heat up the crystal to a temperature T0 that the temperature
 affects the the frequency less and less.  As you continue to heat up the
 past T0 the temperature dependence returns.
 
-This magic temperature T0 is called the 'zero Temperature Coeficient'
-point, abbreviated zero TC.  In Achim's case zero TC was when his CPU
-temperature was 60C.  The crystal is on the flip side of the PCB board
+This magic temperature T0 is called the 'zero Temperature Coefficient'
+point, abbreviated zero TC.  In Achim's case zero TC is when his CPU
+temperature is 60C.  The crystal is on the flip side of the PCB board
 so the actual crystal zero TC is not known.
 
 This has a simple application to NTP time keeping.  If we can heat up
@@ -101,13 +104,13 @@ a laboratory oven and your significant other will likely complain if
 you heat up your server room to 60C.
 
 But you only need to heat up the Raspberry Pi, not your room.  Most people
-put heat sinks on their CPUs, Achim just put his CPU in a bubble wrap
+put heat sinks on their CPU's, Achim just put his CPU in a bubble wrap
 mailing envelope.  The results are immediately obvious and good.
 
 image::/assets/27Jan-local-offset.png[]
 
-Before 22:00Z the Rasperry Pi was open to room air.  At 22:00 the board
-was placed in the envelope.  At about 05:00Z the CPU wa stabilized at
+Before 22:00Z the Raspberry Pi was open to room air.  At 22:00 the board
+was placed in the envelope.  At about 05:00Z the CPU stabilized at
 60C.
 
 As the temperature increased the local time and frequency offsets
@@ -118,9 +121,9 @@ If you do nothing else today, put your Raspberry Pi in an envelope.
 
 == makeheat ==
 
-Achim's second good idea was to run a simple program on Raspberry Pi to
-hold the CPU tp 60C.  I have written a new program +makeheat+ and placed
-it i nthe contrib directory to replicate his program.  You do not even 
+Achim's second good idea was to run a simple program on the Raspberry Pi to
+hold the CPU to 60C.  I have written a new program +makeheat+ and placed
+it in the contrib directory to replicate his program.  You do not even 
 need to be root to run it:
 
 ----
@@ -131,13 +134,12 @@ The program will run on the background and try to hold your CPU at 60C.
 
 == results ==
 
-The results of these two simple changes are clear.
-
-The plot of time and frequncy offsets:
+The results of these two simple changes are clear.  The plot of time and
+frequency offsets:
 
 image::/assets/28Jan-local-offset.png[]
 
-Here is a lot of Local Frequency Offset and ZONE0 temperature.
+Here is the matching plot of Local Frequency Offset and ZONE0 temperature.
 
 image::/assets/28Jan-local-freq-temps.png[]
 
