@@ -36,7 +36,7 @@ lots tomorrow.
 == Unexplained squiggles ==
 
 Now might be a time to re-read the description in my last post of
-the temperature here: https://blog.ntpsec.org/2016/12/19/ntpviz-intro.html#so-much-data
+the temperature here: https://blog.ntpsec.org/2016/12/19/ntpviz-intro.html#so-much-data[So Much Data]
 
 To summarize: CPU load spikes and room temperature seemed to correlate with
 aberrations in the system clock.  But without temperature data it might
@@ -58,19 +58,24 @@ jobs.
 
 The summary data for those plots:
 
-----
-		Percentiles......
-		Min	1%	5%	50%	95% 	99%	Max
-Local Clock Time Offset	-9.463	-1.181	-0.709	-0.050	0.493	4.324	8.128
-Local Clock Frequency Offset	-4.366	-4.337	-4.279	-3.606	-2.764	-2.659	-2.482
-Temp ZONE0	42.932	42.932	43.470	46.160	49.388	49.388	54.230
+.Percentiles
+[format="csv", options="header"]
+|===
+ ,Min,1% ,5%, 50%, 95%, 99%, Max
+Local Clock Time Offset,-9.463,-1.181,-0.709,-0.050,0.493,4.324,8.128
+Local Clock Frequency Offset,-4.366,-4.337,-4.279,-3.606,-2.764,-2.659,-2.482
+Temp ZONE0,42.932,42.932,43.470,46.160,49.388,49.388,54.230
+|===
 
- 		Ranges...... 		
-		90%	95%	StdDev 	 	Mean	Units
-Local Clock Time Offset	1.202	5.505	0.763		-0.002	µs
-Local Clock Frequency Offset	1.515	1.678	0.513		-3.581	ppm
-Temp ZONE0	5.918	6.456	2.004		45.992	°C
-----
+
+.Ranges
+[format="csv", options="header"]
+|===
+ ,90% ,95% ,StdDev ,Mean ,Units
+Local Clock Time Offset,1.202,5.505,0.763,,-0.002,µs
+Local Clock Frequency Offset,1.515,1.678,0.513,-3.581,ppm
+Temp ZONE0,5.918,6.456,2.004,45.992,°C
+|===
 
 Basically this Raspberry Pi 3 can hold its Local Time Offset to a Standard
 Deviation of about 0.7 µs and its Frequency to about 0.5 ppm.
@@ -93,9 +98,13 @@ point, abbreviated zero TC.  In Achim's case zero TC is when his CPU
 temperature is 60C.  The crystal is on the flip side of the PCB board
 so the actual crystal zero TC is not known.
 
+The math and physics of crystals gets complicated.  If you want
+to dive into the theory this is a good paper on
+ http://www.ieee-uffc.org/frequency-control/learning-vig.asp?chapter=vigstatc[Static Frequency versus Temperature Stability]
+
 This has a simple application to NTP time keeping.  If we can heat up
-our NTP server it becomes less influences by temperature fluctuations
-and so performs better.
+our NTP server, to the zero TC point, it becomes less influences by
+temperature fluctuations and so performs better.
 
 == So What ==
 
@@ -132,7 +141,7 @@ need to be root to run it:
 
 The program will run on the background and try to hold your CPU at 60C.
 
-== results ==
+== Results ==
 
 The results of these two simple changes are clear.  The plot of time and
 frequency offsets:
@@ -143,19 +152,23 @@ Here is the matching plot of Local Frequency Offset and ZONE0 temperature.
 
 image::/assets/28Jan-local-freq-temps.png[]
 
-----
-		Percentiles......
-		Min	1%	5%	50%	95% 	99%	Max
-Local Clock Time Offset		-9.088	-0.588	-0.350	-0.011	0.342	1.297	3.888
-Local Clock Frequency Offset	-1.192	-1.170	-1.126	-0.985	-0.873	-0.848	-0.750	
-Temp ZONE0	59.072	59.072	59.072	59.610	60.148	63.376	63.914		1.076
+.Percentiles
+[format="csv", options="header"]
+|===
+ ,Min,1% ,5%, 50%, 95%, 99%, Max
+Local Clock Time Offset, -9.088, -0.588, -0.350, -0.011, 0.342, 1.297, 3.888
+Local Clock Frequency Offset, -1.192, -1.170, -1.126, -0.985, -0.873, -0.848, -0.750
+Temp ZONE0, 59.072, 59.072, 59.072, 59.610, 60.148, 63.376, 63.914
+|===
 
- 		Ranges...... 		
-		90%	95%	StdDev 	 	Mean	Units
-Local Clock Time Offset	0.692	1.885	0.350		-0.001	µs
-Local Clock Frequency Offset	0.253	0.322	0.073		-0.985	ppm
-Temp ZONE0	1.076	4.304	0.651		59.718	°C
-----
+.Ranges
+[format="csv", options="header"]
+|===
+ ,90% ,95% ,StdDev ,Mean ,Units
+Local Clock Time Offset, 0.692, 1.885, 0.350, -0.001, µs
+Local Clock Frequency Offset, 0.253, 0.322, 0.073, -0.985, ppm
+Temp ZONE0, 1.076, 4.304, 0.651, 59.718, °C
+|===
 
 The CPU temperature is now held to a Standard Deviation of 0.7 °C, the
 local time offset to 0.35 µs and the local frequency offset to 0.073 ppm.
