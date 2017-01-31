@@ -5,21 +5,22 @@ date:   2017-01-28 00:30:00 -0000
 author: GEM
 ---
 
-In my previous post, I introduced +ntpviz+, a way to quantify and visualize
-what ntpd is doing.  The graphs immediately made obvious that some externality
-was degrading ntpd accuracy.  Experimentation showed the wild card
-was temperature.  This post will show how to measure and graph temperature
-and illuminate its affects on NTP performance.
+In my previous post, I introduced *+ntpviz+*, a way to quantify and
+visualize what *+ntpd+* is doing.  The graphs immediately made obvious
+that some externality was degrading *+ntpd+* accuracy.  Experimentation
+showed the wild card was temperature.  This post will show how to
+measure and graph temperature and illuminate its affects on NTP
+performance.
 
 == Measure it ==
 
 Before we can understand temperature effects we must gather temperature
 data.  Keane Wolter recently added a program to the contrib/ directory
-that greatly simplifies this task. +temp-log+ automatically gathers data
+that greatly simplifies this task. *+temp-log+* automatically gathers data
 four different types of sources and logs it to a file that can be used
-by +ntpviz+.
+by *+ntpviz+*.
 
-When the +temp-log+ man page is available it will document the potential
+When the *+temp-log+* man page is available it will document the potential
 temperature choices.  For now, you just need to know how to run it.  Easy,
 root is not required.  The user just needs to be able to write to
 your ntpd logs directory.  Usually this is the user ntpuser.  Just run this:
@@ -30,7 +31,7 @@ export FILE=/var/log/ntpstats/temps
 ----
 
 That will log available temperatures to a file that ntpviz will automatically
-use with no further configuration.  Congratulate yourself, check your +ntpviz+
+use with no further configuration.  Congratulate yourself, check your *+ntpviz+*
 lots tomorrow.
 
 == Unexplained squiggles ==
@@ -78,7 +79,8 @@ Temp ZONE0,5.918,6.456,2.004,45.992,°C
 |===
 
 Basically this Raspberry Pi 3 can hold its Local Time Offset to a Standard
-Deviation of about 0.7 µs and its Frequency to about 0.5 ppm.
+Deviation of about 0.7 µs and its Frequency to about 0.5 ppm.  The
+frequency offset seems to move about 256 ppb/°C.
 
 == zero TC ==
 
@@ -89,11 +91,11 @@ there is no easy way to correct for it in software.
 
 As you can see from the above plots, the crystal speeds up when the
 temperature increases.  Achim Gratz recently used a Raspberry Pi to show
-that as you heat up the crystal to a temperature T0 that the temperature
+that as you heat up the crystal to a temperature T~0~ that the temperature
 affects the the frequency less and less.  As you continue to heat up the
-past T0 the temperature dependence returns.
+past T~0~ the temperature dependence returns.
 
-This magic temperature T0 is called the 'zero Temperature Coefficient'
+This magic temperature T~0~ is called the 'zero Temperature Coefficient'
 point, abbreviated zero TC.  In Achim's case zero TC is when his CPU
 temperature is 60C.  The crystal is on the flip side of the PCB board
 so the actual crystal zero TC is not known.
@@ -131,7 +133,7 @@ If you do nothing else today, put your Raspberry Pi in an envelope.
 == makeheat ==
 
 Achim's second good idea was to run a simple program on the Raspberry Pi to
-hold the CPU to 60C.  I have written a new program +makeheat+ and placed
+hold the CPU to 60C.  I have written a new program *+makeheat+* and placed
 it in the contrib directory to replicate his program.  You do not even 
 need to be root to run it:
 
@@ -172,8 +174,28 @@ Temp ZONE0, 1.076, 4.304, 0.651, 59.718, °C
 
 The CPU temperature is now held to a Standard Deviation of 0.7 °C, the
 local time offset to 0.35 µs and the local frequency offset to 0.073 ppm.
+The frequency now only moves by 112 ppb/°C, and that is over the reduced
+temperature range.
 
 That is an improvement of 2x in time and almost 7x in frequency!  Amazing
 what a little bubble wrap can do.
+
+
+== Next ==
+
+All this just raises more questions.
+
+What is the easiest and fastest way to find the best temperature?  Could
+*+makeheat+* read *+ntpd+* logs and seek automatically.
+
+The GPS temperature has also been raised, and the GPS also has a crytstal.
+How much of this improvement is do to GPS heating?
+
+The clock distribution is better than a 'normal distribution', and not
+symmetric like one.  Is there a way for *+ntpd+* to throw away the worst
+5% of measurements?
+
+Why have you not bubbled wraped your RasPi yet?
+
 
 // end
