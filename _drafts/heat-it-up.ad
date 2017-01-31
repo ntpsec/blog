@@ -87,7 +87,7 @@ frequency offset seems to move about 256 ppb/°C.
 == zero TC ==
 
 The math of how temperature changes frequency in a crystal is complex.
-It depends on many variables.  Some important ones are how the Crystal
+It depends on many variables.  Some important ones are how the crystal
 was cut, how it is excited, and even how long the crystal has aged.  So
 there is no easy way to correct for it in software.
 
