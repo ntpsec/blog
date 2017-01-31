@@ -114,7 +114,7 @@ temperature fluctuations and so performs better.
 
 Very interesting you may be thinking, but so what?  You do not have
 a laboratory oven and your significant other will likely complain if
-you heat up your server room to 60C.
+you heat up your server room to 60°C.
 
 But you only need to heat up the Raspberry Pi, not your room.  Most people
 put heat sinks on their CPU's, Achim just put his CPU in a bubble wrap
@@ -124,18 +124,18 @@ image::/assets/27Jan-local-offset.png[]
 
 Before 22:00Z the Raspberry Pi was open to room air.  At 22:00 the board
 was placed in the envelope.  At about 05:00Z the CPU stabilized at
-60C.
+60°C.
 
 As the temperature increased the local time and frequency offsets
 stabilized.  The envelope reduced time spike by 30%.  Elevating to 60°C
 made even more of an improvement.
 
-If you do nothing else today, put your Raspberry Pi in an envelope.
+If you do nothing else today, put your Raspberry Pi in an padded envelope.
 
 == makeheat ==
 
 Achim's second good idea was to run a simple program on the Raspberry Pi to
-hold the CPU to 60C.  I have written a new program *+makeheat+* and placed
+hold the CPU to 60°C.  I have written a new program *+makeheat+* and placed
 it in the contrib directory to replicate his program.  You do not even 
 need to be root to run it:
 
@@ -143,16 +143,19 @@ need to be root to run it:
 ./makeheat -t 60 &
 ----
 
-The program will run on the background and try to hold your CPU at 60C.
+The program will run on the background and try to hold your CPU at 60°C.
 
 == Results ==
 
-The results of these two simple changes are clear.  The plot of time and
-frequency offsets:
+After some iteration, I added a second bubble pack envelope over
+the first one, and raised the *+makeheat+* set point to 67°C.
+
+The results of this experment are clearly rewarding rewarding.  The plot
+of time and frequency offsets:
 
 image::/assets/28Jan-local-offset.png[]
 
-Here is the matching plot of Local Frequency Offset and ZONE0 temperature.
+The matching plot of Local Frequency Offset and ZONE0 temperature.
 
 image::/assets/28Jan-local-freq-temps.png[]
 
@@ -199,7 +202,7 @@ The clock distribution is better than a 'normal distribution', and not
 symmetric like one.  Is there a way for *+ntpd+* to throw away the worst
 5% of measurements?
 
-Why have you not bubbled wraped your RasPi yet?
+Why have you not bubble wrapped your RasPi yet?
 
 
 // end
