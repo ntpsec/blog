@@ -94,20 +94,20 @@ there is no easy way to correct for it in software.
 As you can see from the above plots, the crystal speeds up when the
 temperature increases.  Achim Gratz recently used a Raspberry Pi to show
 that as you heat up the crystal to a temperature T~0~ that the temperature
-affects the the frequency less and less.  As you continue to heat up the
+affects the frequency less and less.  As you continue to heat up
 past T~0~ the temperature dependence returns.
 
 This magic temperature T~0~ is called the 'zero Temperature Coefficient'
 point, abbreviated zero TC.  In Achim's case zero TC is when his CPU
 temperature is 60C.  The crystal is on the flip side of the PCB board
-so the actual crystal zero TC is not known.
+so the actual crystal temperature and zero TC is not known.
 
 The math and physics of crystals gets complicated.  If you want
 to dive into the theory this is a good paper on
  http://www.ieee-uffc.org/frequency-control/learning-vig.asp?chapter=vigstatc[Static Frequency versus Temperature Stability]
 
 This has a simple application to NTP time keeping.  If we can heat up
-our NTP server, to the zero TC point, it becomes less influences by
+our NTP server, to the zero TC point, it becomes less influenced by
 temperature fluctuations and so performs better.
 
 == So What ==
