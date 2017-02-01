@@ -150,23 +150,26 @@ The program will run on the background and try to hold your CPU at 60°C.
 After some iteration, I added a second bubble pack envelope over
 the first one, and raised the *+makeheat+* set point to 67°C.
 
-The results of this experment are clearly rewarding rewarding.  The plot
+The results of this experiment are clearly rewarding.  The plot
 of time and frequency offsets:
 
-image::/assets/28Jan-local-offset.png[]
+image::/assets/31Jan-local-offset.png[]
 
 The matching plot of Local Frequency Offset and ZONE0 temperature.
 
-image::/assets/28Jan-local-freq-temps.png[]
+image::/assets/31Jan-local-freq-temps.png[]
+
+
+
 
 .Percentiles
 [format="csv", options="header"]
 [frame="topbot",grid="none"]
 |===
  ,Min,1% ,5%, 50%, 95%, 99%, Max
-Local Clock Time Offset, -9.088, -0.588, -0.350, -0.011, 0.342, 1.297, 3.888
-Local Clock Frequency Offset, -1.192, -1.170, -1.126, -0.985, -0.873, -0.848, -0.750
-Temp ZONE0, 59.072, 59.072, 59.072, 59.610, 60.148, 63.376, 63.914
+Local Clock Time Offset,-6.262,-0.606,-0.303,0.002,0.323,0.742,4.448
+Local Clock Frequency Offset,-262.000,-246.000,-239.000,-188.000,-172.000,-164.000,-149.000
+Temp ZONE0,66.604,66.604,66.604,67.142,67.679,67.679,73.060
 |===
 
 .Ranges
@@ -174,33 +177,49 @@ Temp ZONE0, 59.072, 59.072, 59.072, 59.610, 60.148, 63.376, 63.914
 [frame="topbot",grid="none"]
 |===
  ,90% ,95% ,StdDev ,Mean ,Units
-Local Clock Time Offset, 0.692, 1.885, 0.350, -0.001, µs
-Local Clock Frequency Offset, 0.253, 0.322, 0.073, -0.985, ppm
-Temp ZONE0, 1.076, 4.304, 0.651, 59.718, °C
+Local Clock Time Offset,0.626,1.348,0.306,-0.000,µs
+Local Clock Frequency Offset,67.000,82.000,20.602,-195.016,ppb
+Temp ZONE0,1.075,1.075,0.512,67.086,°C
 |===
 
-The CPU temperature is now held to a Standard Deviation of 0.7 °C, the
-local time offset to 0.35 µs and the local frequency offset to 0.073 ppm.
-The frequency now only moves by 112 ppb/°C, and that is over the reduced
+The CPU temperature is now held to a Standard Deviation of 0.512°C, the
+local time offset to 306 ns and the local frequency offset to 20 ppb.
+The frequency now only moves by 39 ppb/°C, and that is over the reduced
 temperature range.
 
-That is an improvement of 2x in time and almost 7x in frequency!  Amazing
+That is an improvement of 2.5x in time and 25x in frequency!  Amazing
 what a little bubble wrap can do.
 
+== Limits ==
 
-== Next ==
+These results are pushing hard against the ultimate limits of the RasPi
+3.  The Local Clock Time Offsets are quantized at about 100 ns.  This is
+a bit surprising as sys_fuzz is 937 ns. *+ntpd+* fuzzes the time stamps
+at 1/2 of sys_fuzz.  KPPS is doing a good job.
+
+The quantization is clear in the histogram below.  You can also see
+that the distribution is not a 'normal distribution'.
+
+image::/assets/31Jan-local-offset-histogram.png[]
+
+
+== Next? ==
 
 All this just raises more questions.
 
 What is the easiest and fastest way to find the best temperature?  Could
 *+makeheat+* read *+ntpd+* logs and seek automatically?
 
-The GPS temperature has also been raised, and the GPS also has a crytstal.
+The GPS temperature has also been raised, and the GPS also has a crystal.
 How much of this improvement is do to GPS heating?
 
 The clock distribution is better than a 'normal distribution', and not
 symmetric like one.  Is there a way for *+ntpd+* to throw away the worst
 5% of measurements?
+
+The frequency plot still shows the effects of room temperature.  Is there
+an easy way to fix that?  Time offset is no longer affected, so is it
+worth fixing??
 
 Why have you not bubble wrapped your RasPi yet?
 
