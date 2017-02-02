@@ -17,7 +17,7 @@ performance.
 Before we can understand temperature effects we must gather temperature
 data.  Keane Wolter recently added a program to the contrib/ directory
 that greatly simplifies this task. *+temp-log+* automatically gathers data
-four different types of sources and logs it to a file that can be used
+from four different types of sources and logs it to a file that can be used
 by *+ntpviz+*.
 
 When the *+temp-log+* man page is available it will document the potential
