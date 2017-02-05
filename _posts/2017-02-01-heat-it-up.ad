@@ -32,7 +32,7 @@ export FILE=/var/log/ntpstats/temps
 
 That will log available temperatures to a file that ntpviz will automatically
 use with no further configuration.  Congratulate yourself, check your *+ntpviz+*
-lots tomorrow.
+plots tomorrow.
 
 == Unexplained squiggles ==
 
@@ -213,7 +213,7 @@ What is the easiest and fastest way to find the best temperature?  Could
 The GPS temperature has also been raised, and the GPS also has a crystal.
 How much of this improvement is do to GPS heating?
 
-The clock distribution is better than a 'normal distribution', and not
+The clock distribution is better than a 'normal distribution', but not
 symmetric like one.  Is there a way for *+ntpd+* to throw away the worst
 5% of measurements?
 
