@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Grappling with Go"
-date:   2017-02-07 08:08:50 -05c00
+date:   2017-02-07 08:08:50 -05c\00
 author: ESR
 ---
 In a previous blog post, I observed that one of the medium-term
@@ -221,7 +221,7 @@ surprised if this became a showstopper.
 
 Another issue: I mentioned before that Go produces fat binaries due to
 the size of the Go runtime.  As a painful example, the binary for my
-1600KLOC loccount.go program is twice the size of the 62KLOC ntpd
+1600LOC loccount.go program is twice the size of the 62KLOC ntpd
 binary in C!
 
 At first sight this seems ridiculous, but there are two mitigating factors.
