@@ -239,7 +239,7 @@ to choose an implementation language that forecloses it.
 
 Fortunately, this is a business problem for Google. To fully realize
 the benefits of Go they need to be able to deploy on Android, and we
-know this _is_ a use case the Go developers pay attention.  NTPsec probably
+know this _is_ a use case the Go developers pay attention to.  NTPsec probably
 won't need to be able to deploy on embedded faster than Google needs to.
 
 Since writing most of the preceding I have also implemented the outer
