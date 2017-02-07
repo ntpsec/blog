@@ -8,7 +8,7 @@ In a previous blog post, I observed that one of the medium-term
 possibilities we're seriously considering for NTPsec is moving the
 entire codebase out of C.  I continued that the two languages we're
 looking at hard are Rust and Go.  Then, in another blog post, I
-revealed the existence of a Go port of David Wheeler's slloccount
+revealed the existence of a Go port of David Wheeler's sloccount
 tool.  In a third, I described my rather frustrating experience with
 Rust.
 
@@ -130,7 +130,7 @@ the design.  The resulting code is really simple and natural.  The
 channel is the only synchronization mechanism, and its thread-safe
 queue behavior is easy to reason about.  It's even easy to tune, with
 (at least in this case) a relatively clear relationship between
-optimal channel dept and the number of processor cores you have
+optimal channel depth and the number of processor cores you have
 available.
 
 It's nice to see CSP in a language I can use for production, and very
@@ -215,7 +215,7 @@ around 2ms.  Some of these are linked from the Go blog post on
 https://blog.golang.org/go15gc[Prioritizing low latency and simplicity].
 
 I'm pretty sure that the combination of suppressing GC in critical
-reasons with stalls outside them held to under 10ms will be good
+regions with stalls outside them held to under 10ms will be good
 enough for NTPsec.  We'll measure to be sure, but I would be quite
 surprised if this became a showstopper.
 
