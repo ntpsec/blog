@@ -58,8 +58,8 @@ It's a good tool, but it has some minor annoying flaws.  The largest
 of these is that, in my opinion, the output is excessively verbose.  I
 don't like programs that eat your screen space with unnecessary
 progress messages, license announcements, author credits, copyrights,
-and other impedimenta and _doesn't give you any way to shut that off._
-I'm also not usually interested on the cost-modeling feature.
+and other impedimenta and _don't give you any way to shut that off._
+I'm also not usually interested in the cost-modeling feature.
 
 A second problem is that sloccount is slow.  It has to rely on MD5
 caching of repeated counts to have acceptable performance at all.  And
