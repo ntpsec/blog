@@ -159,9 +159,6 @@ The matching plot of Local Frequency Offset and ZONE0 temperature.
 
 image::/assets/31Jan-local-freq-temps.png[]
 
-
-
-
 .Percentiles
 [format="csv", options="header"]
 [frame="topbot",grid="none"]
@@ -202,6 +199,24 @@ that the distribution is not a 'normal distribution'.
 
 image::/assets/31Jan-local-offset-histogram.png[]
 
+== Update ==
+
+I have done more experimentation with *+makeheat+*.  Sometimes
+*+makeheat+* can not create enough heat to get the desired temperature
+rise over ambient.  The obvious solution is to add more insulation
+around the RasPi.  That creates the opposite problem.  The temperature
+will go too high when the host is under load.
+
+The better solution is to run multiple copies of *+makeheat+*.  Each
+copy can use up to 100% of a single CPU core.  Multiple copies seem to
+play well together and will be able to adjust to high load factors.
+
+To make this easier there is now a *+-c+* option that specifies the
+number of copies to run.  So this will run three copies:
+
+----
+./makeheat -t 68 -c 3 &
+----
 
 == Next? ==
 
