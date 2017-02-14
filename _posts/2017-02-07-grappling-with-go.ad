@@ -187,10 +187,13 @@ Now we'll return to more specific NTPsec-related concerns.  What
 specifically can we say about Go's suitability as an implementation
 language for ntpd?
 
-The big foreground issue is garbage collection.  It's unprecedented for
-a language to be both garbage-collected and as squarely aimed at systems
-programming as Go is, because systems programmers have trouble tolerating
-the stop-the-world pauses that happen when the GC runs.
+The big foreground issue is garbage collection.  It's nearly
+unprecedented footnote:[After I first wrote this, without the "nearly"
+qualification, I was reminded of one precedent for a systems language
+featuring garbage collection: Oberon] for a language to be both
+garbage-collected and as squarely aimed at systems programming as Go
+is, because systems programmers have trouble tolerating the
+stop-the-world pauses that happen when the GC runs.
 
 On the other hand, this problem potentially affects ntpd less than one
 might think.  The way it normally operates is to make fine adjustments
