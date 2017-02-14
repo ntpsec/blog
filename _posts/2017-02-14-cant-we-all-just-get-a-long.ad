@@ -1,0 +1,135 @@
+---
+layout: post
+title:  "Can't we all just get a long?"
+date:   2017-02-14 17:55:34 -0500
+author: ESR
+---
+One of the earliest technical decisions the NTPsec project made was to
+write our code to the standard implied by POSIX and C99 (more
+formally, "POSIX-1.2001/SUSv3" and "ISO/IEC 9899:1999").  This was a
+decision with far-reaching consequences; it freed us to abandon a lot
+of ancient port shims from pre-POSIX Unixes.
+
+It also allowed us to assume the existence of 64-bit integers as
+primitive types footnote:[The C99 normative langage on 64-bit scalar
+types is in 7.8.1.2; item 3 requires int_least64_t and uint_least64_t
+to exist]. POSIX alone doesn't get you there; it merely mandates that
+_if_ such types exist they must be named int64_t and uint64_t
+footnote:[The POSIX normative language on 64-bit scalar types is under
+http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdint.h.html[stdint.h]
+in the "Integer Types" section.].
+
+That's a good thing in itself, because it evades some confusion over
+whether 64 bits is 'long' or (in some toolchains) 'long long'.  But in
+order to cash the check implied by that naming convention you need
+C99. Hence, the post title: "Can't we all just get a (64-bit) long?".
+
+That actually matters a good deal for NTP, because NTP does a lot of
+arithmetic and other manipulations on 64-bit timestamps.  These can be
+thought of as counters in units of 2^-32 seconds since the zero date
+of the current NTP era, or as fixed-point numbers in seconds with 32
+bits of integer precision and 32 bits of fractional precision.
+
+In NTP Classic, which was written in C89 well before the 64-bit transition
+of 2007-2008, these were represented by the following struct:
+
+----------------------------------------------
+typedef struct {
+	union {
+		uint32_t Xl_ui;		/* unsigned integral part */
+		int32_t Xl_i;		/* signed integral part */
+	} Ul_i;
+	uint32_t	l_uf;
+} l_fp;
+----------------------------------------------
+
+That is, two 32-bit fields, one of which is a union. Under the usual
+self-alignment rules (which NTP Classic assumed elsewhere) this structure
+is guaranteed to be represented in memory as 64 contiguous bits with
+no padding.
+
+If you think that looks pretty ugly, you're right.  It was surrounded by a
+cloud of accessor and mutator macros that were even uglier.  Literally to
+the point where an operation that should naturally look like
+
+----------------------------------------------
+    timestamp += increment;
+----------------------------------------------
+
+was actually expressed as
+
+----------------------------------------------
+    LADD(&timestamp, &increment);
+----------------------------------------------
+
+Yes, the address-of & was completely unnecessary - it continued an
+archaic C practice of always accessing structs by address reference
+that dates from when structure values couldn't be reliably passed on
+the stack.  Internally, LADD() and various siblings did multiple
+operations on the separate struct fields.
+
+This mess would have been an obvious target for simplification and
+cleanup on general principles.  But I had a more specific reason for
+wanting to get rid of that union - it stands in the way of our
+speculative plan to move to a language with better correctness
+guarantees than C.  Neither Go nor Rust have the sort of untagged
+union required to directly translate the l_fp structure, and there
+are principled reasons no other candidate is likely to either -
+such constructs are fundamentally unsafe.
+
+Fixing all this was not complicated in principle, but it was messy
+and tedious.  First, I had to find all the direct accesses to structure
+slots by name and wrap those in a set of my own accessor/mutator macros.
+Then, once I had the internals of the structure sealed off so only
+my macros knew about them, I could change the macros to operate on a
+64-bit scalar rather than a struct.
+
+I hit a snag here, because it turns out that in order to map the
+64-bit scalar back into a big-endian wire format you have to
+re-express it as a struct with halfword-swapped members.  (If that
+sentence made your head hurt, welcome to my world.)  Fortunately,
+one of our guys (Hal Murray) who is more intimate with the wire format
+than I am understood the problem.
+
+After straightening that out, I then had to hand-compile the old set
+of macros into scalar operations.  This is the kind of work where it's
+easy to make single-character fatal mistakes that the compiler can't
+spot, so every step had to be re-checked multiple times.
+
+All these friction costs add up.  In this case, to about 75% of my time
+over two entire weeks.  But it was worth it; we dropped 219 lines of code,
+and not just any random code but a lot of the ugliest parts left in the
+codebase.  
+
+And this was actually the _second_ exercise in scalarizing a 64-bit struct.
+There used to be a "variant int" type with similar but not identical behavior
+used in the calendar computations.  It's a 64-bit scalar now too, and one of
+my to-do items is to see if they can be unified.
+
+At some point in the future, I have another union to chase down and
+slay.  There's a struct sockaddr_u all through the network plumbing
+that appears to have the same semantics as ANSI sockaddr_storage -
+it's probably there because the code around it predated the IPv6
+standardization in RFC2553.  I need to change everything to use the
+ANSI type, because that will have a semantically-equivalent binding in
+whatever non-C language we move to, whereas the exposed union in
+sockaddr_u won't translate.
+
+There are days I think I ought to have business cards made that say
+"SYSTEMS ARCHEOLOGIST", with a graphic of a fedora and a bullwhip.
+This is what cleaning up large, old codebases is like. It takes
+strong systems-architect skills, for forward vision; you need to
+develop a clear and achievable design for a cleaned-up endpoint.
+It also takes the ability and experience to look back on past
+practice, understand it, and know why the code was written that way
+so that you don't do a lot of iatrogenic damage moving it forward.
+
+I'd say the NTPsec team has been lucky not to have broken anything
+while we did all these code transformations, but that's not really
+true. We've been skilled, and we've been careful, and (this is
+important!) we've been good at watching each other's sixes. In the
+story I just told, Hal Murray supplied a missing piece when I was
+stymied, but we've all ridden to each other's rescue more than once.
+That's what it takes to solve a problem as large as NTP.
+
+// end
