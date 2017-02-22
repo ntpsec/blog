@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "TESTFRAME: the epic failure"
-date:   2017-01-28 00:30:00 -0000
+date:   2017-02-22 09:15:30
 author: ESR
 ---
 If you've been reading the posts here, or the NTPsec-related material
@@ -150,13 +150,13 @@ behavior worked because while the transformation from GPS packets to
 JSON is complicated, it has very few free parameters.  One is the
 current century.  Another is the time of last GPS week rollover.  A
 third is the current leap-second offset.  There's a fourth called
-UERE that I'm going to skip so as not to get lost in the weeds.
+UERE that I'm going to skip over so as not to get lost in the weeds.
 
 If you change any of these free parameters, you have a different DFSM
 and odds are good that the correct output transformation will change
 visibly and break your tests.  In particular, every leap-second
 insertion requires us to rebuild some check files; this last happened
-just a week ago as I write, at the very end of 2016.
+at the very end of 2016.
 
 Fortunately, GPSD has only a small set of free parameters and, more
 importantly, they change only rarely and at predictable times.  They
@@ -194,9 +194,9 @@ capture log (that is, the span over which it will constitute a valid
 error check) falls. The signal-to-noise ratio in test breakage drops.
 
 Under these assumptions, there is some mutation rate threshold above
-which deterministic replay simply stops being useful at all, because
-the gains from it are exceeded by its complexity costs.  GPSD and
-reposurgeon are well below that threshold; I now think ntpd is above
-it.
+which attempting deterministic replay simply stops being useful at
+all, because the gains from it are exceeded by the complexity costs of
+updating tests.  GPSD and reposurgeon are well below that threshold; I
+now think ntpd is above it.
 
 // end
