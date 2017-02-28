@@ -1,0 +1,180 @@
+---
+layout: post
+title:  Questions and Answers
+date:   2017-02-28 23:30:00 -0000
+author: MRA
+---
+
+On 2017-02-27, I was contacted by Bruce Byfield, who is writing an
+article about NTPsec for The New Stack.  He sent me the following
+questions, and I wrote the inlined answers.
+
+== how and why did you become involved with NTPsec?
+
+My own personal involvement started with the Linux Foundation Core
+Infrastructure Initiative.  I had a technical advisory role to one of
+the CII board members when three different NTP projects came up for
+review requesting funding: the Network Time Foundation (NTF), the
+NTPsec Project, and NTimeD.  The CII board's decision, which I
+supported, was that all 3 projects be funded for a year, and that a
+condition of funding the NTF be that they stop using BitKeeper, and
+use Git instead going forward.  Note, that that condition was not
+suggested by me, but instead came all the way from the top of the
+Linux Foundation.
+
+This was after the fork between the NTF and the NTPsec Project.
+
+Out of my own personal interest in NTP, I started tracking the
+progress of all three projects.  I saw that NTPsec was making good
+progress, but was starting to have project management issues, because
+their project manager was overloaded by trying to do all the PM, do
+all the funding development, do all the sysadmin work, do all the
+CI/CD work, and do all the build tooling work.  I looked around to
+find them a PM to help take the load off, and as these things so often
+go, ended up volunteering for the PM role myself, with the permission
+and blessing of my employer.
+
+
+== have you had any interaction with NTP? If so, how would you describe it?
+
+I have had some interactions with the NTF.
+
+Immediately after I started working with the NTPsec Project, the NTF
+kicked me off their developer mailing list, and kicked me out of their
+Freenode IRC channel.
+
+Our later interactions have been via infosec security labs that have
+audited both NTF NTP and NTPsec.  When a CVE is discovered in both
+codebases, we coordinate the information embargo period and release
+dates with both the NTF and with each infosec security research lab.
+
+The NTPsec Project works hard to be professional and have best
+practices in this area, and we have received compliments from the labs
+we have worked with.
+
+Also, both the NTF and the NTPsec Project participate in the IETF
+working groups related to NTP.
+
+
+== What sparked the decision to fork NTPsec? Did NTP's use of Bitkeeper influence the decision?
+
+Bitkeeper was the thing that finally sparked the fork.  The NTF
+refused to migrate from BK to Git, and it was impossible to grow a new
+healthy contributor community without that migration.  Remember, at
+the time, BK was still closed source and proprietary, and had license
+terms that prevented any BK user from making contributions to any
+other competing open source source control tool, so most open source
+developers refused to touch it.
+
+There were other looming conflicts, about speed of development, about
+proper crediting of contributors, about updates and fixes to the build
+tooling, and about policies regarding how long to sit on and privately
+circulate security issues.  But it was the BK/Git conflict that broke
+first.
+
+
+== NTP has been described to me as a complete reference implementation of the protocol. Would you agree? How would you describe NTPsec in contrast?
+
+That the NTF implementation is a complete reference implementation is
+a true statement.  However, often the arrow points the other
+direction, it is sometimes felt that what NTP is, is what the NTF
+implementation does. The NTF seems to expects the IETF to document
+what they have already done, instead of the IETF telling the NTF what
+to implement.
+
+NTPsec has removed support for some documented parts of the wire
+protocol.  We have removed the AutoKey public key protocol, which has
+been comprehensively broken for some time, and the NTF themselves
+recommend that it not be used.  We have removed the broadcast client
+mode and multicast client mode, because those modes are impossible to
+secure.  These modes make the NTP service vulnerable to trivial time
+skew attacks.  We removed the interleave mode, because close analysis
+of the code revealed that it never actually worked correctly.
+
+However, for how NTP is actually used securely and correctly in
+production, none of our changes or removals will cause interop
+problems for operators, admins, SREs, or users.  The wire protocol
+remains the same, and existing NTP infrastructure interoperates with
+the NTPsec implementation.
+
+
+== Can you summarize the changes to the code made by NTPsec? What has been replaced, removed, or added?
+
+The summary of our changes is on our website at https://docs.ntpsec.org/latest/ntpsec.html
+
+
+== Exactly which parts have been rewritten in Python? How would you respond to those who say that Python is a scripting language unsuitable for such low level work?
+
+Most of the command line tools have been rewritten in modern Python,
+and use a modern Python library we have written that speaks to the NTP
+protocol and NTP control protocol.
+
+We have also written new tooling in Python, including "ntpmon", which
+performs real-time monitoring of peer and MRU status with efficient
+(least-cost) querying, and a new data-visualization tool, ntpviz,
+which can produce various useful and interesting plots from the NTP
+statistics logs. These should assist in monitoring a time-server’s
+performance, fixing configuration problems, and identifying noise
+sources in network weather and elsewhere.
+
+The actual daemon protocol server remains in C, for performance reasons.
+
+We have been evaluating porting the daemon to another systems
+implementation language, such as possibly Rust or GoLang.  But those
+remain in the study and evaluation stage.  The 1.0 release of NTPsec
+will keep the daemon in C. 
+
+
+== How would you summarize the current state of the NTPsec project? What remains to be done? How is it funded?
+
+The current state of NTPsec is that it is becoming satisfactorily stable.
+
+People are running it in the pool.ntp.org without incident.
+
+People building GPS stratum-1 time servers following our HOWTO at
+https://www.ntpsec.org/white-papers/stratum-1-microserver-howto/
+
+We have a few more pieces of problematic code to modernize.
+
+Then we will package it for Gentoo, Debian, and Fedora, and prepare for the 1.0.0 release.
+
+When the IETF releases the RFC for Network Time Security (see
+https://tools.ietf.org/html/draft-ietf-ntp-network-time-security-15)
+we will promptly implement it.
+
+
+We are currently funded by small grants and donations from interested
+users and interested companies and foundations.  We can accept
+non-profit donations on a 501c3 basis via the Software in the Public
+Interest and via the Internet Civil Engineering Institute.
+
+My own personal participation the project is entirely volunteer, and I
+am not separately paid for my work on NTPsec.
+
+
+== Can free software support two competing projects when one has been struggling for support?
+
+The open source world has many examples of two or more projects in the
+same space, and many different ways that that has played out.  Often
+both projects have thrived.
+
+
+== Do you think the two projects could ever pool their efforts?
+
+In many ways, we can already pool our efforts.
+
+The NTPsec bug tracker and change history is openly available at
+gitlab.com/ntpsec for the NTF to review and cherry pick from.
+
+We regularly review the NTF bug tracker. When we find a bug reported
+to the NTF that also affects NTPsec, we make the necessary fixes.
+
+We call on the NTF to update their publicly viewable repos so that we
+can collaborate even more closely in an open source way.
+
+We welcome even more close collaboration with the NTF.  We have no
+personal animus to the NTF or to Harlen Stenn.  He has been working a
+hard and lonely job for many years, with not enough thanks for all his
+work.
+
+// END
