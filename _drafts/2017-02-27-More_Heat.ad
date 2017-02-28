@@ -1,0 +1,52 @@
+---
+layout: post
+title:  "More Heat"
+date:   2017-02-28 00:01:00 -0000
+author: GEM
+---
+
+Fair warning: if you just want to use NTPsec, then you can stop reading
+this blog post right now.  On the other hand, if you are curious how the
+far one can push a Raspberry Pi then you are on the right page.  Extra
+points if you want to duplicate this simple experiment.
+
+== Why? ==
+
+In a previous post I showed 
+https://blog.ntpsec.org/2017/02/01/heat-it-up.html[hot to improve] the
+time and especially frequency accuracy on a Rasbpberry Pi.  The accuracies
+are well past that needed to serve local NTP time given the built-in
+100Mbps Ethernet port connected via USB 2.0 to the CPU.
+
+So what is the point of super-charging what is essentially the VW bug
+if the home computer world?  One reason, as will be pointed out to me
+very soon, is bragging rights: My RasPi is more accurate than yours!
+
+But the main reason is to test the practical limits of the NTPsec code
+using a lab budget of $100.  Any motivated individual can, and may have,
+duplicated my setup.
+
+So far the core NTPsec code has held up well.  There have been a few
+places where useable precision was being lost and those have been fixed
+as they have been found.
+
+== How Good? ==
+
+Check out the following plot of Time Offset and Frequency Offset.  The
+Time Offset standard deviation of 473 nano seconds is a bit better than
+most thought possible. the Frequency Offset standard deviation of 2 ppb
+is 250 times better than expected.
+
+image:: 28Feb-local-offset.png
+
+
+Local Clock Time Offset	-5.022	-1.867	-0.740	0.045	0.569	0.985	2.050		1.309	2.852	0.473		-0.000	µs
+Local Clock Frequency Offset	-4.289	-4.282	-4.279	-4.275	-4.271	-4.270	-4.266		0.008	0.012	0.002		-4.275	ppm
+
+oimage:: 28Feb-local-freq-temps.png
+
+
+Local Clock Frequency Offset	-4.289	-4.282	-4.279	-4.275	-4.271	-4.270	-4.266		0.008	0.012	0.002		-4.275	ppm
+Temp TEMPER0	44.400	44.400	44.400	44.600	44.800	44.800	44.800		0.400	0.400	0.112		44.544	°C
+Temp ZONE0	63.376	63.376	63.376	64.451	66.604	66.604	66.604		3.228	3.228	0.739		64.272	°C
+

@@ -1,0 +1,47 @@
+---
+layout: post
+title:  "Watch That GPS"
+date:   2017-02-28 00:01:00 -0000
+author: GEM
+---
+
+Fair warning: if you just do not use a GPS with NTPsec, then you can
+stop reading this blog post right now.  Even if you do use a GPS refclock
+you are probably getting ready to skip to something else, but don't do
+it.
+
+== What could possibly go wrong? ==
+
+Conventional wisdom about using a GPS with NTP has been simple.  Put you
+GPS in a static location with at least a fair sky view, check that you
+have a few GPS satellites in sight, configure ntpd to use the GPS as a
+refclock, and then forget.
+
+No need for an internet conenction, backup chimers or any secondary
+sources.  Well, if 99% uptime is good enough for you then that is OK.
+But if you need better uptime then you need to do better.
+
+== How wrong? ==
+
+As always, we are just trading (sage) ignorance until we gather some data.
+And this plot should open some eyes.  The scale on the right is the
+number of satellites in view.  the scale on the left is the Time Dilution
+of Precision (TDOP).  TDOP is a goodness ration telling how well the
+GPS is keeping time relative to its datasheet claims.  A value of one
+or better means the GPS is working as expected, or better.  A TDOP
+of 100 means it is performing 100 times worse.
+
+You'll notice that on average this GPS is using 10 satellites when it is
+calculating the PVT solution.  Looks good, right?  That is confirmed by a 
+TDOP of 0.89 or better 50% of the time.  But notice the TDOP is worse
+than 13.6 for 1% of the time, sometimes as bad as 99.99!
+
+image:: 28Feb-local-gps.png
+
+nSats	4.000	4.000	5.000	10.000	17.000	18.000	19.000		12.000	14.000	3.692		10.523	nSat
+TDOP	0.450	0.540	0.600	0.890	3.700	13.620	99.990		3.100	13.080	5.490		1.768	
+
+== Measure It ==
+
+== Backup time sources ==
+

@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "Get Hard"
+date:   2017-02-28 00:01:00 -0000
+author: GEM
+---
+
+Fair warning: if you just want to use NTPsec, then you can stop reading
+this blog post right now.  On the other hand, if you are curious what
+NTPsec is doing to keep your chimer safe from what evil that lurks in
+the electronic multiverse, then read on.
+
+== Overruns ==
+
+Even before programmers used assembler and C languages there have been
+buffer overruns and wild pointers.  Wikipedia has a long article on
+https://en.wikipedia.org/wiki/Buffer_overflow[buffer overflows] and notes
+the technique was documented by 1972.  As long as assembler and C exist
+that will continue.
+
+Hhackers have gotten better at exploiting buffer overflows and NTPsec
+has to get better at hardening the code to minimize the chances
+a buffer can be overflowed and to make it harder to use any remaining
+buffer overflows to take control fot the ntpd daemon.
+
+
