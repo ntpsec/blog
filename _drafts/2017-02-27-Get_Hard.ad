@@ -18,7 +18,7 @@ https://en.wikipedia.org/wiki/Buffer_overflow[buffer overflows] and notes
 the technique was documented by 1972.  As long as assembler and C exist
 that will continue.
 
-Hhackers have gotten better at exploiting buffer overflows and NTPsec
+Crackers have gotten better at exploiting buffer overflows and NTPsec
 has to get better at hardening the code to minimize the chances
 a buffer can be overflowed and to make it harder to use any remaining
 buffer overflows to take control fot the ntpd daemon.
