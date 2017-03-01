@@ -122,7 +122,7 @@ The actual daemon protocol server remains in C, for performance reasons.
 We have been evaluating porting the daemon to another systems
 implementation language, such as possibly Rust or GoLang.  But those
 remain in the study and evaluation stage.  The 1.0 release of NTPsec
-will keep the daemon in C. 
+will keep the daemon in C.
 
 
 == How would you summarize the current state of the NTPsec project? What remains to be done? How is it funded?
