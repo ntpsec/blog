@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Documentation on the SPOT"
-date:   2017-01-28 00:30:00 -0000
+date:   2017-03-01 13:50:00 -0500
 author: ESR
 ---
 When we forked the NTPsec codebase from NTP Classic, its documentation was
