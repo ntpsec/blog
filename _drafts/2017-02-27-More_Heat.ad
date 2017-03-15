@@ -6,29 +6,115 @@ author: GEM
 ---
 
 Fair warning: if you just want to use NTPsec, then you can stop reading
-this blog post right now.  On the other hand, if you are curious how the
-far one can push a Raspberry Pi then you are on the right page.  Extra
+this blog post right now.  On the other hand, if you are curious how
+far one can push a Raspberry Pi then you are in the right place.  Bonus
 points if you want to duplicate this simple experiment.
 
 == Why? ==
 
-In a previous post I showed 
-https://blog.ntpsec.org/2017/02/01/heat-it-up.html[hot to improve] the
-time and especially frequency accuracy on a Rasbpberry Pi.  The accuracies
+In a previous post I showed
+https://blog.ntpsec.org/2017/02/01/heat-it-up.html[how to improve] the
+time and especially frequency accuracy on a Raspberry Pi.  The ac curacies
 are well past that needed to serve local NTP time given the built-in
-100Mbps Ethernet port connected via USB 2.0 to the CPU.
+100 Mbps Ethernet port connected via USB 2.0 to the CPU.
 
 So what is the point of super-charging what is essentially the VW bug
-if the home computer world?  One reason, as will be pointed out to me
-very soon, is bragging rights: My RasPi is more accurate than yours!
+of the home computer world?  One reason, as has be pointed out to me
+is bragging rights: _My RasPi is more accurate than yours!_
 
 But the main reason is to test the practical limits of the NTPsec code
-using a lab budget of $100.  Any motivated individual can, and may have,
+using a lab budget of $100.  Any motivated individual can, and some have,
 duplicated my setup.
 
 So far the core NTPsec code has held up well.  There have been a few
-places where useable precision was being lost and those have been fixed
+places where usable precision was being lost and those have been fixed
 as they have been found.
+
+== How ==
+
+In that previous post the stabilization method was to stabilize the
+CPU temperature (ZONE0).  The crystal on the RasPi is on the opposite side
+of the PCB, so only indirectly coupled with the CPU temperature.
+
+This experiment will instead regulate the temperature of the environment
+surrounding the RasPi.  The bare RasPi (no bubblewrap this time) is
+placed into a plain box and the box is covered in insulation.  I used a
+plain plastic box covered in 1/4" thick Mylar/foam insulation.
+
+The heat will be added with a plain 120 Volt 40 Watt incandescent bulb.
+The bulb will be turned on and off with a simple USB controlled relay.  You
+can but the relay on EBay for about $5, including shipping, assuming you
+are willing to wait for 3 weeks while the slow boat to China crawls to
+your door.  Just search for 'USB relay 1 channel'.
+
+image::/assets/usbrelay1.jpg[usbrelay1]
+
+Even better than the price, the usbrelay1 presents itself as an HID
+device, just like your keyboard and mouse, so no matter what operating
+system you run you already have the kernel driver installed.
+
+As you would expect, the usbrelay1 comes with no documentation at
+all, but tools to control it are readily available.  I used this
+https://github.com/darrylb123/usbrelay[ command line tool] written in a
+portable dialect of Python.  It should run on just about any operating
+system.  Installation instructions are in the package.
+
+Each usbrelay is uniquely identified, to find the id of your, simply run:
+
+```
+# usbrelay
+Device Found
+  type: 16c0 05df
+  path: /dev/hidraw2
+  serial_number:
+  Manufacturer: www.dcttech.com
+  Product:      USBRelay1
+  Release:      100
+  Interface:    0
+  Number of Relays = 1
+959BI_1=0
+```
+
+After that your relay is easy to control, Turn on:
+
+```
+# usbrelay 959BI_1=1
+```
+turn off
+```
+# usbrelay 959BI_1=0
+```
+The last piece of hardware is a temperature sensor.  Here we'll
+use the TEMPer which is detailed in this previous blog post on *+ntplogtemp+*.
+
+== ntpheatusb ==
+
+*+ntpheatusb+* is like *+ntpheat+*.  They are both in the contrib
+directory and not installed on your system by default.  But instead of
+making heat by exercising the CPU it makes heat by modulating the 40
+Watt light bulb on and off with the usbrelay1.
+
+The program implements a simple proportional controller and yields
+very good temperature stability.  I got a Standard deviation of 0.11 °C,
+approximately the granularity of the TEMPer itself.  I tried a full PID
+controller, but the results were barely better and the tuning is burdensome.
+
+Just note that a simple proportional controller will never stabilize at
+the set point.  Just run the temperature controller at your desired
+set point for a while.  The restart it with the observed offset added in.
+
+Running ntpheatusb is simple, to stabilize at 44.4 °C:
+
+```
+# contrib/ntpheatusb -t 45
+```
+
+If I wanted to target 45 °C then i would run:
+
+```
+# contrib/ntpheatusb -t 45.6
+```
+
 
 == How Good? ==
 
@@ -37,16 +123,49 @@ Time Offset standard deviation of 473 nano seconds is a bit better than
 most thought possible. the Frequency Offset standard deviation of 2 ppb
 is 250 times better than expected.
 
-image:: 28Feb-local-offset.png
+image::/assets/28Feb-local-offset.png[]
+
+.Percentiles
+[format="csv", options="header"]
+[frame="topbot",grid="none"]
+|===
+ ,Min,1% ,5%, 50%, 95%, 99%, Max
+Local Clock Time Offset,-5.022,-1.867,-0.740,0.045,0.569,0.985,2.050
+Local Clock Frequency Offset,-4.289,-4.282,-4.279,-4.275,-4.271,-4.270,-4.266
+|===
+
+.Ranges
+[format="csv", options="header"]
+[frame="topbot",grid="none"]
+|===
+ ,90% ,95% ,StdDev ,Mean ,Units
+Local Clock Time Offset,1.309,2.852,0.473,-0.000,µs
+Local Clock Frequency Offset,0.008,0.012,0.002,-4.275,ppm
+|===
 
 
-Local Clock Time Offset	-5.022	-1.867	-0.740	0.045	0.569	0.985	2.050		1.309	2.852	0.473		-0.000	µs
-Local Clock Frequency Offset	-4.289	-4.282	-4.279	-4.275	-4.271	-4.270	-4.266		0.008	0.012	0.002		-4.275	ppm
 
-oimage:: 28Feb-local-freq-temps.png
+image::/assets/28Feb-local-freq-temps.png[]
+
+.Percentiles
+[format="csv", options="header"]
+[frame="topbot",grid="none"]
+|===
+ ,Min,1% ,5%, 50%, 95%, 99%, Max
+Local Clock Frequency Offset,-4.289,-4.282,-4.279,-4.275,-4.271,-4.270,-4.266
+Temp TEMPER0,44.400,44.400,44.400,44.600,44.800,44.800,44.800
+Temp ZONE0,63.376,63.376,63.376,64.451,66.604,66.604,66.604,3.228,3.228,0.739,64.272,°C
+|===
+
+.Ranges
+[format="csv", options="header"]
+[frame="topbot",grid="none"]
+|===
+ ,90% ,95% ,StdDev ,Mean ,Units
+Local Clock Frequency Offset,0.008,0.012,0.002,-4.275,ppm
+Temp TEMPER0,0.400,0.400,0.112,44.544,°C
+Temp ZONE0,3.228,3.228,0.739,64.272,°C
+|===
 
 
-Local Clock Frequency Offset	-4.289	-4.282	-4.279	-4.275	-4.271	-4.270	-4.266		0.008	0.012	0.002		-4.275	ppm
-Temp TEMPER0	44.400	44.400	44.400	44.600	44.800	44.800	44.800		0.400	0.400	0.112		44.544	°C
-Temp ZONE0	63.376	63.376	63.376	64.451	66.604	66.604	66.604		3.228	3.228	0.739		64.272	°C
 
