@@ -132,15 +132,15 @@ made even more of an improvement.
 
 If you do nothing else today, put your Raspberry Pi in an padded envelope.
 
-== makeheat ==
+== ntpheat ==
 
 Achim's second good idea was to run a simple program on the Raspberry Pi to
-hold the CPU to 60°C.  I have written a new program *+makeheat+* and placed
+hold the CPU to 60°C.  I have written a new program *+ntpheat+* and placed
 it in the contrib directory to replicate his program.  You do not even 
 need to be root to run it:
 
 ----
-./makeheat -t 60 &
+./ntpheat -t 60 &
 ----
 
 The program will run on the background and try to hold your CPU at 60°C.
@@ -148,7 +148,7 @@ The program will run on the background and try to hold your CPU at 60°C.
 == Results ==
 
 After some iteration, I added a second bubble pack envelope over
-the first one, and raised the *+makeheat+* set point to 67°C.
+the first one, and raised the *+ntpheat+* set point to 67°C.
 
 The results of this experiment are clearly rewarding.  The plot
 of time and frequency offsets:
@@ -201,13 +201,13 @@ image::/assets/31Jan-local-offset-histogram.png[]
 
 == Update ==
 
-I have done more experimentation with *+makeheat+*.  Sometimes
-*+makeheat+* can not create enough heat to get the desired temperature
+I have done more experimentation with *+ntpheat+*.  Sometimes
+*+ntpheat+* can not create enough heat to get the desired temperature
 rise over ambient.  The obvious solution is to add more insulation
 around the RasPi.  That creates the opposite problem.  The temperature
 will go too high when the host is under load.
 
-The better solution is to run multiple copies of *+makeheat+*.  Each
+The better solution is to run multiple copies of *+ntpheat+*.  Each
 copy can use up to 100% of a single CPU core.  Multiple copies seem to
 play well together and will be able to adjust to high load factors.
 
@@ -215,15 +215,21 @@ To make this easier there is now a *+-c+* option that specifies the
 number of copies to run.  So this will run three copies:
 
 ----
-./makeheat -t 68 -c 3 &
+./ntpheat -t 68 -c 3 &
 ----
+
+== Update 2 ==
+
+To fit in better with the NTPsec family pf programs the program
+name *+makeheat+* has been changed to *+ntpheat+*.  It is still in
+the contrib/ directory and not installed by default.
 
 == Next? ==
 
 All this just raises more questions.
 
 What is the easiest and fastest way to find the best temperature?  Could
-*+makeheat+* read *+ntpd+* logs and seek automatically?
+*+ntpheat+* read *+ntpd+* logs and seek automatically?
 
 The GPS temperature has also been raised, and the GPS also has a crystal.
 How much of this improvement is do to GPS heating?
