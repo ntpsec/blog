@@ -119,19 +119,20 @@ If I wanted to target 45 °C then i would run:
 == How Good? ==
 
 Check out the following plot of Time Offset and Frequency Offset.  The
-Time Offset standard deviation of 473 nano seconds is a bit better than
-most thought possible. the Frequency Offset standard deviation of 2 ppb
-is 250 times better than expected.
+Time Offset standard deviation of 469 nano seconds is a bit better than
+most thought possible. the Frequency Offset standard deviation of 4.2 ppb
+is about 120 times better than expected.  Almost 5x better than using
+bubblewrap and *+ntpheat+*
 
-image::/assets/28Feb-local-offset.png[]
+image::/assets/27Feb-local-offset.png[]
 
 .Percentiles
 [format="csv", options="header"]
 [frame="topbot",grid="none"]
 |===
  ,Min,1% ,5%, 50%, 95%, 99%, Max
-Local Clock Time Offset,-5.022,-1.867,-0.740,0.045,0.569,0.985,2.050
-Local Clock Frequency Offset,-4.289,-4.282,-4.279,-4.275,-4.271,-4.270,-4.266
+Local Clock Frequency Offset,-4.3109,-4.2904,-4.287,-4.2801,-4.2733,-4.2708,-4.2643
+Local Clock Time Offset,-15.555,-1.919,-0.684,0.036,0.575, 0.914,3.576
 |===
 
 .Ranges
@@ -139,22 +140,22 @@ Local Clock Frequency Offset,-4.289,-4.282,-4.279,-4.275,-4.271,-4.270,-4.266
 [frame="topbot",grid="none"]
 |===
  ,90% ,95% ,StdDev ,Mean ,Units
-Local Clock Time Offset,1.309,2.852,0.473,-0.000,µs
-Local Clock Frequency Offset,0.008,0.012,0.002,-4.275,ppm
+Local Clock Frequency Offset,0.0136,0.0196,0.0042,-4.2802,ppm
+Local Clock Time Offset,1.259,2.833,0.4686,-0.0001,µs
 |===
 
 
 
-image::/assets/28Feb-local-freq-temps.png[]
+image::/assets/27Feb-local-freq-temps.png[]
 
 .Percentiles
 [format="csv", options="header"]
 [frame="topbot",grid="none"]
 |===
  ,Min,1% ,5%, 50%, 95%, 99%, Max
-Local Clock Frequency Offset,-4.289,-4.282,-4.279,-4.275,-4.271,-4.270,-4.266
-Temp TEMPER0,44.400,44.400,44.400,44.600,44.800,44.800,44.800
-Temp ZONE0,63.376,63.376,63.376,64.451,66.604,66.604,66.604,3.228,3.228,0.739,64.272,°C
+Local Clock Frequency Offset,-4.3109,-4.2904,-4.287,-4.2801,-4.2733,-4.2708,-4.2643
+Temp TEMPER0,44.1,44.1,44.2,44.5,44.7,44.8,44.8
+Temp ZONE0,63.376,63.376,63.376,63.914,65.528,67.142,70.369
 |===
 
 .Ranges
@@ -162,10 +163,21 @@ Temp ZONE0,63.376,63.376,63.376,64.451,66.604,66.604,66.604,3.228,3.228,0.739,64
 [frame="topbot",grid="none"]
 |===
  ,90% ,95% ,StdDev ,Mean ,Units
-Local Clock Frequency Offset,0.008,0.012,0.002,-4.275,ppm
-Temp TEMPER0,0.400,0.400,0.112,44.544,°C
-Temp ZONE0,3.228,3.228,0.739,64.272,°C
+Local Clock Frequency Offset,0.0136,0.0196,0.0042,-4.2802,ppm
+Temp TEMPER0,0.5,0.7,0.177,44.4593,°C
+Temp ZONE0,2.152,3.766,0.7861,64.1591,°C
 |===
 
 
+== Next? ==
 
+There are more possible experiments.
+
+Better temperature stability?  Maybe with a PID controller, fans, etc.
+
+Seek the exact best temperature for Zero TC.  Maybe add auto-stepping to
+*+ntpheatusb+*
+
+Sadly as the Frequency Stability gets better the Time Offset and Jitter is
+not.  Seeking better frequency stability by way of better temperature control
+does not appear to have any more big payof.
