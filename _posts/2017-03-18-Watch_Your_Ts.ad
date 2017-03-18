@@ -77,7 +77,7 @@ warn you before any loss of data that your data drive need replacing.
 
 For our purposes, many drives also report their temperature.  I find
 the drive temperature is usually pretty close to the south-bridge
-temperature.  To find out if you /dev/sda reports a temperature, simply
+temperature.  To find out if your /dev/sda reports a temperature, simply
 run this:
 
 ```
@@ -89,12 +89,12 @@ You can see that the drive temperature is 29 °C.
 
 === TEMPer ===
 
-the most versatile temperature sensor is also the one you are most likely
-to have, the TEMPer.  The TEMPer is not really an exact device, but a
-class of USB temperature sensors from China.  They all behave similarly
-and only need HID kernel drivers.  Some are plastic, some metal, most
-are the same size.  The same, or similar, to the HID drivers that
-connect to your keyboard, touch-pad and mouse.
+The most versatile temperature sensor is also the one you are least
+likely to have: the TEMPer.  The TEMPer is not really an exact device,
+but a class of USB temperature sensors from China.  They all behave
+similarly and only need HID kernel drivers.  The same, or similar, to
+the HID drivers that connect to your keyboard, touch-pad and mouse.
+Some are plastic, some metal, most are about the same size.
 
 A quick search will find similar looking single temperature sensors from 
 $10 to $40.  Advanced models may add an external temperature probe, 
