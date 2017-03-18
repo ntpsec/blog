@@ -16,18 +16,19 @@ performance.
 
 Before we can understand temperature effects we must gather temperature
 data.  Keane Wolter recently added a program to the contrib/ directory
-that greatly simplifies this task. *+temp-log+* automatically gathers data
+that greatly simplifies this task. *+ntplogtemp+* automatically gathers data
 from four different types of sources and logs it to a file that can be used
 by *+ntpviz+*.
 
-When the *+temp-log+* man page is available it will document the potential
-temperature choices.  For now, you just need to know how to run it.  Easy,
-root is not required.  The user just needs to be able to write to
-your ntpd logs directory.  Usually this is the user ntpuser.  Just run this:
+The *+ntplogtemp+* man page is available and documents the
+potential temperature choices.  There is also a blog post on
+https://blog.ntpsec.org/2017/03/18/Watch_Your_Ts.html[*+ntplogtemp+*].
+For now, you just need to know how to run it.  Easy, root is not
+required.  The user just needs to be able to write to your ntpd logs
+directory.  Usually this is the user ntpuser.  Just run this:
 
 ----
-export FILE=/var/log/ntpstats/temps
-/usr/local/src/NTP/ntpsec/contrib/temp-log.py -l  ${FILE} -w 300 &
+ntplogtemp -l /var/log/ntpstats/temps -w 300 &
 ----
 
 That will log available temperatures to a file that ntpviz will automatically
@@ -222,7 +223,12 @@ number of copies to run.  So this will run three copies:
 
 To fit in better with the NTPsec family pf programs the program
 name *+makeheat+* has been changed to *+ntpheat+*.  It is still in
-the contrib/ directory and not installed by default.
+the contrib/ directory and not installed by default.  
+
+== Update 3 ==
+
+*+temp-log+* is now called *+ntplogtemp+* and is installed by default.
+
 
 == Next? ==
 
