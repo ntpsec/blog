@@ -5,7 +5,7 @@ date:   2017-03-18 01:00:00 -0000
 author: GEM
 ---
 
-Fair warning: if are not interested in high performance NTP, then you can
+Fair warning: if you are not interested in high performance NTP, then you can
 stop reading this blog post right now.  On the other hand if you suspect
 your NTP servers are behaving in a temperature dependent manner then
 keep reading.
@@ -23,10 +23,10 @@ temperatures with
  https://blog.ntpsec.org/2016/12/19/ntpviz-intro.html[*+ntpviz+*].
 
 In the recent past NTPsec had a number of separate tools to log
-temperatures from different sources.  Thanks to Walter Keane
+temperatures from different sources.  Thanks to Wolter Keane
 we now have a single tool that searches for all
 your available temperature sources and logs them with one simple daemon.
-This program is install by default on recent versions of NTPsec.
+This program is installed by default on recent versions of NTPsec.
 
 == Temperature Sources ==
 
