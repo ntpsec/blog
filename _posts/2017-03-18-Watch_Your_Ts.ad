@@ -12,7 +12,7 @@ keep reading.
 
 == Temperature Stability ==
 
-In a previous post I showed how 
+In a previous post I showed how
 https://blog.ntpsec.org/2017/02/01/heat-it-up.html[heating up your server]
 can improve its timekeeping.  I started to investigate the temperature
 sensitivity of NTP servers to explain odd features in the timekeeping
@@ -23,7 +23,7 @@ temperatures with
  https://blog.ntpsec.org/2016/12/19/ntpviz-intro.html[*+ntpviz+*].
 
 In the recent past NTPsec had a number of separate tools to log
-temperatures from different sources.  Thanks to Wolter Keane
+temperatures from different sources.  Thanks to Keane Wolter
 we now have a single tool that searches for all
 your available temperature sources and logs them with one simple daemon.
 This program is installed by default on recent versions of NTPsec.
@@ -56,7 +56,7 @@ OS and hardware combination.  Some systems report a lot of data, and
 others report none.  To see your available lm_sensors readings:
 
 ```
-# sensors 
+# sensors
 coretemp-isa-0000
 Adapter: ISA adapter
 Physical id 0:  +35.0°C  (high = +86.0°C, crit = +96.0°C)
@@ -96,8 +96,8 @@ similarly and only need HID kernel drivers.  The same, or similar, to
 the HID drivers that connect to your keyboard, touch-pad and mouse.
 Some are plastic, some metal, most are about the same size.
 
-A quick search will find similar looking single temperature sensors from 
-$10 to $40.  Advanced models may add an external temperature probe, 
+A quick search will find similar looking single temperature sensors from
+$10 to $40.  Advanced models may add an external temperature probe,
 humidity sensor, or thermocouple interface, but they are all based on
 the same design and microcode.  Avoid the unit with the external
 probe as it suffers from significant self heating.
