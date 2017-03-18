@@ -73,7 +73,7 @@ That shows 5 temperatures: the CPU chip, and the four cores.
 Another popular UNIX package is *+smartctl+*.  Regardless of what you do
 on a UNIX box you really should have smartctl installed and running all
 the time. *+smartctl+* monitors your HDD and SDD health and will usually
-want you before any loss of data that your data drive need replacing.
+warn you before any loss of data that your data drive need replacing.
 
 For our purposes, many drives also report their temperature.  I find
 the drive temperature is usually pretty close to the south-bridge
