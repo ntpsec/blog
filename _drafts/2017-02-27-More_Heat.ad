@@ -49,21 +49,23 @@ temperature in the box.  The bulb is turned on and off with a simple
 USB controlled relay.  You can buy the relay on EBay for about $5,
 including shipping, assuming you are willing to wait for 3 weeks while
 the slow boat from China crawls to your door.  Just search for 'USB
-relay 1 channel' and you will find many suppliers.
+relay 1 channel' and you will find many suppliers.  A common one
+is the 'usbrelay1' with one relay.  There are also models with two
+('usbrelay2'), four ('usbelay4') and more relays.
 
 image::/assets/usbrelay1.jpg[usbrelay1]
 
-Even better than the price, the usbrelay1 presents itself as an HID
+Even better than the price, the 'usbrelay1' presents itself as an HID
 device, just like your keyboard and mouse, so no matter what operating
 system you run you most likely already have the kernel driver installed.
 
-As you would expect, the usbrelay1 comes with no documentation at
+As you would expect, the 'usbrelay1' comes with no documentation at
 all, but tools to control it are readily available.  I used this
 https://github.com/darrylb123/usbrelay[ command line tool] written in a
 portable dialect of Python.  It should run on just about any operating
 system.  Installation instructions are in the package.
 
-Each usbrelay1 is uniquely identified, to find the id of yours, simply run:
+Each 'usbrelay1' is uniquely identified, to find the id of yours, simply run:
 
 ```
 # usbrelay
@@ -123,7 +125,7 @@ image::/assets/box-closed.png[box closed]
 *+ntpheatusb+* is like *+ntpheat+*.  They are both in the contrib/
 directory and not installed on your system by default.  But instead of
 making heat by exercising the CPU, it makes heat by switching the 40
-Watt light bulb on and off with the usbrelay1.  The light is cycled
+Watt light bulb on and off with the 'usbrelay1'.  The light is cycled
 once a minute to minimize relay wear.
 
 The program implements a simple proportional controller and yields
