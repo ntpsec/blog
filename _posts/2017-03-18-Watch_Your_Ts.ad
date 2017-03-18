@@ -106,7 +106,7 @@ image::/assets/temper.jpg[TEMPer2]
 
 Since the TEMPer is an HID device there are Python drivers to read the
 sensor(s) on most every platform.  I prefer the temper-python program
-available here: git://github.com/padelt/temper-python.git
+available here: http://github.com/padelt/temper-python.git[http://github.com/padelt/temper-python.git]
 
 Once you have the TEMPer inserted into a USB port and temper-python
 installed it is easy to read the device temperature:
@@ -157,8 +157,8 @@ and look at your new *+ntpviz+* data.
 
 Putting it all together, we get a lot of data.  In a later blog post
 we'll see a good way to put it to use.  Here is a look at how all those
-temperatures look alongside the Lock Clock Frequency Offset.  That
-offset is shown here in read and is the NTP parameter most sensitive to
+temperatures look alongside the Local Clock Frequency Offset.  That
+offset is shown here in [red]#red# and is the NTP parameter most sensitive to
 temperature.  To my eye the offset correlates best with LM1, the temperature
 of CPU core zero.
 
