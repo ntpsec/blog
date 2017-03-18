@@ -14,9 +14,9 @@ points if you want to duplicate this simple experiment.
 
 In a previous post I showed
 https://blog.ntpsec.org/2017/02/01/heat-it-up.html[how to improve] the
-time and especially frequency accuracy on a Raspberry Pi.  The ac curacies
-are well past that needed to serve local NTP time given the built-in
-100 Mbps Ethernet port connected via USB 2.0 to the CPU.
+time and especially the frequency accuracy on a Raspberry Pi.  The
+accuracies are well past that needed to serve local NTP time given the
+built-in 100 Mbps Ethernet port connected via USB 2.0 to the CPU.
 
 So what is the point of super-charging what is essentially the VW bug
 of the home computer world?  One reason, as has be pointed out to me
@@ -24,7 +24,7 @@ is bragging rights: _My RasPi is more accurate than yours!_
 
 But the main reason is to test the practical limits of the NTPsec code
 using a lab budget of $100.  Any motivated individual can, and some have,
-duplicated my setup.
+duplicated the setup described setup.
 
 So far the core NTPsec code has held up well.  There have been a few
 places where usable precision was being lost and those have been fixed
@@ -41,17 +41,19 @@ surrounding the RasPi.  The bare RasPi (no bubblewrap this time) is
 placed into a plain box and the box is covered in insulation.  I used a
 plain plastic box covered in 1/4" thick Mylar/foam insulation.
 
-The heat will be added with a plain 120 Volt 40 Watt incandescent bulb.
-The bulb will be turned on and off with a simple USB controlled relay.  You
-can but the relay on EBay for about $5, including shipping, assuming you
-are willing to wait for 3 weeks while the slow boat to China crawls to
-your door.  Just search for 'USB relay 1 channel'.
+The heat is be added with a plain 120 Volt 40 Watt incandescent
+bulb. A reclaimed 12V CPU fan blows air over the bulb to even out the
+temperature in the box.  The bulb is be turned on and off with a simple
+USB controlled relay.  You can buy the relay on EBay for about $5,
+including shipping, assuming you are willing to wait for 3 weeks while
+the slow boat from China crawls to your door.  Just search for 'USB
+relay 1 channel' and you will find many suppliers.
 
 image::/assets/usbrelay1.jpg[usbrelay1]
 
 Even better than the price, the usbrelay1 presents itself as an HID
 device, just like your keyboard and mouse, so no matter what operating
-system you run you already have the kernel driver installed.
+system you run you most likely already have the kernel driver installed.
 
 As you would expect, the usbrelay1 comes with no documentation at
 all, but tools to control it are readily available.  I used this
@@ -75,24 +77,52 @@ Device Found
 959BI_1=0
 ```
 
-After that your relay is easy to control, Turn on:
+After that your relay is easy to control, to turn on:
 
 ```
 # usbrelay 959BI_1=1
 ```
-turn off
+To turn back off:
 ```
 # usbrelay 959BI_1=0
 ```
-The last piece of hardware is a temperature sensor.  Here we'll
-use the TEMPer which is detailed in this previous blog post on *+ntplogtemp+*.
+
+The last piece of hardware is a temperature sensor.  Here
+we'll use the TEMPer which was detailed in this previous
+https://blog.ntpsec.org/2017/03/18/Watch_Your_Ts.html[blog post on
+*+ntplogtemp+*.]
+
+== The Box ==
+
+The test chamber is a plastic box that was sitting under a chair.  Into
+the box goes the Raspberry Pi's, their wires exiting the box through two
+small holes on the left.  The light bulb is placed on a ceramic tile in
+the upper right.  The USB relay to control the bulb on the bottom of the
+image.
+
+The fan just below the light bulb is blowing for circulation.  It helped
+even out the temperature in the box.
+
+The extra tile on the right is placed over the light bulb before closing
+the box.  I found that thermoplastic has a surprising tendency to melt
+when exposed to the bare bulb.  The photo cleverly hides the Duck
+Tape on the bottom, top and right sides covering up holes.
+
+image::/assets/box-open.png[box open]
+
+The closed up box is fairly airtight.  The silver sheet is a Mylar coated
+thin foam insulation.
+
+image::/assets/box-closed.png[box closed]
+
 
 == ntpheatusb ==
 
-*+ntpheatusb+* is like *+ntpheat+*.  They are both in the contrib
+*+ntpheatusb+* is like *+ntpheat+*.  They are both in the contrib/
 directory and not installed on your system by default.  But instead of
-making heat by exercising the CPU it makes heat by modulating the 40
-Watt light bulb on and off with the usbrelay1.
+making heat by exercising the CPU, it makes heat by switching the 40
+Watt light bulb on and off with the usbrelay1.  The light is cycled
+once a minute to minimize relay wear.
 
 The program implements a simple proportional controller and yields
 very good temperature stability.  I got a Standard deviation of 0.11 °C,
@@ -103,13 +133,14 @@ Just note that a simple proportional controller will never stabilize at
 the set point.  Just run the temperature controller at your desired
 set point for a while.  The restart it with the observed offset added in.
 
-Running ntpheatusb is simple, to stabilize at 44.4 °C:
+Running ntpheatusb is simple, to stabilize the temperature in the box
+at 44.4 °C:
 
 ```
 # contrib/ntpheatusb -t 45
 ```
 
-If I wanted to target 45 °C then i would run:
+To target 45.6 °C instead  then run:
 
 ```
 # contrib/ntpheatusb -t 45.6
@@ -119,10 +150,10 @@ If I wanted to target 45 °C then i would run:
 == How Good? ==
 
 Check out the following plot of Time Offset and Frequency Offset.  The
-Time Offset standard deviation of 469 nano seconds is a bit better than
-most thought possible. the Frequency Offset standard deviation of 4.2 ppb
+Time Offset Standard Deviation of 469 nano seconds is a bit better than
+most thought possible. the Frequency Offset Standard Deviation of 4.2 ppb
 is about 120 times better than expected.  Almost 5x better than using
-bubblewrap and *+ntpheat+*
+https://blog.ntpsec.org/2017/02/01/heat-it-up.html[bubblewrap and *+ntpheat+*]
 
 image::/assets/27Feb-local-offset.png[]
 
@@ -144,6 +175,11 @@ Local Clock Frequency Offset,0.0136,0.0196,0.0042,-4.2802,ppm
 Local Clock Time Offset,1.259,2.833,0.4686,-0.0001,µs
 |===
 
+The plot of [red]#Local Clock Frequency Offset# and [blue]#ZONE0# and
+[green]#TEMPER0# shows that temperature has been mostly eliminated as
+a source of error.  The ZONE0 spikes at about 07:30 and 16:30 do seem
+to loosely correlate with a frequency dips shortly after.  That still
+leaves most of the jitter unexplained.
 
 
 image::/assets/27Feb-local-freq-temps.png[]
@@ -168,16 +204,19 @@ Temp TEMPER0,0.5,0.7,0.177,44.4593,°C
 Temp ZONE0,2.152,3.766,0.7861,64.1591,°C
 |===
 
+The Standard Deviation of the temperature is just 0.177 °C.  Pretty good
+considering the granularity of the TEMPer measurements is 0.1 °C.
+
+Sadly as the Frequency Stability gets better, the Time Offset and Jitter
+do not.  Seeking better frequency stability by way of better temperature
+control does not appear to have any more big payoff.
 
 == Next? ==
 
-There are more possible experiments.
+What are more possible experiments?
 
-Better temperature stability?  Maybe with a PID controller, fans, etc.
+How to get better temperature stability?
 
 Seek the exact best temperature for Zero TC.  Maybe add auto-stepping to
-*+ntpheatusb+*
+*+ntpheatusb+*?
 
-Sadly as the Frequency Stability gets better the Time Offset and Jitter is
-not.  Seeking better frequency stability by way of better temperature control
-does not appear to have any more big payof.

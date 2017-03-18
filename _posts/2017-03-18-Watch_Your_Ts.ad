@@ -143,7 +143,7 @@ Assuming that you have one or more of these sources installed, then
 
 That gives you a nice profile of temperatures in and around your system.  But
 you probably do not want to have to run a spreadsheet by hand, so log
-all the data in the background so *+ntpviz+* will use it.  This will log
+all the data in the background then *+ntpviz+* can use it.  This will log
 all your temperature data once every five minutes:
 
 ```
