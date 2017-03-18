@@ -5,26 +5,28 @@ date:   2017-02-28 00:01:00 -0000
 author: GEM
 ---
 
-Fair warning: if you just want to use NTPsec, then you can stop reading
-this blog post right now.  On the other hand, if you are curious how
-far one can push a Raspberry Pi then you are in the right place.  Bonus
-points if you want to duplicate this simple experiment.
+Fair warning: if you just want to use NTPsec to keep time on your LAN,
+then you can stop reading this blog post right now.  On the other hand,
+if you are curious how far one can push ntpd on a Raspberry Pi then
+you are in the right place.  Bonus points if you duplicate this simple
+experiment.  Everything was built with laboratory scrap, except for a $5
+part.
 
 == Why? ==
 
-In a previous post I showed
-https://blog.ntpsec.org/2017/02/01/heat-it-up.html[how to improve] the
-time and especially the frequency accuracy on a Raspberry Pi.  The
-accuracies are well past that needed to serve local NTP time given the
-built-in 100 Mbps Ethernet port connected via USB 2.0 to the CPU.
+In a previous post I showed how to
+https://blog.ntpsec.org/2017/02/01/heat-it-up.html[improve the time and
+especially the frequency accuracy] on a Raspberry Pi.  The accuracies
+are well past that needed to serve local NTP time given the built-in 100
+Mbps Ethernet port connected via USB 2.0 to the CPU.
 
 So what is the point of super-charging what is essentially the VW bug
 of the home computer world?  One reason, as has be pointed out to me
 is bragging rights: _My RasPi is more accurate than yours!_
 
 But the main reason is to test the practical limits of the NTPsec code
-using a lab budget of $100.  Any motivated individual can, and some have,
-duplicated the setup described setup.
+using a lab budget of $100, including a Raspberry Pi 3.  Any motivated
+individual can, and some have, duplicated the setup described setup.
 
 So far the core NTPsec code has held up well.  There have been a few
 places where usable precision was being lost and those have been fixed
