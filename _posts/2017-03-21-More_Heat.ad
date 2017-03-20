@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "More Heat"
-date:   2017-02-28 00:01:00 -0000
+date:   2017-03-21 00:00:00 -0000
 author: GEM
 ---
 
@@ -138,18 +138,19 @@ the set point.  Just run the temperature controller at your desired
 set point for a while.  Then restart it with the observed offset added in.
 
 Running ntpheatusb is simple, to stabilize the temperature in the box
-at 44.4 °C:
+at 45 °C:
 
 ```
 # contrib/ntpheatusb -t 45
 ```
 
-To target 45.6 °C instead  then run:
+After about an hour the box will stabilize at 44.4 °C, an undesired
+offset of 0.6 °C.  Add in the offset and the box will stabilize at 45 °C
+after a while:
 
 ```
 # contrib/ntpheatusb -t 45.6
 ```
-
 
 == How Good? ==
 
@@ -208,12 +209,18 @@ Temp TEMPER0,0.5,0.7,0.177,44.4593,°C
 Temp ZONE0,2.152,3.766,0.7861,64.1591,°C
 |===
 
-The Standard Deviation of the temperature is just 0.177 °C.  Pretty good
-considering the granularity of the TEMPer measurements is 0.1 °C.
+-- Conclusions ==
+
+The Standard Deviation of the box temperature is now just 0.177 °C.
+Pretty good considering the granularity of the TEMPer measurements is
+0.1 °C.  The crystal is now operating near its zero TC point and so
+the frequency is now relatively immune to the remaining temperature
+variation.
 
 Sadly as the Frequency Stability gets better, the Time Offset and Jitter
 do not.  Seeking better frequency stability by way of better temperature
-control does not appear to have any more big payoff.
+control does not appear to have any more big payoff over the previous
+bubblewrap experiment.
 
 == Next? ==
 
@@ -223,4 +230,7 @@ How to get better temperature stability?
 
 Seek the exact best temperature for Zero TC.  Maybe add auto-stepping to
 *+ntpheatusb+*?
+
+Give up and find something that improves the time offset instead of the
+frequency offset?
 
