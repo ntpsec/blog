@@ -1,0 +1,73 @@
+---
+layout: post
+title:  Saving history in Git
+date:   2017-03-20 23:30:00 -0000
+author: MRA
+---
+
+//DRAFT
+
+Working on a project with as much history as NTP brings to light just
+how much history there is, in preserving history.
+
+== My history of using history
+
+Year ago, when I was working for MySQL AB, one of my projects was to
+write a specialized storage engine for a specific customer.  Before I
+started from scratch, I chatted with some of the senior developers who
+had been working on that codebase from the very beginning, describing
+what this new code had to do.
+
+One of them saved us weeks and weeks of work, by remembering: "Oh, that's
+very similar to the old foobar engine, use that as your starting point."
+
+Me: "I've never heard of that engine, it's not in any of the docs, and I've
+never seen it in the code."
+
+Them: "Oh, we removed it.  But it will be in the VCS history, grab it from there."
+
+Me: ...
+
+Sure enough, I walked back in time in the VCS, and there was the foobar engine.
+Of course, it did not compile against the current HEAD, but half a week's work
+fixed that, and another week's work modified it to meet the requirements for
+this custom engine project.
+
+We've gotten used to using VCSs like Git, but we still forget what it
+means, that if we use it well enough, we can remember the past without
+it intruding on the present unncessarily.
+
+== Moving history to history, where it belongs
+
+As we started working on refactoring the NTP codebase, one of our key
+metrics of progress is how much the code is shrinking.  We removed the
+old autotools build system.  We removed clock drivers for hardware
+that is no longer available or functional.  We removed insecure
+security features.
+
+As we dug in deeper and deeper, we started finding half-done projects
+and experiments, things that were never finished, or that never
+worked, or that were never used and were insecure.
+
+In my role as PM, I was merciless, and encouraged the core developers
+to continue being merciless, and we discovered this stuff: remove it.
+
+Sometimes we removed too much, and on feedback from users and from
+voices of wisdom, we would bring some stuff back.  Which we could do,
+because it was all sitting in the Git history.
+
+Some people watching the project from the outside have been saying
+that we are going too far, we are removing stuff that is harmless,
+or that hasn't been shown to have bugs or security issues.  There
+concern is fueled by the reality that writing code is hard work,
+that someone sweated expensive time and scares attention over writing
+that code, and it's wrong to throw away something valuable.
+
+While I understand their concern, and completely share it, I think
+they are demonstrating that we as the open source communities have not
+yet really actually understood what it really means to have a VCS.
+All that stuff is not "gone", it's not "lost".  It's still sitting in
+the VCS history, with a copy everywhere that someone has run "git
+clone".
+
+// END
