@@ -7,7 +7,7 @@ author: GEM
 
 Fair warning: if you just want to use NTPsec to keep time on your LAN,
 then you can stop reading this blog post right now.  On the other hand,
-if you are curious how far one can push ntpd on a Raspberry Pi then
+if you are curious just how far one can push ntpd on a Raspberry Pi then
 you are in the right place.  Bonus points if you duplicate this simple
 experiment.  Everything was built with laboratory scrap, except for a $5
 part.
