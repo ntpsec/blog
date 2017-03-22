@@ -44,8 +44,9 @@ not NTPsec, because we had already removed the attack surface:
 * CVE-2017-6459: Data Structure terminated insufficiently
 * CVE-2017-6460: Buffer Overflow in ntpq when fetching reslist
 
-We gratefully acknowledge the work of of Dr.-Ing. Mario Hederich
-at Cure53 in detecting these problems and his cooperation in resolving them.
+We gratefully acknowledge the work of of Dr.-Ing. Mario Heiderich and
+his team at Cure53 in detecting these problems and their cooperation in
+resolving them.
 
 
 As always, you can download the release tarballs with sums and signatures
