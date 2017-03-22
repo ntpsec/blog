@@ -18,24 +18,27 @@ started from scratch, I chatted with some of the senior developers who
 had been working on that codebase from the very beginning, describing
 what this new code had to do.
 
-One of them saved us weeks and weeks of work, by remembering: "Oh, that's
-very similar to the old foobar engine, use that as your starting point."
+One of them saved us weeks and weeks of work, by remembering: "Oh,
+that's very similar to the old foobar engine, use that as your
+starting point."
 
-Me: "I've never heard of that engine, it's not in any of the docs, and I've
+Me: "I've never heard of that, it's not in any of the docs, and I've
 never seen it in the code."
 
-Them: "Oh, we removed it.  But it will be in the VCS history, grab it from there."
+Them: "Oh, we removed it, years ago.  But it will be in the VCS
+history, grab it from there."
 
 Me: ...
 
-Sure enough, I walked back in time in the VCS, and there was the foobar engine.
-Of course, it did not compile against the current HEAD, but half a week's work
-fixed that, and another week's work modified it to meet the requirements for
-this custom engine project.
+Sure enough, I walked back in time in the VCS, and there was the
+foobar engine.  Of course, it did not compile against the current
+tip, but half a week's work fixed that, and another week's work
+modified it to meet the requirements for this custom engine project.
 
-We've gotten used to using VCSs like Git, but we still forget what it
-means, that if we use it well enough, we can remember the past without
-it intruding on the present unncessarily.
+We've gotten used to using VCSs, such as Git, but we still have not
+fully realized what having a VCS does: if we use it well enough, we
+can remember the past without it intruding on the present
+unncessarily.
 
 == Moving history to history, where it belongs
 
@@ -51,6 +54,8 @@ worked, or that were never used and were insecure.
 
 In my role as PM, I was merciless, and encouraged the core developers
 to continue being merciless, and we discovered this stuff: remove it.
+
+ESR describes more fully the removals at (https://blog.ntpsec.org/2016/11/29/less-is-more.html).
 
 Sometimes we removed too much, and on feedback from users and from
 voices of wisdom, we would bring some stuff back.  Which we could do,
@@ -69,5 +74,9 @@ yet really actually understood what it really means to have a VCS.
 All that stuff is not "gone", it's not "lost".  It's still sitting in
 the VCS history, with a copy everywhere that someone has run "git
 clone".
+
+
+
+
 
 // END
