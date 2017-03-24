@@ -34,7 +34,7 @@ This saved us months, and delighted the customer.
 
 We have gotten used to using VCSs, such as Git, but we still have not
 fully realized what having a VCS gives us: easy access to the past,
-and safer eexploration of possible futures, without intruding on the
+and safer exploration of possible futures, without intruding on the
 present.
 
 == Removing without fear, restoring without pain
@@ -43,7 +43,7 @@ As we started working on refactoring the NTP codebase, one of our key
 metrics of progress is how much the code is shrinking.  ESR has
 written a blog post
 (https://blog.ntpsec.org/2016/11/29/less-is-more.html) about the
-removals, for great wins in tractiblity, reducing the necessary
+removals, for great wins in tractiblity, by reducing the necessary
 congnitive load required for working on the project.
 
 Sometimes we removed too much.  When we did, we would bring it back.
