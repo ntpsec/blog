@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Watch That GPS"
-date:   2017-02-27 00:00:00 -0000
+date:   2017-04-24 22:00:00 -0000
 author: GEM
 ---
 
@@ -52,7 +52,7 @@ ratio telling how well the GPS is keeping time relative to its data sheet
 claims.  A value of one or better means the GPS is working as expected,
 or better.  A TDOP of 100 means it is performing 100 times worse.
 
-You'll notice that on average the subject GPS is using 10 satellites to
+You'll notice that on average, the subject GPS is using 10 satellites to
 calculate the PVT solution.  Sometimes up to 18.  Looks good, right?
 That is confirmed by a TDOP of 0.89 or better 50% of the time.  But
 notice the TDOP is worse than 13.6 for 1% of the time, sometimes as bad
@@ -86,12 +86,12 @@ You are likely now wondering why I don't have a matching plot showing
 some loss of time precision.  Luckily I don't have any plots like that.
 I suspect that is for two reasons.  First, the TXCO in the Uputronics
 GPS is coasting thorough the small outages.  Second, *+gpsd+* and *+ntpd+*
-together have good input filtering.
+together have good PPS input filtering.
 
 The motivation for +*ntploggps+* was a solar storm last winter.  I heard
 reports from others of GPS signal loss, and when checking my logs I
 discovered my GPS's had experienced similar outages.  Next time I'll have
 a pretty graph of it.
 
-During the outage my NTP servers fell back from GPS to other time
+During the outages my NTP servers fell back from GPS to other time
 sources.  If you depend on your time, be sure to have backup chimers.
