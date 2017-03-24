@@ -1,0 +1,102 @@
+---
+layout: post
+title:  In the bright new future of today
+date:   2017-03-20 23:30:00 -0000
+author: MRA
+---
+== My history of using history
+
+Years ago, when I was working for MySQL AB, one of my projects was to
+write a specialized storage engine for a specific customer.  Before I
+started from scratch, I chatted with some of Wise Master developers who
+had been working on that codebase from the very beginning, describing
+what this new code had to do.
+
+Wise Master: "Oh, that's very similar to the old foobar engine, use
+that as your starting point."
+
+Me: "I've never heard of the foobar engine, it's not in any of the
+docs, and I've never seen it in the code."
+
+Wise Master: "Oh, we removed it, years ago.  But it will be in the VCS
+history, grab it from there."
+
+Me: ...
+
+Sure enough, I walked back in time in the VCS, and there was the
+foobar engine.  It did not compile against the current state of the
+project, but a few days work fixed that, and another few days modified
+it to meet the requirements for this particular custom engine project.
+
+This saved us months, and delighted the customer.
+
+== Gotta get back, back to the past
+
+We have gotten used to using VCSs, such as Git, but we still have not
+fully realized what having a VCS gives us: easy access to the past,
+and safer eexploration of possible futures, without intruding on the
+present.
+
+== Removing without fear, restoring without pain
+
+As we started working on refactoring the NTP codebase, one of our key
+metrics of progress is how much the code is shrinking.  ESR has
+written a blog post
+(https://blog.ntpsec.org/2016/11/29/less-is-more.html) about the
+removals, for great wins in tractiblity, reducing the necessary
+congnitive load required for working on the project.
+
+Sometimes we removed too much.  When we did, we would bring it back.
+Which we could do because it was all sitting in the history. Deleting
+code we should not is an low-cost easily reversed error.
+
+== Onlookers are concerned, they need not be
+
+Some people watching us work from the outside have been saying that we
+are going too far, we are removing stuff that is harmless, or that has
+not (yet) been shown to have bugs or security issues.
+
+Their concern is fueled by the reality that writing code is hard work,
+that someone sweated expensive time and scarce attention over writing
+that code, and it is wrong to throw away something so valuable.
+
+While I understand their concern, it demonstrates that often we the
+open source communities have not yet actually understood what it means
+to have a VCS.  All that code is not gone.  It is still sitting in the
+VCS history, with a copy everywhere that someone has run "git clone".
+
+== The past's possible futures hopes go in history, not the present
+
+As we dug deeper we found half-done projects and experiments, things
+that were never finished, or never worked, or were never used and were
+insecure.
+
+Those, we also deleted, fearlessly.  If any of it may be needed again,
+there it is, sitting in the history.
+
+== Where the present's possible futures belong
+
+The amazing thing about Git, that we often forget makes it so
+different from most earlier commonly used VCSs, is local feature
+branches. Before Git, feature branches were difficult.  Before VCS,
+they basically were impossible.
+
+And so, instead of feature branches, projects as old and as active as
+NTP routinely shipped with code that was, at best, #ifdef'ed out as
+"under construction", and at worse, shipped incomplete and documented
+with "don't use this, it's not done".  Not from any failure on the
+part of the original developers, but just due to weaknesses in the
+tools they had.
+
+== Making way for tomorrow, today
+
+The NTPsec project's current use of Git is still very straightforward,
+and without a lot of "Git-fu".  But I think that will change, as we
+get more developers who don't need "master commit" powers.  We will
+get more feature branches, that get merged to the 'master' branch
+after code review.
+
+But in the meantime, we will leave the history in the history, where it
+belongs.
+
+// END
