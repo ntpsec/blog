@@ -5,15 +5,15 @@ date:   2017-01-28 00:30:00 -0000
 author: MRA
 ---
 
-When we forked the NTPsec codebase from NTP Classic, the codebase and
-file tree were full of code and scripts of marginal value, and the
-headaround costs of navigating it often made their value negative.
+When we forked the NTPsec codebase from NTP Classic, it was full of
+code and scripts of marginal value, and the headaround costs of
+navigating it often made their value negative.
 
-This is not at all intended to speak ill of the past contributors and
+This is not at all to speak ill of the past contributors and
 maintainers of NTP Classic.  Like as in so many other things, culture
 follows tools, and the tools that were available for most of NTP's
 history all but demanded that a project as important and as
-interesting as NTP would accumulate distracting low quality detritus.
+interesting as NTP would accumulate distracting detritus.
 
 weakness of earlier source control
 use of tarball as the working artifact
