@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "How Much Heat?"
+date:   2017-03-24 00:01:00 -0000
+author: GEM
+---
+
+Fair warning: if you are sick of how temperature affects the local
+frequency offset, then feel free click elsewhere.  For good NTP
+performance you merely need get the temperature of your server
+stabilizeda For that, see previous blog posts.  This blog post is about
+eeking out the last bit of frequency stability.
+
+== The Staircase ==
+
+Up until now, finding the best temperature to run your Raspberry Pi at has
+been a random walk.  By request, I have added the *+-s+* option to 
+*+ntpheatusb+*.  The nwe option holds the desired temperature for
+two hours.  It then steps the setpoint up one degree C, and then
+holds taht temperature for another 2 hours.  10 steps up, then 10 back
+down, and repeat.
+
+Here is what that looks like:
+
+image:/assets/23mar17-local-freq-temps.png[]
