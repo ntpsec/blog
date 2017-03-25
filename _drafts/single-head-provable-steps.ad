@@ -104,7 +104,7 @@ Fortunately, the merge-request workflow set up by sites like GitLab and
 GitHub actually tends to support single-head development.  When an MR
 can be rebased to the public head, accepting it does that.  When it can't,
 you generally don't have an option other than downloading the MR as
-a patch sequence and appying it with manual fixups.  Either way, if you
+a patch sequence and applying it with manual fixups.  Either way, if you
 started with a linear, single-head commit graph you generally end up
 with one.
 
