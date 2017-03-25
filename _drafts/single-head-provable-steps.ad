@@ -95,7 +95,7 @@ possibly after squashing them to a single changeset.
 
 Where I differ from Mark is that I view local branches not as a
 feature to be joyously embraced because Git makes them easy, but as
-what you do when you're forced to - when don't think you can make the
+what you do when you're forced to - when you don't think you can make the
 single-head-provable-steps discipline work. It's important to be able
 to recognize when you're in that situation - and, I think, important
 to refrain from breaking the discipline when you're not.
