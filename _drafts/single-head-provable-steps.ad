@@ -1,0 +1,111 @@
+---
+layout: post
+title:  Single head, provable steps
+date:   2017-03-20 23:30:00 -0000
+author: ESR
+---
+Mark Atwood devoted most of a recent post,
+file:../2017/03/24/saved-history.html[In the bright new future of today]
+to explaining how Git liberates development teams to delete code without fear,
+knowing that the ready accessibility of the change history makes it relatively
+easy to restore deletions that turn out to be unwise.
+
+That is certainly true and very liberating.  But Mark also proposes that cheap
+local feature branches are a central part of Git's power, and expresses the hope
+that NTPsec will use more of them in the future.
+
+With this I must halfway disagree. In the rest of this post I'm going
+to explain why. In the process, I hope to illuminate one of the reasons
+NTPsec's defect rate has been spectacularly low.  This is not a fluke;
+GPSD, a project two of NTPsec's senior developers ran for ten years
+before NTPsec, also achieved exceptionally low defect rates by the
+same methods.
+
+As the tech lead of GPSD, and then of NTPsec, I have used - and tried
+to teach others by example - a very particular style or rhythm of code
+development that I have encapsulated in the phrase "single head, provable
+steps".  It works like this:
+
+Make logically small changes.  Before you modify code, determine what
+invariants the change needs to preserve. Ask yourself at every step
+of the change if you are in fact preserving your invariant set. When
+in doubt and it's possible, write a test to check the invariant and
+apply the test.
+
+When you do this right, the process of modifying code unfolds like a
+logical proof in which each step at every level has a correctness
+relationship to other steps near it, a relationship that is simple
+enough for a human brain to prove on the fly.
+
+You will not in fact always do this right, because you are fallible.
+But the harder you push in this direction, the less frequent and
+smaller and more localized your defects will be.
+
+To give the reader an idea of characteristic scale, two days ago I
+added support for configuration-snippet directories to NTPsec.  This
+commit, which added about 70 lines of code, is actually a bit large
+for a provably correct step in C. When I built with it, it had one
+runtime error; turned out I had used the wrong variable name in an
+array reference.
+
+This discipline requires you to make larger changes in a series of
+small commits, each of which is from a proof-of-correctness point of
+view relatively self-contained and can be largely verified by
+inspection.
+
+If you have several developers working in this style, the commit graph
+you get will be mostly or entirely linear and evolve in short bursts
+of commits.  You won't have or need feature branches.  Bisecting
+to pin down which commit produced a bug will be simple and effective.
+
+There's a second-order effect as well, which is that with only unusual
+and transient exceptions everybody is looking at the same code.  It
+will thus be very rare to have an actual merge conflict. All the eyeballs
+are on all the problems - especially if you have a unit-test suite and
+programmers with enough clue to write tests as they write code.
+
+This practice works very well at reducing defect rates.  The reason
+I'm dubious about feature branches is that they throw away several of
+the practice's good consequences. You don't have everyone working the
+same coal face anymore.  Bisection results become tricker to
+interpret. Branch merges are often difficult and traumatic.  Most
+importantly, the discipline of small steps with provable preservation
+of invariants tends to get lost on side branches.
+
+Why this is I'm not entirely sure.  It's not logically entailed that
+someone wandering off on a feature branch *has* to lose that
+discipline, but I've observed it happen over and over again on many
+projects over many years.  Something about the psychology of being off
+on your own, as opposed to working on the same head with others?  It
+was observing several incidents like this, years ago before git, that
+attached me to the style of single-head development with provable
+steps that I now advocate.
+
+All this said, sometimes you have to take the hit. NTPsec has exactly
+one merged public feature branch in its post-fork public history.  The NTP
+protocol machine needed a very large refactor and cleanup during which
+some intermediate steps would be unavoidably broken; thus, the only
+practical thing was a private feature branch, eventually pushed to the
+public repo and merged when it was in a working state.
+
+In the near future, I expect to attempt a major simplification of ntpd's
+network plumbing.  I'll write it as a local branch. When it's ready, I'll
+avoid creating a public branch by rebasing the changes to the public head,
+possibly after squashing them to a single changeset.  
+
+Where I differ from Mark is that I view local branches not as a
+feature to be joyously embraced because Git makes them easy, but as
+what you do when you're forced to - when don't think you can make the
+single-head-provable-steps discipline work. It's important to be able
+to recognize when you're in that situation - and, I think, important
+to refrain from breaking the discipline when you're not.
+
+Fortunately, the merge-request workflow set up by sites like GitLab and
+GitHub actually tends to support single-head development.  When an MR
+can be rebased to the public head, accepting it does that.  When it can't,
+you generally don't have an option other than downloading the MR as
+a patch sequence and appying it with manual fixups.  Either way, if you
+started with a linear, single-head commit graph you generally end up
+with one.
+
+// END
