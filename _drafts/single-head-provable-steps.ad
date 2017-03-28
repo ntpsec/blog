@@ -67,7 +67,7 @@ programmers with enough clue to write tests as they write code.
 This practice works very well at reducing defect rates.  The reason
 I'm dubious about feature branches is that they throw away several of
 the practice's good consequences. You don't have everyone working the
-same coal face anymore.  Bisection results become tricker to
+same coal face anymore.  Bisection results become trickier to
 interpret. Branch merges are often difficult and traumatic.  Most
 importantly, the discipline of small steps with provable preservation
 of invariants tends to get lost on side branches.
