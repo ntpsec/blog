@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How Much Heat?"
-date:   2017-03-24 00:01:00 -0000
+date:   2017-03-28 02:30:00 -0000
 author: GEM
 ---
 
@@ -35,7 +35,7 @@ I'll describe each one at a time.
 TEMPER0 is the temperature in the test box and is drawn in dark green.
 The output of TEMPER0 shows the temperature that *+ntpheatusb+* is
 creating.  It starts at 42 °C, steps up to 52 °C, then back down to 42
-°C.  Each step lasts 2 hours.  
+°C.  Each step lasts 2 hours.
 
 You'll notice that the leading edge of every step has an overshoot,
 followed by a few cycles of ringing.  This is usually considered the
@@ -63,18 +63,21 @@ The trace starts at the left at about -4.43 ppm.  It increases to about
 -4.12 ppm when the rising stair step is at 47 °C, then decreases back
 to about -4.40 ppm at maximum temperature.  The second half of the red
 trace mirrors the first half, except it is shifted slightly upwards.
-This shows that zero TC is close to 47 °C.
+This shows that _zero TC_ is close to 47 °C.
 
 There are some interesting characteristics to the frequency graph.  The
 small overshoot in the TERMPER0 steps leads to large overshoots in the
 frequency.  This is expected as NTP controls the frequency with a PLL, and
 this is how a PLL reacts to sharp changes in input.
 
-At temperatures lower than zero TC, load spikes show up as an increase
+At temperatures lower than _zero TC_, load spikes show up as an increase
 in frequency offset.  When the temperature is higher than zero the
 temperature spikes are in the downward direction.  This means you can
-quickly guess if your crystal is above or below zero TC by the direction
+quickly guess if your crystal is above or below _zero TC_ by the direction
 of the load spikes.
+
+The most important thing to note about the frequency offset near _zero TC_
+is how stable it is.  NTP is all about stability.
 
 
 == Local Time Offset ==
@@ -85,19 +88,20 @@ by much as this graph shows:
 image:/assets/23mar17-offsets.png[]
 
 The blue line is the Local Clock Offset, an important measure of how well
-you NTP server is tracking time.  The offset jitter at the zero TC point 
+your NTP server is tracking time.  The offset jitter at the _zero TC_ point
 is only slightly lower than when the ambient temperature is ±5 °C.
 
 
 == Putting it All Together ==
 
-Two hour steps seem to be barely long enough to narrow down the zero TC
-point.  But two hours is clearly not long enough for the entire system
+Two hour steps seem to be barely long enough to narrow down the _zero
+TC_ point.  Two hours is clearly not long enough for the entire system
 to stabilize.  This reinforces the idea that is probably best to run
-your ntpd for 12 or 24 hours before bothering to gather any statistics.
+your ntpd for 12 or 24 hours after making any change before bothering to
+gather any statistics.
 
 What does it all mean to the casual NTP server admin?  Stabilize the
-temperature around your NTP server.  Better yet find your zero TC and
+temperature around your NTP server.  Better yet find your _zero TC_ and
 try to operate somewhat close to that point.  But do not worry about
 getting the temperature exactly right, it will not noticeably improve
 your time service.
