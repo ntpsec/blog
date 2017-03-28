@@ -5,8 +5,8 @@ date:   2017-03-24 00:01:00 -0000
 author: GEM
 ---
 
-Fair warning: if you are sick of how temperature affects the
-local frequency offset, then feel free click elsewhere.  For
+Fair warning: if you are sick of reading how temperature affects
+the local frequency offset, then feel free click elsewhere.  For
 good NTP performance you merely need get the temperature of your
 server stabilized.  For that, see previous blog posts.  This blog
 post is about eeking out the last bit of frequency stability.
@@ -91,11 +91,13 @@ is only slightly lower than when the ambient temperature is ±5 °C.
 
 == Putting it All Together ==
 
-Two hours steps seem to be long enough to narrow down the zero TC point.
-But two hours is clearly not long enough for the entire system to
-stabilize.
+Two hour steps seem to be barely long enough to narrow down the zero TC
+point.  But two hours is clearly not long enough for the entire system
+to stabilize.  This reinforces the idea that is probably best to run
+your ntpd for 12 or 24 hours before bothering to gather any statistics.
 
 What does it all mean to the casual NTP server admin?  Stabilize the
 temperature around your NTP server.  Better yet find your zero TC and
 try to operate somewhat close to that point.  But do not worry about
-getting the temperature exactly right.
+getting the temperature exactly right, it will not noticeably improve
+your time service.
