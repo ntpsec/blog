@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Single head, provable steps
-date:   2017-03-20 23:30:00 -0000
+date:   2017-04-09 03:50:00 -0500
 author: ESR
 ---
 Mark Atwood devoted most of a recent post,
@@ -41,7 +41,7 @@ You will not in fact always do this right, because you are fallible.
 But the harder you push in this direction, the less frequent and
 smaller and more localized your defects will be.
 
-To give the reader an idea of characteristic scale, two days ago I
+To give the reader an idea of characteristic scale, on 24 Mar I
 added support for configuration-snippet directories to NTPsec.  This
 commit, which added about 70 lines of code, is actually a bit large
 for a provably correct step in C. When I built with it, it had one
