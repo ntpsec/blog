@@ -5,7 +5,7 @@ date:   2017-04-09 03:50:00 -0500
 author: ESR
 ---
 Mark Atwood devoted most of a recent post,
-file:../2017/03/24/saved-history.html[In the bright new future of today]
+link:../../03/24/saved-history.html[In the bright new future of today]
 to explaining how Git liberates development teams to delete code without fear,
 knowing that the ready accessibility of the change history makes it relatively
 easy to restore deletions that turn out to be unwise.
