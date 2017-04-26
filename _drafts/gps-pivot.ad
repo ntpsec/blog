@@ -1,0 +1,88 @@
+---
+layout: post
+title:  "GPS pivot"
+date:   2017-05-01 00:30:00 -0000
+author: FOO
+---
+
+So, you are a GPS vendor.  The GPS pivot date in your firmware is a calendar date and the same date expressed as a cyclic week/second-of-week pair. It is probably the date of your firmware rev.
+
+Here's how it's used...
+
+The GPS sees a week/second pair from the sats. It asks "in cyclic time, are we after or before the magic pivot?"
+
+If after, we add week and second to the pivot to get the calendar date.
+
+If before we say "Before the rev date of the firmware? There's been a rollover."
+
+ In this way we get correct dates for a full 1024 weeks after the magic pivot date - in two different eras, the one the GPS was made in and the following.
+
+BUT....
+
+Since we don't know for any given device what the hidden magic pivot date is, we don't know when it will stop delivering correct dates. The vendors never document this.
+
+So just knowing we're coming up on a GPS rollover date doesn't help. We need to know the individual devices rollover date which can be arbitrary depending on when the pivot date was.
+
+week numbers are 10 bits, so thats 1024 weeks, which means this happens every 19.6 years
+
+You know there's been a roll over because you see that GPS cyclic date before the device was made. You don't know how *many* rollovers there have been. So you just assume 1.
+
+The GPS system has a cyclic clock with a 1024-week period. Each device has a cyclic clock with the same period, but it can only disambiguate over exactly a half cycle in either direction from its hidden pivot date.
+
+So, what happens when a GPS receiver is never upgrade for 9 years?
+
+once a gps gets half of a 1024 week span past its pivot, it fails, emits wrong dates
+wrong by modulo 10 bits of weeks
+
+but we know what time it reported a moment ago
+
+cold startup is the problem
+You also may not have a death record of the device's past readings.
+
+In any case, you maybe can know that a rollover has occurred but you can't know how many rollovers have occurred.
+
+are there fixes to the protocol to address these issues?  in the new satillites?
+The rollover period is longer, but only to 8192 weeks, and only in some receivers
+
+what do the other gnss systems do?
+
+I don't know what the other systems do, but I'd be surprised if it were significantly different. This is a fundamental problem with modular representations of finite size
+
+ so.. there were a bunch of gps recievers that failed in 1999, when the first GPS system rollover happened, before this pivot date trick was implemented in the GPS receiver firmware
+
+and any gps receiver running right now could pivot at any moment, and then can fail 9.8 years after that moment
+
+and in general, a gps receiver will not tell you that its pivoted
+
+Could navstar insist to the gps receiver manufacturers that they get less stupid about their NMEA strings, or face losing their license to build receivers, or to sell them to the us governement / nato / dhs / and us safety agencies?
+
+Hahahaha. In our dreams.
+Or, if that's actually happening, I haven't heard a whisper.
+the manufacturers can't do any better. The sats simply are not giving them the information to disambiguate between rollover eras.
+
+The current best practice is not to use old GPS hardware unless you can get firmware updates from the manufacturer that will modify its pivot date.
+
+ok, what happens to a NTP daemon when it's gps receiver reclock fails 9 years after a pivot?
+
+It starts seeing time stamps that look like they're from 19 years in the past.
+
+Does the NTP daemon then call the gps refclock a falseticker?
+
+Probably. But there's a danger area near boot time.
+
+Also, any primary server relying solely on a single GPS, without check feeds, would be in trouble.
+
+My S1 clocks have GPS-only. No other servers since I don't want them pulled away from GPS
+
+But maybe I should have other servers in nopeer mode so I have a way to detect badness
+
+It is a little disturbing how few people seem to understand this problem and its implications.
+
+NMEA is so fucked up...if GPZDA were mandatory and included a field reporting the pivot date, we could at least warn of oncoming rollovers, even if we still couldn't count the number that has already occurred.
+
+next twist:  If the GPS has a battery, and saves its last known time, and is awoken every decade, no problems.  Just don't change the battery while the GPS is off...
+
+
+
+
+// end
