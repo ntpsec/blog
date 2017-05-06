@@ -66,7 +66,7 @@ trace mirrors the first half, except it is shifted slightly upwards.
 This shows that _zero TC_ is close to 47 °C.
 
 There are some interesting characteristics to the frequency graph.  The
-small overshoot in the TERMPER0 steps leads to large overshoots in the
+small overshoot in the TEMPER0 steps leads to large overshoots in the
 frequency.  This is expected as NTP controls the frequency with a PLL, and
 this is how a PLL reacts to sharp changes in input.
 
