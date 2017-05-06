@@ -95,3 +95,6 @@ a pretty graph of it.
 
 During the outages my NTP servers fell back from GPS to other time
 sources.  If you depend on your time, be sure to have backup chimers.
+
+== References ==
+link:https://en.wikipedia.org/wiki/Dilution_of_precision_(navigation)
