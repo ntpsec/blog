@@ -39,7 +39,7 @@ in your NTP statistics directory.  Then *+ntpviz+* will automatically
 use the new data.
 
 ```
-# ntplogps -l /var/log/ntpstats/gpsd &
+# ntploggps -l /var/log/ntpstats/gpsd &
 ```
 
 == Visualize It ==
@@ -49,8 +49,8 @@ checked it always seemed so.  Plots like the one below opened some eyes.
 The scale on the right is the number of satellites in view. the scale on
 the left is the Time Dilution of Precision (TDOP).  TDOP is a goodness
 ratio telling how well the GPS is keeping time relative to its data sheet
-claims.  A value of one or better means the GPS is working as expected,
-or better.  A TDOP of 100 means it is performing 100 times worse.
+claims.  A value of one or less means the GPS is working as expected,
+or better.  A TDOP of 20 means it is performing much, much, worse.
 
 You'll notice that on average, the subject GPS is using 10 satellites to
 calculate the PVT solution.  Sometimes up to 18.  Looks good, right?
