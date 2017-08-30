@@ -31,14 +31,14 @@ so].  The estimable Hal Murray
 https://lists.ntpsec.org/pipermail/devel/2017-August/004785.html[replied]
 citing this comment:
 
---
+------
          * Compute the timecode timestamp from the days, hours, minutes,
          * seconds and milliseconds/microseconds of the timecode. Use
          * clocktime() for the aggregate seconds and the msec/usec for
          * the fraction, when present. Note that this code relies on the
          * filesystem time for the years and does not use the years of
          * the timecode.
---
+------
 
 Say *what*?  Is ntpd ignoring the year part of clock samples entirely?
 
