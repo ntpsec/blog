@@ -48,7 +48,7 @@ arrival time stamp - that is, the value of the system clock when
 it came in.
 
 But...but...you can't use a reference clock to set the time of the
-system clock if processing the reference clock sample requres the
+system clock if processing the reference clock sample requires the
 system clock to be synced already!  That's circular!
 
 In particular, consider initial sync at boot time if the battery
