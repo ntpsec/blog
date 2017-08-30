@@ -1,0 +1,91 @@
+---
+layout: post
+title:  "Achieving Autonomy"
+date:   2017-08-30 11:19:40 -0500
+author: ESR
+---
+
+As of today, NTPsec has a capability you might have thought would be
+there all along in the NTP lineage but never was before - the ability
+to run fully autonomously, fed only by multiple local reference
+clocks for robustness, without requiring network check peers.
+
+It's been general folklore among NTP operators for
+a long time that you can't run without remote check peers, but there
+was never any specificity about why.  Yesterday I found out why.
+
+It started out innocently enough.  I was writing some documentation on
+what happens, and how to recover, in the case of device rollovers -
+like when your GPS's time counter does its 1024-week thing and rolls
+over to zero, or you have a device that reports only 2-digit years and
+you hit a century boundary.
+
+While reading code to research this, I noticed a very curious thing.
+When they ship timestamps to the sample-processing code, some of our
+reference-clock drivers pass full 4-digit years.  Others pass only
+two digits, range of 0 to 99.  
+
+I was puzzled by this and
+https://lists.ntpsec.org/pipermail/devel/2017-August/004784.html[said
+so].  The estimable Hal Murray
+https://lists.ntpsec.org/pipermail/devel/2017-August/004785.html]replied]
+citing this comment:
+
+--
+         * Compute the timecode timestamp from the days, hours, minutes,
+         * seconds and milliseconds/microseconds of the timecode. Use
+         * clocktime() for the aggregate seconds and the msec/usec for
+         * the fraction, when present. Note that this code relies on the
+         * filesystem time for the years and does not use the years of
+         * the timecode.
+--
+
+Say *what*?  Is ntpd ignoring the year part of clock samples entirely?
+
+Yes, as it turns out.  What it was doing was a complicated little
+dance that in effect deduced the year of the sample from its
+arrival time stamp - that is, the value of the system clock when
+it came in.
+
+But...but...you can't use a reference clock to set the time of the
+system clock if processing the reference clock sample requres the
+system clock to be synced already!  That's circular!
+
+In particular, consider initial sync at boot time if the battery
+backup on your clock has failed.  The clock is zero; your machine
+thinks it's 1970. A clock sample comes in.  For good reasons, there's
+clipping logic that throws out a sample if it's more than 4 hours
+divergent from system time. Either the sample is rejected (most
+likely) or your clock is set to some time within 4 hours of the Unix
+epoch.  Hilarity ensues.
+
+This, in particular, seems to be the reason you're always told you
+need remote check peers even if you have good local clocks. It's so
+the sample processing eventually gets the message that it shouldn't be
+tossing out your local refclock reports just because the system clock
+has gotten time-warped back to the love-beads-and-bell-bottoms era.
+(Er, maybe it was the brown acid?)
+
+Some days, you find a bug or design error and go "What? How did this
+persist so long?" This was like that, because the fix is obvious: if
+the reference clock hands you a 4-digit year, ignore the system clock
+and *use* it.  It's two lines of code.  The unit test for the fix was
+bigger than the fix.
+
+Small fix, big implications.  Let's say you run an oil refinery or a
+a military base.  You need accurate time, but you want to open as
+few ports to the net as possible, and that definitely excludes NTP
+ports that have a long history as a DOS hazard.
+
+What you really want to do is set up NTP with multiple redundant local
+clocks for redundancy - a couple of GPSes with different vendors and
+different firmware rev dates, a time radio, maybe even your own
+cesium clock. And *no network peers at all*.
+
+You couldn't do that reliably with legacy NTP, even if all your clock
+sources returned 4-digit years.  Now, with NTPsec, you can do that.
+Our driver manuals now warn you which clock sources are unsafe. With
+any of the rest, go to it; autonomy is yours.
+
+// end
+
