@@ -63,7 +63,7 @@ This, in particular, seems to be the reason you're always told you
 need remote check peers even if you have good local clocks. It's so
 the sample processing eventually gets the message that it shouldn't be
 tossing out your local refclock reports just because the system clock
-has gotten time-warped back to the love-beads-and-bell-bottoms era.
+has gotten time-warped back to the days of love-beads and bell-bottoms.
 (Er, maybe it was the brown acid?)
 
 Some days, you find a bug or design error and go "What? How did this
