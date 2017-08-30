@@ -75,7 +75,7 @@ bigger than the fix.
 Small fix, big implications.  Let's say you run an oil refinery or a
 a military base.  You need accurate time, but you want to open as
 few ports to the net as possible, and that definitely excludes NTP
-ports that have a long history as a DOS hazard.
+ports that have a long history as a DoS hazard.
 
 What you really want to do is set up NTP with multiple redundant local
 clocks for redundancy - a couple of GPSes with different vendors and
