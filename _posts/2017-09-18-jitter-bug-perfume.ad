@@ -1,0 +1,80 @@
+---
+layout: post
+title:  "Jitter bug perfume"
+date:   2017-09-19 22:30:40 -0500
+author: ESR
+---
+
+Title with https://en.wikipedia.org/wiki/Jitterbug_Perfume[apologies
+to Tom Robbins], because what I'm going to describe is more of a bad
+smell than a perfume, through initially an elusive one.
+
+In NTP, samples from each local clock or peer (upstream NTP host) are
+accumulated into an array of length 8 - called, for some historical
+reason I don't know, the peer's "shift register" footnote[No, it's not
+very much like the sense of 'shift register' used in hardware
+design]. The old samples are kept around so ntpd can do statistical
+smoothing on the time series, tossing outliers, before (possibly)
+using the latest one to update the clock.
+
+The quality of a peer is measured by its jitter.  This is recomputed
+each time the sample-processing code is called as the RMS (root mean
+square) of distances from the median sample. Think of it as a running
+estimate of the amount of noise in the time series.
+
+The code sees peers with low jitter as low-noise - better - and
+weights them higher in the arcane formulae that derive consensus UTC
+time from all the incoming samples.
+
+Gary Miller, who is far better at reading an ntpq display than I am
+or probably will ever be, noticed that something in the code seemed
+occasionally to be zeroing peer jitter values. Telling us, in effect,
+that the affected peer is noiseless and should be weighted highly.
+
+I didn't believe this at first. Jitter gets zeroed in exactly three
+places, and we can count one of out because it's the local-clock
+driver. If you're going to swallow your tail by using your
+syatem clock as a peer source (which you might want to do in
+some unusual deployment cases), you'd best assume it's accurate.
+
+In the two other places, it looked like jitter was zeroed only just
+before it is recomputed from the contents of the shift register.
+Only...it turns out that if the shift register from a network peer is
+*empty* (all samples have been filtered out) it was possible for that
+recomputation not to take place.
+
+So, we had a worst case: bad samples come in, jitter is zeroed,
+samples get all tossed out, jitter is not recomputed - and the clock
+with the bad samples looks like the best possible source when the _next_
+sample comes in.
+
+The section of code this bug lived in - the peer-sample processor in the
+central protocol machine - is, I believe, very old and very stable. It
+seems likely that the bug had been lurking there for more than twenty years.
+
+I'm not sure why it was never spotted before, but it might help
+account for a general flakiness in ntpd's behavior near startup that
+has been often observed but never properly characterized or explained.
+Close to startup (less than 8 sampling intervals from it) the shift
+register hasn't yet seen enough samples for good ones to fill it yet,
+and it might have been easier to trigger the zero-sample error case.
+
+It will take some time for the results of this fix to emerge from the
+fog of uncertainty around NTP performance.  I think the strongest
+single possibility is that it will speed up convergence after startup
+in conditions of bad network weather.
+
+It'd be nice to know for sure, but reasoning about NTP's behavior is
+*hard*. The core algorithms are both recondite and surrounded by a lot
+of complicated moving parts.
+
+Almost the best you can do with a hairball like the NTP reference code
+is (1) get good at spotting bugs like this that break logical
+invariants ("jitter is always recomputed to a nonzero value after
+being zeroed") and fixing them.  And (2) gradually comprehend its
+intended behavior through observation and experiment.  In some ways
+it's more like exploring an unknown continent than writing conventional
+code.
+
+// end
+
