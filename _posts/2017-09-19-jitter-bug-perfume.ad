@@ -11,7 +11,7 @@ smell than a perfume, through initially an elusive one.
 
 In NTP, samples from each local clock or peer (upstream NTP host) are
 accumulated into an array of length 8 - called, for some historical
-reason I don't know, the peer's "shift register" footnote[No, it's not
+reason I don't know, the peer's "shift register" footnote:[No, it's not
 very much like the sense of 'shift register' used in hardware
 design]. The old samples are kept around so ntpd can do statistical
 smoothing on the time series, tossing outliers, before (possibly)
