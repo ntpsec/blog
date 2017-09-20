@@ -32,9 +32,9 @@ occasionally to be zeroing peer jitter values. Telling us, in effect,
 that the affected peer is noiseless and should be weighted highly.
 
 I didn't believe this at first. Jitter gets zeroed in exactly three
-places, and we can count one of out because it's the local-clock
+places, and we can count one of them out because it's the local-clock
 driver. If you're going to swallow your tail by using your
-syatem clock as a peer source (which you might want to do in
+system clock as a peer source (which you might want to do in
 some unusual deployment cases), you'd best assume it's accurate.
 
 In the two other places, it looked like jitter was zeroed only just
