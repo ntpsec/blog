@@ -7,14 +7,14 @@ author: esr
 
 Today we shipped NTPsec 1.0.
 
-Cleaning up the Classic codebase was a huge job.  It's taken us two and
+Cleaning up the Classic codebase was a lot of work.  It's taken us two and
 a half years of effort to get it as hardened, cleaned, and stripped down
 as we think it needs to be for secure operation.
 
 In the process, we've improved its timekeeping accuracy. We've added
 major new features like the ability to run autonomously, using only
 local clock sources with no network peers.  We've greatly improved the
-monitoring and statistics tools.  We've even cleaned the notoriously
+monitoring and statistics tools.  We've even cleaned up the notoriously
 rebarbative configuration syntax.
 
 Perhaps most importantly, we've removed 76% of its original bulk, over
