@@ -59,7 +59,7 @@ In the longer term, the Network Time Protocol is showing its age.  It
 was designed when network bandwidth was far more expensive than today,
 and trades away some desireable gains (like not being susceptible to
 era wraparound) in order to make its packets small. It also needs
-redesign to be fully IPV6-ready.  IPv6 is a big job, but somebody
+redesign to be fully IPV6-ready.  NTPv5 is a big job, but somebody
 needs to do it and that will probably be us.
 
 // end
