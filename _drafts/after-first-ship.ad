@@ -20,7 +20,7 @@ rebarbative configuration syntax.
 Perhaps most importantly, we've removed 76% of its original bulk, over
 178 KLOC. That huge reduction in attack surface has dramatically
 reduced our vulnerability to exploits.  Since the fork date we have
-closed off potential exploits of effectively that we avoided more than
+closed off potential exploits so effectively that we avoided more than
 75% of the CVEs issued against Classic, and there have been zero
 NTPsec-unique CVEs.
 
@@ -59,7 +59,7 @@ In the longer term, the Network Time Protocol is showing its age.  It
 was designed when network bandwidth was far more expensive than today,
 and trades away some desireable gains (like not being susceptible to
 era wraparound) in order to make its packets small. It also needs
-redesign to be fully IPV6-ready.  IPv5 is a big job, but somebody
+redesign to be fully IPV6-ready.  IPv6 is a big job, but somebody
 needs to do it and that will probably be us.
 
 // end
