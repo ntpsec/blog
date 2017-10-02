@@ -1,0 +1,65 @@
+---
+layout: post
+title:  "After first ship"
+date:   
+author: esr
+---
+
+Today we shipped NTPsec 1.0.
+
+Cleaning up the Classic codebase was a huge job.  It's taken us two and
+a half years of effort to get it as hardened, cleaned, and stripped down
+as we think it needs to be for secure operation.
+
+In the process, we've improved its timekeeping accuracy. We've added
+major new features like the ability to run autonomously, using only
+local clock sources with no network peers.  We've greatly improved the
+monitoring and statistics tools.  We've even cleaned the notoriously
+rebarbative configuration syntax.
+
+Perhaps most importantly, we've removed 76% of its original bulk, over
+178 KLOC. That huge reduction in attack surface has dramatically
+reduced our vulnerability to exploits.  Since the fork date we have
+closed off potential exploits of effectively that we avoided more than
+75% of the CVEs issued against Classic, and there have been zero
+NTPsec-unique CVEs.
+
+You can read more details on our fixes and improvements
+https://www.ntpsec.org/accomplishments.html[here], and the full list
+is https://docs.ntpsec.org/latest/ntpsec.html[here].  But there is
+still much work to be done.
+
+In keeping with our focus on security, we are actively working with the
+IETF on the forthcoming NTS (Network Time Security) standard.  We expect
+to be first or second interop on that.
+
+We believe we can make significant improvements in startup performance,
+decreasing time to clock synchronization and reducing the odds that ntpd
+might transiently sync to a bad source before being slowly corrected by other
+peers.  This will have a practical impact on how soon NTP-using systems are
+fully ready for production after boot.
+
+The full-autonomy feature introduced in our 1.0 is important for sites with
+very stringent security requirements that want to avoid punching a hole in their
+firewall in order to reach network check peers.  As now shipped it only works
+with a subset of our reference-clock drivers.  That can be fixed.
+
+There may be things to be done that can reduce ntpd's vulnerability to
+GPS clock rollovers.
+
+We think there may be problems with cross-era compatibility, and while
+the 2036 era 1 turnover is still 19 years off it's not actually too soon
+for some really tough verification and testing.
+
+There's been so much to do cleaning up and hardening the plumbing
+around the core time-sync algorithms that we have not tried to improve
+those yet.  There are possibilities...
+
+In the longer term, the Network Time Protocol is showing its age.  It
+was designed when network bandwidth was far more expensive than today,
+and trades away some desireable gains (like not being susceptible to
+era wraparound) in order to make its packets small. It also needs
+redesign to be fully IPV6-ready.  IPv5 is a big job, but somebody
+needs to do it and that will probably be us.
+
+// end
