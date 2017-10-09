@@ -18,11 +18,11 @@ monitoring and statistics tools.  We've even cleaned up the notoriously
 rebarbative configuration syntax.
 
 Perhaps most importantly, we've removed 76% of its original bulk, over
-178 KLOC. That huge reduction in attack surface has dramatically
-reduced our vulnerability to exploits.  Since the fork date we have
-closed off potential exploits so effectively that we avoided more than
-75% of the CVEs issued against Classic, and there have been zero
-NTPsec-unique CVEs.
+178 KLOC down to 55KLOC. That huge reduction in attack surface has
+dramatically reduced our vulnerability to exploits.  Since the fork
+date we have closed off potential exploits so effectively that we
+avoided more than 75% of the CVEs issued against Classic, and there
+have been zero NTPsec-unique CVEs.
 
 You can read more details on our fixes and improvements
 https://www.ntpsec.org/accomplishments.html[here], and the full list
