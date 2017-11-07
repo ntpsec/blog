@@ -25,9 +25,9 @@ avoided more than 75% of the CVEs issued against Classic, and there
 have been zero NTPsec-unique CVEs.
 
 Simultaneously with the release of NTPsec 1.0 we are also shipping
-version 1.4 of the <a href="https://www.ntpsec.org/white-papers/stratum-1-microserver-howto/">Stratum-1-Microserver HOWTO</a>.  This step-by-step recipe for
+version 1.4 of the https://www.ntpsec.org/white-papers/stratum-1-microserver-howto/[Stratum-1-Microserver HOWTO].  This step-by-step recipe for
 building a dedicated Stratum 1 server around a Raspberry PI SBC has been
-fully updared for the current "Stretch" version of Raspbian.
+fully updated for the current "Stretch" version of Raspbian.
 
 You can read more details on our fixes and improvements
 https://www.ntpsec.org/accomplishments.html[here], and the full list
