@@ -36,5 +36,5 @@ git@gitlab.com:NTPsec/blog.git
 
 13. remove blog.ntpsec.org
 
-14. add blog.ntpsec.org, cut/paste in the new public/private keys.
+14. add blog.ntpsec.org, cut/paste in the new fullchain.pem and privkey.pem
 
