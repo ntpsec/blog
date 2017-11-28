@@ -1,6 +1,9 @@
 This site uses a Let's Encrypt cert.  The cert is valid for 90
 days from issue, and must be renewed before that expires.
 
+Last cert update took gitlab 5 days to make live.  Do not wait
+until the last week before expiration.
+
 *** This is required to be done manually. ***
 
 To create a new cert:
