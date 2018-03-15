@@ -1,0 +1,57 @@
+---
+layout: post
+title:  "Version 1.1.0"
+date:   2018-03-15 04:30:00 -0000
+---
+== version 1.1.0
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.0
+
+RIP Stephen William Hawking, CH CBE FRS FRSA. 1942-01-08 - 2018-03-14
+You gave us a Brief History of Time.  We will just count it.
+
+Enough user visible changes have been made that this is the 1.1.0 release
+instead of a 1.0.1.
+
+The code size is now 55KLOC in C, 15KLOC in Python.
+
+Digests longer then 20 bytes will be truncated.
+
+We have merged the NTP Classic fix for CVE-2018-7182.
+
+The following NTP Classic CVEs announced in February 2018 do not affect NTPsec:
+
+* CVE-2016-1549: Sybil vulnerability: ephemeral association attack
+* CVE-2018-7170: Multiple authenticated ephemeral associations
+* CVE-2018-7184: Interleaved symmetric mode cannot recover from bad state
+* CVE-2018-7185: Unauthenticated packet can reset authenticated interleaved association
+* CVE-2018-7183: ntpq:decodearr() can write beyond its buffer limit
+
+We have dropped support for Broadcast servers.  We had kept it for
+older desktop operating systems listening on the local network
+broadcast domain, a use case that is now no longer in use at sane
+enviroments, and no longer necessary for modern desktop OSs.
+
+It is now possible to unpeer refclocks using a type/unit specification
+rather than a magic IP address.  This was the last obligatory use of
+magic IP addresses in the configuration grammar.
+
+OpenBSD has been removed from the list of supported platforms for
+ntpd. It will be restored if and when its clock API supports drift
+adjustment via ntp_adjtime() or equivalent facility.
+
+Mac OS X support has been dropped pending the implementation of
+ntp_adjtime(2).
+
+A bug that caused the rejection of 33% of packets from Amazon time
+service has been fixed.
+
+
+As always, you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+and can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+
+The GPG signatures for the tarball, sum file, and signed git tag can
+be checked with GPG key
+https://sks-keyservers.net/pks/lookup?op=vindex&search=0x05D9B371477C7528[0x05D9B371477C7528]
