@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "Version 1.1.1"
+date:   2018-06-11 23:30:00 -0000
+---
+== version 1.1.1
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.1
+
+Log timestamps now include the year.  This is useful when
+investigating bugs involving time-setting and -g.
+
+Many internal cleanups to clear the way for upcoming major features.
+They should generally not be user visible.  Refer to the git-log if
+you are interested.
+
+As always, you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+and can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+
+Note that our GPG key has changed.
+
+The GPG signatures for the tarball, sum file, and signed git tag can
+be checked with GPG key
+https://sks-keyservers.net/pks/lookup?op=vindex&search=0x5A22E330161C3978[0x5A22E330161C3978]
