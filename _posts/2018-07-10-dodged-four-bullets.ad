@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "NTPsec dodges four bullets"
+date:   2018-07-10 16:00:00 -0500
+---
+== NTPsec dodges four bullets
+
+Linux Weekly News https://lwn.net/Articles/759434/[reports] a security
+advisory from Ubuntu on four NTP bugs: CVE-2018-718[2345].
+
+These vulns were already fixed in NTPsec in February 2018.
+
+We weren't vulnerable to 7183, 7184, or 7185 because we'd hardened the
+affected code before the CVEs issued. We inherited 7182 from NTP
+Classic but cross-ported their fix.
+
+NTPsec continues its record of zero CVEs being issued against the code
+we have written or rewritten.
