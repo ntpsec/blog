@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "NTP Client Data Minimization"
+date:   2018-07-20 23:00:00 -0000
+author: MRA
+---
+== NTP Client Data Minimization
+
+Last week, one of our most trusted developers, Hal Murray, pushed code updates that implements the
+https://datatracker.ietf.org/doc/draft-ietf-ntp-data-minimization/[IETF Internet Draft specification for NTP Client Minimization].
+
+The "sec" in NTPsec means security, and implementing this spec is part
+of our commitment to improving the security of network time and of the
+internet in general.
+
+
+
