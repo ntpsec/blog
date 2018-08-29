@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "Version 1.1.2"
+date:   2018-08-29 06:45:00 -0000
+---
+== version 1.1.2
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.2
+
+We have added the following user and peer visible features:
+
+Use data minimization on client requests
+  https://datatracker.ietf.org/doc/draft-ietf-ntp-data-minimization/
+
+Support AES-128-CMAC for authentication
+  https://datatracker.ietf.org/doc/draft-ietf-ntp-mac/
+
+As always, you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+and can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+
+Due to a release error, this release is signed with the previous GPG key, id 0x477C7528.
+The next release will be signed with the correct key, id 0x5A22E330161C3978.
+
+
