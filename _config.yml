@@ -19,7 +19,6 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://blog.ntpsec.org" # the base hostname & protocol for your site
 twitter_username: ntpsec
 github_username:  ntpsec
-disqus_shortname: ntpsec
 
 # Build settings
 markdown: kramdown
