@@ -10,7 +10,7 @@ author: MRA
 I have switched the comment processor for this blog from Disqus to Commento.
 
 As a policy, the online infrastructure of NTPsec has been SaaS,
-because we are small team, and we need to focus on our actual task.
+because we are a small team, and we need to focus on our actual task.
 But we want that SaaS to be open source, just in case we need to
 someday host it ourselves.  And as open source people, we want
 everything we depend on here to be open source.
@@ -22,7 +22,7 @@ so that is what we used.  However, Disqus has costs that I didn't
 like, mainly the injected ads and the injected tracking cookies.
 
 Finally today, it irritated me enough to search again for a
-replacement, and I found [Commento]https://commento.io It drops in to
+replacement, and I found https://commento.io[Commento] It drops in to
 the Jekyll template, the inline script is just one line, the injected
 JS is only about a dozen KB, the comment import from Discus just
 worked, and most importantly, no more adtech, no more injected ads.
