@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "Switch from Disqus to Comment"o
+date:   2018-12-20 05:00:00 -0000
+author: MRA
+---
+
+== Switch from Disqus to Commento
+
+I have switched the comment processor for this blog from Disqus to Commento.
+
+As a policy, the online infrastructure of NTPsec has been SaaS,
+because we are small team, and we need to focus on our actual task.
+But we want that SaaS to be open source, just in case we need to
+someday host it ourselves.  And as open source people, we want
+everything we depend on here to be open source.
+
+One of the most visible exceptions to that policy was the comment
+processor.  When we set it up, Disqus was only real option for "add to
+the template and it just works" comments on this Jekyll based setup,
+so that is what we used.  However, Disqus has costs that I didn't
+like, mainly the injected ads and the injected tracking cookies.
+
+Finally today, it irritated me enough to search again for a
+replacement, and I found [Commento]https://commento.io It drops in to
+the Jekyll template, the inline script is just one line, the injected
+JS is only about a dozen KB, the comment import from Discus just
+worked, and most importantly, no more adtech, no more injected ads.
+
+The only downside is that the only social login it supports is from G.
+I would rather that it use gitlab.com for social login, but since it's
+open source, I can raise an issue against it and have a prayer of it
+actually getting done.
+
+If you find any other problems with it, let us know.
+
+And if you are using Disqus on any of your own sites, consider
+Commento instead.
