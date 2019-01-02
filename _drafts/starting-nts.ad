@@ -1,0 +1,40 @@
+---
+layout: post
+title:  "Starting work on Network Time Security"
+date:   2019-01-02 00:00:00 -0000
+author: MRA
+---
+
+https://datatracker.ietf.org/doc/draft-ietf-ntp-using-nts-for-ntp/[Network Time Security]
+has been on NTPsec roadmap since the start.
+
+Actually implementing NTS in NTPsec has been waiting on three things:
+the codebase for NTPsec being refactored clean enough to do it well,
+the actual NTS specification being stable and close enough to final,
+and having a sponsoring partner to be the first customer for it.
+
+We now have all three.
+
+We are pleased to announce our sponsoring partner is Cisco Systems
+Inc, with an amusing project name of "Good Secure Times". Cisco is
+providing funding for this work, and also will help with compliance
+testing, and with providing a focus on what their own customers will
+need and want from an NTS implementation.
+
+The NTS specification has been years in the making, with lots of
+expert discussion in the IETF working groups, and now appears to be
+complete enough.  The internet draft is not yet formally an RFC
+standard, but we don't expect any more major changes before it is
+finalized.  One of our project regulars has been deeply involved in
+the IETF WG developing the specification, so we know it well.
+
+As for the NTPsec codebase cleanup, we think we are ready.  The major
+swamps have been drained, the cruft has been cleared away, and our
+core team has enough headaround the existing code and the places were
+we will need to extend it, we're confident we can do it.
+
+Watch our NTS implementation come together! We work in the open, on
+our mailing list, and in our public git repos on GitLab.com.
+
+// END
+
