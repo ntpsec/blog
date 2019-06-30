@@ -13,11 +13,11 @@ We do not normally ship a release only one week after the previous,
 however it is *HIGHLY RECOMMENDED* that if you are using NTS you
 upgrade to this version.
 
-We have added ALPN to be consistant with the NTP draft. And we have
+We have added ALPN to be consistent with the NTP draft. And we have
 discovered and fixed a buffer overrun in debug compile of ALPN
 implementation.  If you are running NTPsec 1.1.4 with NTS turned on
 and with with the compile time debug flags turned on, it is possible
-for an attacker to send a packat that will crash your server.
+for an attacker to send a packet that will crash your server.
 
 As aways, read the .../NEWS file, and the git log and git history.
 
