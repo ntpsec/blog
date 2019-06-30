@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "Version 1.1.5"
+date:   2019-06-30 00:00:00 -0000
+---
+== version 1.1.5
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.5
+
+== News
+
+We do not normally ship a release only one week after the previous,
+however it is *HIGHLY RECOMMENDED* that if you are using NTS you
+upgrade to this version.
+
+We have added ALPN to be consistant with the NTP draft. And we have
+discovered and fixed a buffer overrun in debug compile of ALPN
+implementation.  If you are running NTPsec 1.1.4 with NTS turned on
+and with with the compile time debug flags turned on, it is possible
+for an attacker to send a packat that will crash your server.
+
+As aways, read the .../NEWS file, and the git log and git history.
+
+== Today
+
+On this day in 1972 the first leap second is added to the UTC time system.
+
+== Getting this release
+
+As always,
+you can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id 0x5A22E330161C3978.
+
