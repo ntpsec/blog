@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Version 1.1.6"
+date:   2019-07-10 00:00:00 -0000
+---
+== version 1.1.6
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.6
+
+We have been shipping weekly because of ongoing development of NTS.
+
+As aways, read the .../NEWS file, and the git log and git history.
+
+
+== Getting this release
+
+You can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id 0x5A22E330161C3978.
+
