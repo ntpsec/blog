@@ -5,12 +5,12 @@ date:   2019-06-23 00:00:00 -0000
 author: MRA
 ---
 "PublicNTP provides unrestricted access to no-cost, highly-accurate
-time sources for the public good."  link[https://publicntp.org]
+time sources for the public good."  https://publicntp.org
 
 Part of what makes NTP work as a protocol is shared internet access to
 accurate time sources.  While it's a fun and useful project to build
 your own GPS based time server (instructions
-here[https://www.ntpsec.org/white-papers/stratum-1-microserver-howto/] ),
+https://www.ntpsec.org/white-papers/stratum-1-microserver-howto/[here]),
 the internet will always need a diverse set of well managed stratum-1
 time servers, especially in the developing world.  The PublicNTP
 project works to provide many of those servers.
@@ -24,8 +24,7 @@ Last week, the PublicNTP team let us view a draft of a blog post
 announcing that they are running NTPsec at their new deployment in
 Johannesburg.  They state "After months of internal testing, PublicNTP
 was confident that NTPsec was entirely up to the challenge of running
-in the PublicNTP global fleet."
-link[https://publicntp.org/blog/posts/touching-bases-with-the-team-african-expansion-and-more.html]
+in the PublicNTP global fleet." https://publicntp.org/blog/posts/touching-bases-with-the-team-african-expansion-and-more.html
 
 We look forward to feedback from the PublicNTP team about their
 experience running NTPsec in production.  Their experience is not
