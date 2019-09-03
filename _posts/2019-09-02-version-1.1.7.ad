@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "Version 1.1.7"
+date:   2019-09-02 00:00:00 -0000
+---
+== version 1.1.7
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.7
+
+As aways, the most accurate record of changes is in the
+NEWS file, the git log, and the git history.
+
+The numeric literal argument of the 'time1' fudge option on a clock
+can now have one or more letter suffixes that compensate for era
+rollover in a GPS device.  Each "g" adds the number of seconds in a
+1024-week (10-bit) GPS era. Each "G" adds the number of seconds in a
+8192-week (13-bit) GPS era.
+
+The neoclock4x driver has been removed, due to the hardware and the
+vendor having utterly vanished from the face of the earth.
+
+The NTS ALPN negotiation sequence has been modified for improved
+interoperability with other NTS implementations.
+
+NTS key rotation now happens every 24 hours.  It used to rotate
+every hour to enable testing of recovery from stale cookies.
+
+
+== Getting this release
+
+You can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id
+B48237761A2690222C995F445A22E330161C3978
