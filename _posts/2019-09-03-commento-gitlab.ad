@@ -9,14 +9,16 @@ author: MRA
 Last December, I switched the comment processor for this blog from
 Disqus to https://commento.io[Commento], and discussed by reasons in
 the blog post 
-link:../2018/12/20/commento.html[Switch from Disqus to Commento].
+link:../../../2018/12/20/commento.html[Switch from Disqus to Commento].
+Mainly it was because we didn't like the adtech tracking and the injected
+adverts.
 
-We've been happy with it, it's Just Worked.
+We've been happy with it since the switch, it's Just Worked.
 
-My only complaint about Commendo last December was the only social
-login it supported is from G.  Well, they have fixed that, and have
-added social login from some other big sites, including Gitlab.  Just
-what we wanted!
+My only complaint when we switched to it was the only social login it
+supported was with Google.  Well, that's been fixed, and has added
+social login from some other big sites, including Gitlab.  Just what
+we wanted!
 
 If do find any problems with Commento, let them know.  If you are
 using Disqus on any of your own sites, consider
