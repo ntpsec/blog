@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Commento and Gitlab"
+date:   2019-09-04 01:20:00 -0000
+author: MRA
+---
+== Commento and Gitlab
+
+Last December, I switched the comment processor for this blog from
+Disqus to https://commento.io[Commento], and discussed by reasons in
+the blog post 
+link:../2018/12/20/commento.html[Switch from Disqus to Commento].
+
+We've been happy with it, it's Just Worked.
+
+My only complaint about Commendo last December was the only social
+login it supported is from G.  Well, they have fixed that, and have
+added social login from some other big sites, including Gitlab.  Just
+what we wanted!
+
+If do find any problems with Commento, let them know.  If you are
+using Disqus on any of your own sites, consider
+https://commento.io[Commento] instead.
