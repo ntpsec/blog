@@ -22,8 +22,7 @@ github_username:  ntpsec
 
 # Build settings
 markdown: kramdown
-exclude: ["README.md", "CERT"]
-include: [".well-known"]
+exclude: ["README.md"]
 
 # asciidoc stuff
 asciidoc:
