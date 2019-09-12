@@ -1,11 +1,6 @@
-image: ruby:latest
-
-before_script:
-- gem install jekyll
-- gem install jekyll-asciidoc
-
 test:
   stage: test
+  image: $CI_REGISTRY_IMAGE
   script:
   - jekyll build -d test
   artifacts:
@@ -16,6 +11,7 @@ test:
 
 pages:
   stage: deploy
+  image: $CI_REGISTRY_IMAGE
   script:
   - jekyll build -d public
   artifacts:
@@ -23,3 +19,16 @@ pages:
     - public
   only:
   - master
+
+build_image:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  script:
+    - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USERNAME --password-stdin $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE .
+    - docker push $CI_REGISTRY_IMAGE
+  allow_failure: true
+  only:
+    - schedules
