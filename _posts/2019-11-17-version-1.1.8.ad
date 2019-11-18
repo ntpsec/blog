@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "Version 1.1.8"
+date:   2019-11-17 00:00:00 -0000
+---
+== version 1.1.8
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.8
+
+As aways, the most accurate record of changes is in the
+NEWS file, the git log, and the git history.
+
+This version has fixes and tweaks to handling certs for NTS.
+
+We have also removed the last ``#define _XOPEN_SOURCE``, as well as
+removing many other now unneeded ``#ifdef``s, and cleaned up warnings
+and build issues for several OS targets.  See the git history for details.
+
+== Getting this release
+
+You can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id
+B48237761A2690222C995F445A22E330161C3978
