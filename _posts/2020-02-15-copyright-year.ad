@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "Copyright statements do not need the year"
+date:   2020-02-15 02:00:00 -0000
+author: MRA
+---
+== Copyright statements do not need the year
+
+I need to preface this post with the statement that I am not a lawyer,
+and if you need legal advice you should consult with your lawyer.  If
+your lawyer has questions, have them email me, and I will connect them
+with other lawyers. I also need to preface this post with the
+statement that I am not speaking on behalf of my dayjob employer.
+
+*There is no need to include the year in a copyright declaration
+statement.*  And related, there is no need to update the year
+statement, add new year statements, manage year range statements, or
+any of that stuff.  It is tedious, boring, adds no value, and prevents
+no risks.
+
+Several large legally sophisticated companies, include Amazon, Google,
+Microsoft, and Facebook, are now publishing open source code with
+copyright statements without a year.
+
+And so, I have added the following to our devel/hacking document.
+
+_Do not specify a year in a copyright statement.  Most of the existing
+copyright statements already present in the project have been scrubbed
+of the year.  There is no need to specify the year in a copyright
+statement.  Several large legally sophisticated companies, include
+Amazon, Google, Microsoft, and Facebook, are now publishing open
+source code with copyright statements without a year.  We encourage
+the larger open source community to emulate this._
+
+Being able to do this now has taken a surprisingly large amount of
+work behind the scenes, especially on the part of those large
+companies.  Do please take advantage of it, and write simpler
+copyright statements in your open source projects from now on.
