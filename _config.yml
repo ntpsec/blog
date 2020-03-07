@@ -31,3 +31,4 @@ asciidoctor: {}
 
 plugins:
   - jekyll-asciidoc
+  - jekyll-gzip
