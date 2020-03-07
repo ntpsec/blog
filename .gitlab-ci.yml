@@ -13,7 +13,7 @@ pages:
   stage: deploy
   image: $CI_REGISTRY_IMAGE
   script:
-  - jekyll build -d public
+  - JEKYLL_ENV=production jekyll build -d public
   artifacts:
     paths:
     - public
