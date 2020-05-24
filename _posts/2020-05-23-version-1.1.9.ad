@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "Version 1.1.9"
+date:   2020-05-23 00:00:00 -0000
+---
+== version 1.1.9
+
+The NTPsec Project is pleased to announce the tagging of version 1.1.9
+
+This should be the last point release of NTPsec before the Network
+Time Security RFC is approved by the IETF.  We expect to release 1.2.0
+when that happens.
+
+Analysis shows that CVE-2020-11868, affecting NTP Classic, cannot
+affect us, as the peer mode involved has been removed.
+
+For other changes since the previous release, please consult
+the project NEWS.adoc file
+at https://gitlab.com/NTPsec/ntpsec/-/blob/master/NEWS.adoc
+
+== Getting this release
+
+You can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id
+B48237761A2690222C995F445A22E330161C3978
+
+== About today
+
+Today is Blursday, Maprilay 84th, 2020, of the COVID-19 panic.
+
+On this day, in 1844, the first commerical telegraph line came online.
+
