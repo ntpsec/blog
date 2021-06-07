@@ -1,0 +1,52 @@
+---
+layout: post
+title:  "Version 1.2.1"
+date:   2021-06-07 05:00:00 -0000
+---
+== version 1.2.1
+
+The NTPsec Project is pleased to announce the tagging of version 1.2.1
+
+Update ntpkeygen/keygone to properly filter `#` characters. (CVE-2021-22212)
+
+Add dextral peers mode in ntpq and ntpmon.
+
+Drop NTPv1 as the support was not RFC compliant, maybe v2 except mode 6 next.
+
+Fix argument P for ntpd parsing fixed and ntpdate improvements.
+
+Fix crash for raw ntpq readvar.
+
+Add processor usage to NTS-KE logging except on NetBSD.
+
+Remove --build-epoch and replace it with arbitrary --build-desc text.
+Passing '--build-desc=$(date -u +%Y-%m-%dT%H:%M:%Sz)' restores the previous
+default extended version.
+
+The build epoch has been replaced with a hardcoded timestamp which will be
+manually updated every nine years or so (approx 512w).  This makes the
+binaries reproducible by default.
+
+Compare versions of ntp.ntpc and libntpc printing a warning if
+mismatched. Fix libntpc install path if using it.
+
+Reduce maxclocks default to 5 to reduce the NTP pool load.
+
+Print LIBDIR during ./waf configure.
+
+Add documentation, new GPG key, and other cleanups.
+
+For other changes since the previous release, please consult
+the project NEWS.adoc file
+at https://gitlab.com/NTPsec/ntpsec/-/blob/master/NEWS.adoc
+
+== Getting this release
+
+You can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from ftp://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id
+E57235D22764129FA4F2F4D17F52608ED0E49D76
+
