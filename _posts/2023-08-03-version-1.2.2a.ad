@@ -8,7 +8,7 @@ The NTPsec Project is pleased to announce the tagging of version 1.2.2a
 
 * Fix a crash in ntpd if NTS is disabled and an NTS-enabled client request
 (mode 3) is received.
-([CVE-2023-4012](https://www.cve.org/CVERecord?id=CVE-2023-4012))
+(https://www.cve.org/CVERecord?id=CVE-2023-4012[CVE-2023-4012])
 https://gitlab.com/NTPsec/ntpsec/-/issues/794[#794]
 
 For other changes since the previous release, please consult
