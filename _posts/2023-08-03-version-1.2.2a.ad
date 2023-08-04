@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "Version 1.2.2a"
+date:   2023-08-03 17:28:00 -0500
+---
+
+The NTPsec Project is pleased to announce the tagging of version 1.2.2a
+
+* Fix a crash in ntpd if NTS is disabled and an NTS-enabled client request
+(mode 3) is received. ([CVE-2023-4012](https://www.cve.org/CVERecord?id=CVE-2023-4012)) #794
+
+For other changes since the previous release, please consult
+the project NEWS.adoc file
+at https://gitlab.com/NTPsec/ntpsec/-/blob/master/NEWS.adoc
+
+== Getting this release
+
+You can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from https://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id
+E57235D22764129FA4F2F4D17F52608ED0E49D76
+
