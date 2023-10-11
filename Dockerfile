@@ -1,4 +1,4 @@
-FROM ruby:3.1
+FROM ruby:latest
 
 RUN gem install jekyll
 RUN gem install jekyll-asciidoc
