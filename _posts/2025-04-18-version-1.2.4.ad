@@ -1,0 +1,65 @@
+---
+layout: post
+title:  "Version 1.2.4"
+date:   2025-04-18 16:16:47 -0400
+---
+
+The NTPsec Project is pleased to announce the tagging of version 1.2.4
+
+* waf has been upgraded to version 2.1.4
+  NB: on Debian, waf now installs Python programs (ntpq, ntpmon, ...)
+  in `/usr/local/lib/python3.xx/site-packages` rather than `.../dist-packages`
+  A quick fix is to link site-packages to dist-packages before installing.
+  You will have to do that again each time your distro updates to a new
+  version of Python.
+* Python 2.7 is now the minimum supported version.
+  This is likely to be the last release supporting Python 2.
+* waf install now tests the installed binaries
+  This will complain if your python search path isn't working.
+  See `README-PYTHON` for more info.
+* `waf configure --enable-Werror` will turn warnings into errors
+  This lets developers and our CI find warnings in a sea of printout.
+* Fix ntpviz's skewness and kurtosis formulas. Fix suggested by Frank Davis.
+* ntpd now runs on FIPS mode systems.
+* Clock fuzzing is gone.  `--disable-fuzz` is now standard.
+* Fix distinct rpeers mode in PeerSummary.summary.
+* Fix addr2refid to work with FIPS-140-2 mode.
+* Update the leap-seconds.list source in ntpleapfetch.
+* Remove obsolete nopeer and notrap mentions from the Access Control List
+  documentation.
+* ntpd can now listen on a second port.  Add either "nts port xxxx"
+  or "extra port xxxx" in your config file. If either is specified,
+  the NTS-KE server will tell the client to use that port.  This might
+  help get around some of the blocking or filtering that ISPs are
+  doing to port 123.  (Don't forget to let UDP traffic for that port
+  through your firewall.) I've been testing with port 8123.
+* Client requests will also be sent from that port.  Again, that will
+  bypass some port 123 filtering.
+* NTPsec now builds on Linux armhf.  #832
+* Remove some remnant broadcast/multicast cruft.
+* Add a ntpdig option to bind to a specific address.
+* Add an ntpd config file option for the NTS-KE server's preferred TLS
+  ciphers.
+* Use ntp_gettime not than ntp_adjtime for local refclcock. Set the
+  lockclock member of loop_data while the config parses, making
+  ntp_adjtiime unusable.  Don't write a drift file while in lockclock
+  mode and claim to slew time so that clients will listen to us,
+* Work around musl library in Alpine Linux not supporting ntp_gettime.
+* Remove unused holdover, LOOP_KERN_CLEAR and timetoa from ntpd.
+* Move toward AES-128 rather than MD5 for mac tests.
+* Add and revise exponential timing decay and MS-SNTP testing tools.
+
+For other changes since the previous release, please consult
+the project NEWS.adoc file
+at https://gitlab.com/NTPsec/ntpsec/-/blob/master/NEWS.adoc
+
+== Getting this release
+
+You can clone the git repo
+from https://gitlab.com/NTPsec/ntpsec.git
+and you can download the release tarballs with sums and signatures
+from https://ftp.ntpsec.org/pub/releases/
+
+This release is signed with the GPG key id
+E57235D22764129FA4F2F4D17F52608ED0E49D76
+
