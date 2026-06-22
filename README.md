@@ -49,20 +49,11 @@ https://blog.ntpsec.org/
 [install]: https://jekyllrb.com/docs/installation/
 [documentation]: https://jekyllrb.com/docs/home/
 
-## TODO
-
-Empty!
-
-### recently compeleted TODO
+## Completed
 
 1. Add https, TLSA, fix HSTS
-
-2. add ntpsec logo and favicon.
-
+2. Add ntpsec logo and favicon
 3. Change GH to GL logo
-
 4. Link check
-
-5. unify with www.ntpsec.org css
-
-6. asciidoc
+5. Unify with www.ntpsec.org css
+6. Asciidoc support
